@@ -99,7 +99,7 @@
 
 .logsign button {
     padding: 10px 15px;
-    margin: 4px;
+    margin: 20px;
     background-color: var(--btn-bg);
     color: white;
     border-radius: 5px;
@@ -112,6 +112,10 @@
 
 .logsign .login {
     background: transparent;
+        padding: 10px 25px;
+        font-weight: bolder;
+
+
 }
 
 .logsign .login:hover {
