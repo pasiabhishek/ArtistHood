@@ -1,0 +1,59 @@
+
+
+.loading-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  /* Make background twice as tall to allow shifting movement */
+  background-size: 100% 200%; 
+  background-image: linear-gradient(
+    to top,
+    rgb(100, 86, 191),
+    var(--logo-color),
+    rgb(38, 30, 89),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    var(--logo-color),
+    rgb(53, 43, 116)
+  );
+  /* Added moving background animation */
+  animation: moveBackground 6s ease infinite; 
+}
+
+.loading-page .loading-content {
+  font-weight: bold;
+  padding: 15px 10px;
+  color: white;
+  display: inline-block;
+  width: 25vw;
+  font-family: var(--font-logo);
+  /* Fixed lowercase syntax */
+  animation: loading 1.4s ease-in-out infinite; 
+  text-align: center;
+}
+
+.loading-page .loading-content h1 span {
+  color: rgb(141, 124, 255); /* Lightened for contrast against dark gradient */
+  font-size: 60px;
+  font-family: var(--font-logo);
+}
+
+/* Fixed syntax: Applied properties explicitly inside keyframes */
+@keyframes loading {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Animates the background gradient position smoothly */
+@keyframes moveBackground {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
+}

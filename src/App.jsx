@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
   return (
-     <div className="hero">
+    <div className="hero">
       <nav className="nav">
         <div className="logo">
           ARTIST<span>HOOD</span>
@@ -23,7 +23,7 @@ function App() {
         </div>
 
         <div className="logsign">
-          <buttonc className="login">Login</buttonc>
+          <button className="login">Login</button   >
           <button className="signup">Get Started</button>
         </div>
       </nav>
@@ -48,9 +48,11 @@ function App() {
     </div>
 
 
-  
+
   )
 
 }
 
 export default App
+
+ 
