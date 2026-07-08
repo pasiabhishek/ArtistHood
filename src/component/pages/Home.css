@@ -1,0 +1,20 @@
+.TopCategories {
+    width: 100vw;
+    text-align: center;
+    padding: 15px;
+}
+
+.TopCategories .Explore {
+    font-size: var(--font-size);
+    font-family: var(--font-logo);
+    font-weight: bold;
+    padding: 3px;
+}
+
+.TopCategories .Popular {
+    font-size: 16px;
+    font-family: var(--font-logo);
+    font-weight:bolder;
+    padding: 3px;
+    padding-bottom: 5px;
+}
