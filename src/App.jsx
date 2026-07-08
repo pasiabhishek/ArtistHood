@@ -1,17 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Home from './component/pages/Home'
-
+import Loader from './component/Loader'
 
 function App() {
-  return (
-    <Home />
+  const [loading, setLoading] = useState(true)
 
-  )
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 1800)
 
+    return () => clearTimeout(timer)
+  }, [])
+
+  return loading ? <Loader /> : <Home />
 }
 
 export default App

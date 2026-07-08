@@ -11,6 +11,5 @@ import Home from './component/pages/Home.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-    <Loader/> 
   </StrictMode>,
 )

@@ -13,8 +13,9 @@
 .hero-content {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     display: flex;
+    flex-direction: co;
     align-items: center;
     justify-content: center;
     gap: 2rem;
@@ -30,8 +31,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: min(600px, 100%);
+    width: 40vw;
+    height: 30vw;
     padding: 2rem 0;
+    font-size: 30px;
+    /* background-color: red; */
+
 }
 
 .hero-content .hero-tagline,
@@ -62,12 +67,13 @@
 }
 
 .hero-content .blank {
-    flex: 1;
-    min-width: 20vw;
+    width: 40vw;
+    height: 30vw;
+    /* background: red; */
 }
 
 .hero-content .hero-text h1 {
-    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     color: #f6f6f6;
     width: 100%;
     text-align: left;
