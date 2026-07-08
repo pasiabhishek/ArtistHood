@@ -14,6 +14,7 @@
     width: 100%;
     max-width: 1200px;
     margin: auto;
+    margin-top: -50px;
     display: flex;
     flex-direction: co;
     align-items: center;
@@ -60,7 +61,7 @@
     font-size: var(--font-size);
     text-transform: uppercase;
     text-align: justify;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     line-height: 1.75;
     width: 400px;
 
