@@ -1,0 +1,90 @@
+
+
+.hero {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)), url("/src\assets\herobg.png") no-repeat center;
+    background-size: cover;
+    height: 100vh;
+}
+
+
+.hero-content {
+    height: auto;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-family: var(--font-logo);
+
+}
+
+.hero-content .hero-text {
+    color: #f6f6f6;
+    text-align: left;
+    font-family: var(--font-logo);
+    overflow: wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    height: 70vh;
+    margin: 30px 0px auto 0px;
+
+}
+
+.hero-content .hero-tagline,
+.hero-content .hero-para {
+    font-size: 15px;
+    color: #f6f6f6;
+    width: 30vw;
+    text-align: left;
+    font-family: var(--font-logo);
+    overflow: wrap;
+}
+
+.hero-content .hero-tagline {
+    text-align: left;
+    border: 1px solid var(--btn-bg);
+    border-radius: 50px;
+    padding: 5px 10px;
+    font-size: var(--font-size);;
+    text-transform: uppercase;
+}
+
+.hero-content .hero-para {
+    font-size: var(--font-size);;
+    text-transform: uppercase;
+    text-align: justify;
+}
+
+.hero-content .blank {
+    color: #f6f6f6;
+    width: 20vw;
+    text-align: left;
+    overflow: wrap;
+    /* border: 1px solid red */
+}
+
+.hero-content .hero-text h1 {
+    font-size: 60px;
+    color: #f6f6f6;
+    width: auto;
+    text-align: left;
+    font-family: var(--font-logo);
+    font-weight: bolder;
+
+
+}
+
+.hero-content .hero-text h1 span {
+    background-image: linear-gradient(to right, var(--logo-color), var(--btn-bg));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+
+}

@@ -6,6 +6,13 @@
   --font-size: 14px;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-logo);
+}
+
 body {
   padding: 0;
   margin: 0;
