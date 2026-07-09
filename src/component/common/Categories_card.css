@@ -2,16 +2,19 @@
     width: 100vw;
     text-align: center;
     padding: auto;
-    padding: 40px 0px;
+    padding: 20px 0px;
     
 }
+.TopCategories *{
+      transition-duration: 0.3s;
 
-.TopCategories .Explore {
+}
+.TopCategories p {
     font-size: var(--font-size);
     font-family: var(--font-logo);
     font-weight: bold;
-    padding:7px;
-    color: grey;
+    padding: 4px;
+    color: var(--logo-color);
 }
 
 .TopCategories .Popular {
@@ -19,7 +22,7 @@
     font-family: var(--font-logo);
     font-weight: bolder;
     padding: 3px;
-    padding-bottom: 20px;
+    padding-bottom:6px;
 
 }
 
@@ -54,7 +57,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.categoiresIcon img{
+    width: 70%;
+}
 .card .categoriesName {
     font-size: 18px;
     font-family: var(--font-logo);

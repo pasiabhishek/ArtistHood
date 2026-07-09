@@ -57,7 +57,7 @@
     font-weight: normal;
     font-family: var(--font-logo);
     font-weight: bold;
-    border-bottom: 3px solid transparent;
+    border-bottom: 0px solid var(--logo-color);
 
 
 

@@ -3,18 +3,18 @@ import './Categories_card.css'
 import { GiMicrophone } from "react-icons/gi";
 
 export default function Categories_card() {
-  const TopCats = [
-        { id: 1, icon: <GiMicrophone />, name: "DJ" },
-        { id: 2, icon: <GiMicrophone />, name: "Dancer" },
-        { id: 3, icon: <GiMicrophone />, name: "singer" },
-        { id: 4, icon: <GiMicrophone />, name: "Band" },
-        { id: 5, icon: <GiMicrophone />, name: "Actor" },
-        { id: 6, icon: <GiMicrophone />, name: "Anchor" }
+    const TopCats = [
+        { id: 1, icon: "https://img.magnific.com/premium-vector/vector-man-singing-with-simple-silhouette-style_995281-6793.jpg?semt=ais_hybrid&w=740&q=80", name: "Singer" },
+        { id: 2, icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zN60eTq73yNjDzZciqu7mEbMXwOsBxhnEurla9p4xA&s=10", name: "Dancer" },
+        { id: 3, icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw51L3R_JM_mEFqv7mRPe2R9m9gbP4HURNc2fJjd0PSg&s=10", name: "singer" },
+        { id: 4, icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6vXu36iw-rxXlcQG0S2jzqnh39EJSN75eeN-5u3VsOg&s=10", name: "Band" },
+        { id: 5, icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFu21-PKZcA5b6Fk1gvDVjxNe54dkjpIkOMLC3zeu1AA&s=10", name: "Actor" },
+        { id: 6, icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTalT3WLvB7_UysyLpsUXP7-d2EWvv0A5tlFZ-hDziKyQ&s=10", name: "Anchor" }
     ];
     return (
         <div>
             <div className="TopCategories">
-                <p className="Explore" className="m-200px">
+                <p className="Explore" className="">
                     Explore
                 </p>
                 <h3 className="Popular">
@@ -26,7 +26,7 @@ export default function Categories_card() {
 
 
                             <div className="categoiresIcon">
-                                {Cat.icon}
+                                <img src={Cat.icon} alt="" srcset="" />
 
 
                             </div>
