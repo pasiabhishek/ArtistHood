@@ -7,10 +7,10 @@ import Featured_artist from '../common/Featured_artist';
 
 
 
-
 export default function Home() {
     return (
         <div>
+
             <Hero />
             <Categories_card />
             <Featured_artist/>
