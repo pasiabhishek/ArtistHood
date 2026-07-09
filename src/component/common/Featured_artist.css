@@ -6,21 +6,31 @@
     justify-content: center;
     gap: 20px;
 }
+.artist_body{
+     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+
+}
 
 /* Card */
-.Artist_cardholder .artist_card {
+ .artist_card {
     width: 360px;
     min-height: 250px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 8px;
     border-radius: 15px;
     overflow: hidden;
     background: #fff;
     box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
     transition: .3s;
+    margin: 10px;
 }
 
-.artist_card:hover {
+.artist_card:hover{
     transform: translateY(-8px);
 }
 
@@ -50,6 +60,8 @@
     font-size: 20px;
     font-weight: 700;
     font-family: var(--font-logo);
+    display: flex;
+    flex-direction: row;
 }
 
 .artist_rating_num {

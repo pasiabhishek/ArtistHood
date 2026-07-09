@@ -1,0 +1,105 @@
+[
+  {
+    "id": 1,
+    "name": "Master Aazam",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRROvvfrOEhVpHSlE1iWBXKeWnv5ryjCPnJ4CROvbkTig&s=10",
+    "category": "Poet",
+    "rating": 5,
+    "reviews": 120,
+    "price": 15000,
+    "priceType": "Per Event",
+    "location": "Mumbai, India",
+    "experience": "8 Years",
+    "language": [
+      "Hindi",
+      "English"
+    ],
+    "verified": true
+  },
+  {
+    "id": 2,
+    "name": "Aarav Sharma",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "category": "Singer",
+    "rating": 4.8,
+    "reviews": 89,
+    "price": 25000,
+    "priceType": "Per Event",
+    "location": "Delhi, India",
+    "experience": "6 Years",
+    "language": [
+      "Hindi",
+      "Punjabi"
+    ],
+    "verified": true
+  },
+  {
+    "id": 3,
+    "name": "Riya Kapoor",
+    "image": "https://randomuser.me/api/portraits/women/45.jpg",
+    "category": "Dancer",
+    "rating": 4.9,
+    "reviews": 210,
+    "price": 18000,
+    "priceType": "Per Event",
+    "location": "Pune, India",
+    "experience": "7 Years",
+    "language": [
+      "Hindi",
+      "Marathi"
+    ],
+    "verified": true
+  },
+  {
+    "id": 4,
+    "name": "DJ Blaze",
+    "image": "https://randomuser.me/api/portraits/men/60.jpg",
+    "category": "DJ",
+    "rating": 4.7,
+    "reviews": 95,
+    "price": 30000,
+    "priceType": "Per Event",
+    "location": "Goa, India",
+    "experience": "10 Years",
+    "language": [
+      "English",
+      "Hindi"
+    ],
+    "verified": false
+  },
+  {
+    "id": 5,
+    "name": "Neha Verma",
+    "image": "https://randomuser.me/api/portraits/women/22.jpg",
+    "category": "Anchor",
+    "rating": 4.6,
+    "reviews": 75,
+    "price": 12000,
+    "priceType": "Per Event",
+    "location": "Jaipur, India",
+    "experience": "5 Years",
+    "language": [
+      "Hindi",
+      "English"
+    ],
+    "verified": true
+  },
+  {
+    "id": 6,
+    "name": "Aman Verma",
+    "category": "Anchor",
+    "image": "https://randomuser.me/api/portraits/men/75.jpg",
+    "rating": 4.6,
+    "reviews": 98,
+    "price": 25000,
+    "priceType": "Per Event",
+    "location": "Pune, Maharashtra",
+    "experience": "6 Years",
+    "languages": [
+      "Hindi",
+      "English",
+      "Marathi"
+    ],
+    "verified": true
+  }
+]
