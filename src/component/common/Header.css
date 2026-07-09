@@ -115,7 +115,7 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
-        padding: 20px;
+        padding: 0px;
     }
 
     .logo {
