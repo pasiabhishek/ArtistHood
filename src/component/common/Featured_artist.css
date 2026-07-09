@@ -1,0 +1,130 @@
+.Artist_cardholder {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Card */
+.Artist_cardholder .artist_card {
+    width: 360px;
+    min-height: 250px;
+    display: flex;
+    padding: 8px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+    transition: .3s;
+}
+
+.artist_card:hover {
+    transform: translateY(-8px);
+}
+
+/* Image */
+.artist_img {
+    width: 45%;
+}
+
+.artist_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Details */
+.artist_details {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    text-align: left;
+}
+
+.artist_name {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: var(--font-logo);
+}
+
+.artist_rating_num {
+    font-size: 13px;
+    color: #666;
+}
+
+.artist_type {
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.Artist_charegs {
+    font-size: 22px;
+    color: var(--btn-bg);
+    font-weight: bold;
+}
+
+/* Button */
+.View_profile {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: 1px solid var(--btn-bg);
+    background: transparent;
+    color: var(--btn-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.View_profile:hover {
+    background: var(--btn-bg);
+    color: #fff;
+}
+
+/* Mobile */
+@media (max-width:768px) {
+
+    .Artist_cardholder {
+        padding: 15px;
+    }
+
+    .artist_card {
+        width: 100%;
+        max-width: 420px;
+    }
+
+}
+
+/* Small Mobile */
+@media (max-width:500px) {
+
+    .artist_card {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .artist_img,
+    .artist_details {
+        width: 100%;
+    }
+
+    .artist_img {
+        height: 240px;
+    }
+
+    .artist_img img {
+        height: 100%;
+    }
+
+    .artist_details {
+        text-align: center;
+        align-items: center;
+    }
+}
