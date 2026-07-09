@@ -158,12 +158,13 @@
     }
 
     .logsign {
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
     }
 
     .logsign button {
-        width: 50%;
+        width: 40%;
+        font-size: 0.rem;
         max-width: 220px;
     }
 }
