@@ -106,13 +106,16 @@
 @media (max-width:500px) {
 
     .artist_card {
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
+        text-align: left;
+
     }
 
     .artist_img,
     .artist_details {
         width: 100%;
+        text-align: left;
     }
 
     .artist_img {
@@ -124,7 +127,7 @@
     }
 
     .artist_details {
-        text-align: center;
-        align-items: center;
+        text-align: left;
+        align-items: ;
     }
 }
