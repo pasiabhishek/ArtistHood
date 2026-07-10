@@ -8,10 +8,9 @@ import Why_AH from './component/common/Why_AH.jsx'
 
 
 
- 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    <Why_AH/>
+    <App />
   </StrictMode>,
 )
