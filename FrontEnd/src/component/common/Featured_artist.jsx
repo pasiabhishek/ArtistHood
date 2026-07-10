@@ -29,10 +29,37 @@ export default function Featured_artist() {
 
 
 export function Featured_artist_card() {
+    let feature_json =[
+        {
+            "id": 1,
+            "title": "Verified Artists",
+            "description": "All artists are verified and quality checked.",
+            "icon": "verified"
+        },
+        {
+            "id": 2,
+            "title": "Secure Payments",
+            "description": "100% secure payments with multiple options.",
+            "icon": "payments"
+        },
+        {
+            "id": 3,
+            "title": "Instant Booking",
+            "description": "Books instantly and get confirmation in seconds.",
+            "icon": "booking"
+        },
+        {
+            "id": 4,
+            "title": "24/7 Support",
+            "description": "Our team is always here to help you.",
+            "icon": "support"
+        }
+    ]
 
     return (
 
         <div className='artist_body'>
+            
             {artists.map((Artist_api) => (
 
                 <div className="artist_card" key={Artist_api.id}>
