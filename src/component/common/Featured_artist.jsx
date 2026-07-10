@@ -1,6 +1,6 @@
 import React from 'react'
 import './Featured_artist.css'
-import artists from "./artist.json";
+import artists from "../json files/artist.json";
 import { MdVerified } from "react-icons/md";
 
 
@@ -41,7 +41,7 @@ export function Featured_artist_card() {
                     </div>
                     <div className="artist_details">
                         <h1 className="artist_name">
-                            {Artist_api.name}  <MdVerified/> 
+                            {Artist_api.name}  <MdVerified />
 
                         </h1>
                         <p className="artist_rating_num">

@@ -1,16 +1,22 @@
 .nav {
     width: 100%;
     min-height: 80px;
-    background: linear-gradient(to bottom,
+    background: linear-gradient(
+        to bottom,
         rgba(0, 0, 0, 1),
         rgba(0, 0, 0, 0.7),
-        rgba(0, 0, 0, 0.1));
+        rgba(0, 0, 0, 0.1)
+    );
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
     font-family: var(--font-logo);
+    position: relative;
+    z-index: 1000;
 }
+
+/* Logo */
 
 .logo {
     font-size: var(--logo-font-size);
@@ -24,6 +30,8 @@
     color: var(--logo-color);
 }
 
+/* Navbar */
+
 .navbar {
     flex: 1;
     display: flex;
@@ -35,6 +43,8 @@
     align-items: center;
     gap: 35px;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar ul li {
@@ -47,51 +57,66 @@
 }
 
 .navbar ul li:hover {
-    border-bottom-color: var(--logo-color);
     color: var(--logo-color);
+    border-bottom: 3px solid var(--logo-color);
 }
+
+/* Buttons */
 
 .logsign {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;
 }
 
 .logsign button {
     padding: 10px 20px;
-    min-width: 100px;
+    min-width: 120px;
     border: none;
     border-radius: 8px;
     background: var(--btn-bg);
-    color: #fff;
+    color: white;
     font-size: var(--font-size);
     font-weight: 700;
-    font-family: var(--font-logo);
     cursor: pointer;
     transition: 0.3s;
 }
 
-.logsign button:hover {
-    transform: translateY(-2px);
+.login {
+    background: transparent !important;
+    border: 2px solid var(--logo-color) !important;
+    color: var(--logo-color) !important;
+}
+
+.login:hover {
+    background: var(--logo-color) !important;
+    color: white !important;
+}
+
+.signup:hover {
     opacity: 0.9;
+    transform: translateY(-2px);
 }
 
-.logsign .login {
-    background: transparent;
-    border: 2px solid var(--logo-color);
-    color: var(--logo-color);
+/* Hamburger */
+
+.menu-icon {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
 }
 
-.logsign .login:hover {
-    background: var(--logo-color);
-    color: #fff;
+.mobile-btn {
+    display: none;
 }
 
-.logsign .signup:hover {
-    background: #000;
-}
+/* ========================= */
+/* Tablet */
+/* ========================= */
 
-@media (max-width: 992px) {
+@media (max-width:992px) {
+
     .nav {
         padding: 15px 30px;
     }
@@ -100,71 +125,93 @@
         gap: 20px;
     }
 
-    .navbar ul li {
-        font-size: 15px;
-    }
-
     .logsign button {
-        min-width: 50px;
-        padding: 10px 16px;
+        min-width: 90px;
+        padding: 10px 15px;
     }
 }
 
-@media (max-width: 768px) {
+/* ========================= */
+/* Mobile */
+/* ========================= */
+
+@media (max-width:768px) {
+
     .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        padding: 0px;
+        padding: 15px 20px;
     }
 
-    .logo {
+    .menu-icon {
+        display: block;
+    }
+
+    .desktop-btn {
+        display: none;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background: #111;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: .4s ease;
+        padding: 30px 0;
+        z-index: 999;
+    }
+
+    .navbar.active {
+        left: 0;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 22px;
         width: 100%;
         text-align: center;
     }
 
-    .navbar {
-        width: 100%;
+    .navbar ul li {
+        font-size: 18px;
     }
 
-    .navbar ul {
-        flex-wrap: wrap;
-        justify-content: center;
+    .mobile-btn {
+        display: flex;
+        flex-direction: column;
         gap: 15px;
-        padding: 0;
+        margin-top: 30px;
+        width: 90%;
+        align-items: center;
     }
 
-    .logsign {
-        width: 50%;
-        justify-content: center;
+    .mobile-btn button {
+        width: 220px;
     }
 }
 
-@media (max-width: 480px) {
-    .nav {
-        padding: 15px;
-    }
+/* ========================= */
+/* Small Mobile */
+/* ========================= */
+
+@media (max-width:480px) {
 
     .logo {
         font-size: 28px;
     }
 
-    .navbar ul {
-        gap: 12px;
-    }
-
     .navbar ul li {
-        font-size: 14px;
+        font-size: 16px;
     }
 
-    .logsign {
-        flex-direction: row;
-        width: 100%;
+    .mobile-btn button {
+        width: 180px;
+        font-size: 15px;
     }
 
-    .logsign button {
-        width: 40%;
-        font-size: 0.rem;
-        max-width: 220px;
+    .menu-icon {
+        font-size: 25px;
     }
 }
