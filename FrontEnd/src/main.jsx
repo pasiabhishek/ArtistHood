@@ -4,12 +4,14 @@ import './index.css'
 import App from './App.jsx'
 import Loader from './component/pages/Loader.jsx'
 import Home from './component/pages/Home.jsx'
+import Why_AH from './component/common/Why_AH.jsx'
 
 
 
  
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    {/* <App /> */}
+    <Why_AH/>
   </StrictMode>,
 )

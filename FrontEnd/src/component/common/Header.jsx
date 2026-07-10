@@ -9,7 +9,7 @@ export default function Header() {
     <nav className="nav">
       {/* Logo */}
       <div className="logo">
-        ARTIST<span>HOOD</span>
+        ARTIST<span className="">HOOD</span>
       </div>
 
       {/* Hamburger Icon */}
