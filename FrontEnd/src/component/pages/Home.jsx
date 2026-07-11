@@ -12,10 +12,10 @@ import Footer from '../common/Footer';
 export default function Home() {
     return (
         <div>
-            {/* <Hero />
+            <Hero />
             <Categories_card />
             <Featured_artist />
-            <Why_AH /> */}
+            <Why_AH />
             <Footer/>
 
         </div>
