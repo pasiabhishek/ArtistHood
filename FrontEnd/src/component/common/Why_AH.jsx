@@ -77,7 +77,7 @@ export default function Why_AH() {
 
       </div>
 
-      <div style={{ margin: "20px;" }} className="user_count_data flex justify-around  items-center gap-1 bg-gray-100">
+      <div style={{ margin: "20px;" }} className="user_count_data flex flex-col justify-around  items-center gap-1 bg-gray-100 sm:flex-row">
         {
           count_json.map((counter) => (
             <User_count key={counter.id} count_number={counter} />
