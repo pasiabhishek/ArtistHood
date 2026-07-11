@@ -1,4 +1,30 @@
 import React from "react";
+let count_json = [
+    {
+      "id": 1,
+      "count": "500+",
+      "title": "Artists",
+      "icon": "FaUserTie"
+    },
+    {
+      "id": 2,
+      "count": "10K+",
+      "title": "Bookings",
+      "icon": "FaCalendarCheck"
+    },
+    {
+      "id": 3,
+      "count": "4.9★",
+      "title": "Average Rating",
+      "icon": "FaStar"
+    },
+    {
+      "id": 4,
+      "count": "2K+",
+      "title": "Happy Clients",
+      "icon": "FaSmile"
+    }
+]
 
 let feature_json = [
   {
@@ -46,11 +72,18 @@ export default function Why_AH() {
           <Feature_card key={feature.id} feature={feature} />
         ))}
       </div>
-      <div className="style={margin-top:200px;} user_count_data flex justify-around  items-center mt-10 bg-gray-50">
-        <User_count />
-        <User_count />
-        <User_count />
-        <User_count />
+
+      <div className="TopCategories">
+
+      </div>
+
+      <div style={{ margin: "20px;" }} className="user_count_data flex justify-around  items-center gap-1 bg-gray-100">
+        {
+          count_json.map((counter) => (
+            <User_count key={counter.id} count_number={counter} />
+          ))
+        }
+
       </div>
     </div>
   );
@@ -75,14 +108,19 @@ function Feature_card({ feature }) {
   );
 }
 
-
-function User_count() {
+function User_count({ count_number }) {
   return (
+    <div className="flex flex-col items-center justify-center w-full py-8 border-r last:border-r-0 border-gray-300">
+      <h3
+        className="text-3xl font-bold"
+        style={{ color: "var(--btn-bg)" }}
+      >
+        {count_number.count}
+      </h3>
 
-    <div className="feature_data flex flex-col w-200 h-30 justify-center items-center m-10 border-l-1 border-grey-100 ">
-      <h3 className="font-bold">500+</h3>
-      <p>artist</p>
+      <p className="text-gray-500">
+        {count_number.title}
+      </p>
     </div>
-
   );
 }
