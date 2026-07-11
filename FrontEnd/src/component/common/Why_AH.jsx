@@ -110,7 +110,7 @@ function Feature_card({ feature }) {
 
 function User_count({ count_number }) {
   return (
-    <div className="flex flex-col items-center justify-center w-full py-8 border-r last:border-r-0 border-gray-300">
+    <div className="flex flex-col items-center justify-center w-full h-30 py-8 border-r last:border-r-0 border-gray-300">
       <h3
         className="text-3xl font-bold"
         style={{ color: "var(--btn-bg)" }}
