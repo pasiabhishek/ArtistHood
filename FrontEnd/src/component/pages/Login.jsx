@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Login() {
     return (
-        <div className="hero ">
+        <div className="hero " style={{ margin: "0px" }}>
 
             {/* nav */}
             <nav className="nav">
@@ -11,27 +11,41 @@ export default function Login() {
                 </div>
             </nav>
 
-            <div className="w-[250px] md:w-[400px] h-110  justify-center items-center flex flex-col rounded-3xl bg-gray-950 border-2 border-red-50 text-amber-50" style={{ margin: "50px" }}>
-                <form className="w-[250px] md:w-[400px] h-110  flex flex-col rounded-3xl bg-gray-950 border-2 border-red-50" style={{ padding: "10px" }}>
-                    <h2 className="text-[20px] font-bold">Welcome back !</h2>
+            <div className="w-[300px] md:w-[400px] h-110  justify-center items-center flex flex-col rounded-3xl bg-gray-950 border-1 border-gray-800 text-amber-50" style={{ margin: "5px 70px 50px 70px" }}>
+                <h2 className="text-2xl font-bold">Welcome back!</h2>
+
+                <p className="text-[8px] md:text-[10px] font-bold p-2">Login to yout account and <span className="text-[var(--btn-bg)]">continue your journey.</span></p>
+
+                <form className="flex flex-col justify-around h-auto rounded-3xl bg-gray-950" style={{ padding: "15px" }}>
+
+                    <label htmlFor="email">Email Address</label>
                     <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        className="w-50 border-2 bg-amber-600"
+                        type="Email"
+                        id="Email"
+                        placeholder="Enter your Email Address"
+                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
+
                     />
+                    <label htmlFor="email">Password </label>
                     <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        className="w-50 border-2 bg-amber-600"
+                        type="password"
+                        id="password"
+                        placeholder="Enter your Password"
+                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
+
                     />
+                    <div>
+                        
+                    </div>
                     <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        className="w-50 border-2 bg-amber-600"
-                    />
+                        type="checkbox"
+                        id="chechbox"
+                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
+
+                    />                    
+                    <label htmlFor="email">Email Address</label>
+
+                  
 
                     <button type="submit">Login</button>
                 </form>
