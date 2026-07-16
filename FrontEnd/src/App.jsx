@@ -3,7 +3,6 @@ import './App.css'
 import Home from './component/pages/Home'
 import Loader from './component/pages/Loader'
 import Login from './component/pages/Login'
-import Router from '../router/router'
 function App() {
   const [loading, setLoading] = useState(true)
 
@@ -15,7 +14,7 @@ function App() {
     return () => clearTimeout(timer)
   }, [])
 
-  return loading ? <Loader /> : <Home />
+  return loading ? <Loader /> : <Login />
 }
 
 export default App

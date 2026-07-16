@@ -16,7 +16,7 @@ export default function Login() {
 
                 <p className="text-[8px] md:text-[10px] font-bold p-2">Login to yout account and <span className="text-[var(--btn-bg)]">continue your journey.</span></p>
 
-                <form className="flex flex-col justify-around h-auto rounded-3xl bg-gray-950" style={{ padding: "15px" }}>
+                <form className="flex flex-col justify-around h-auto rounded-3xl bg-gray-950" style={{ padding: "15px", margin: "20px" }}>
 
                     <label htmlFor="email">Email Address</label>
                     <input
@@ -24,6 +24,7 @@ export default function Login() {
                         id="Email"
                         placeholder="Enter your Email Address"
                         className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
+                        required
 
                     />
                     <label htmlFor="email">Password </label>
@@ -32,22 +33,44 @@ export default function Login() {
                         id="password"
                         placeholder="Enter your Password"
                         className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
+                        required
 
                     />
-                    <div>
-                        
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            id="checkbox"
+                            className="border-2 border-gray-600"
+                            required
+                        />
+
+                        <label htmlFor="checkbox">
+                            Remember me
+                        </label>
                     </div>
-                    <input
-                        type="checkbox"
-                        id="chechbox"
-                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
 
-                    />                    
-                    <label htmlFor="email">Email Address</label>
 
-                  
 
-                    <button type="submit">Login</button>
+                    <button
+                        type="submit"
+                        className="
+                            w-full
+                            mt-4
+                            py-4
+                            h-8
+                            rounded-lg
+                            bg-[var(--btn-bg)]
+                            text-white
+                            font-bold
+                            transition
+                            duration-300
+                            hover:scale-105
+                            hover:opacity-90
+                            active:scale-95
+                        "
+                    >
+                        Login
+                    </button>
                 </form>
             </div>
         </div>
