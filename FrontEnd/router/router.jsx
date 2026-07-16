@@ -1,13 +1,15 @@
 import React from 'react'
+import Home from '../src/component/pages/Home'
 
-export default function router() {
+export default function Router() {
   return (
     <div>
-      <routers>
-        <Router>
-        
-        </Router>
-      </routers>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+        </Routes>
+
+      </BrowserRouter>
     </div>
   )
 }
