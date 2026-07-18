@@ -1,6 +1,5 @@
 import React from 'react'
 import './Home.css'
-import Header from '../common/Header'
 import Hero from '../common/Hero'
 import Categories_card from '../common/Categories_card';
 import Featured_artist from '../common/Featured_artist';
