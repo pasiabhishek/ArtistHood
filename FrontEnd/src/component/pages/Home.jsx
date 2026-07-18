@@ -12,7 +12,7 @@ import Footer from '../common/Footer';
 export default function Home() {
     return (
         <div>
-            <Hero />
+            <Hero tagline="India's Premium Artist Booking Platform." para=" Discover and look top singers , DJs , dancers and performers for your events."/>
             <Categories_card />
             <Featured_artist />
             <Why_AH />
