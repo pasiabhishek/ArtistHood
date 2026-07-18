@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './component/pages/Home'
 import Loader from './component/pages/Loader'
@@ -15,7 +16,18 @@ function App() {
     return () => clearTimeout(timer)
   }, [])
 
-  return loading ? <Loader /> : <Home />
+  if (loading) return <Loader />
+
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
 
 export default App
