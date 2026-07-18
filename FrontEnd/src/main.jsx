@@ -12,7 +12,6 @@ import Feed from './component/pages/Feed.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    <Feed/>
+    <App />
   </StrictMode>,
 )
