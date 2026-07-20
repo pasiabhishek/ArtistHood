@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import './App.css'
 import Home from './component/pages/Home'
 import Loader from './component/pages/Loader'
 import Login from './component/pages/Login'
+import MainLayout from './component/pages/MainLayout'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -22,8 +23,10 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

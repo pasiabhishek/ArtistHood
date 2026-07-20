@@ -6,7 +6,6 @@ export default function Hero(prop) {
     return (
         <div>
             <div className="hero">
-                <Header></Header>
                 <div className="hero-content">
                     <div className="hero-text">
                         <p className="hero-tagline">
