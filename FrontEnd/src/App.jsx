@@ -5,6 +5,7 @@ import Home from './component/pages/Home'
 import Loader from './component/pages/Loader'
 import Login from './component/pages/Login'
 import MainLayout from './component/pages/MainLayout'
+import Error404 from './component/pages/Error404'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -24,8 +25,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Error404 />} />
+
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
+
           </Route>
         </Routes>
       </BrowserRouter>

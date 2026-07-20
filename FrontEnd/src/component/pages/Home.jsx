@@ -15,7 +15,6 @@ export default function Home() {
             <Categories_card />
             <Featured_artist />
             <Why_AH />
-            <Footer/>
 
         </div>
     )
