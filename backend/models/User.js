@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 6, select: false },
-    phoneNumber: { type: String },
+    // phoneNumber: { type: String },
     role: { type: String, enum: ['Client', 'Artist'], default: 'Client' },
     createdAt: { type: Date, default: Date.now },
     artistProfile: { type: ArtistProfileSchema, default: null },
