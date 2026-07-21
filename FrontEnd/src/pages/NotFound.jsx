@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Auth.css";
+import "./css/Auth.css";
 
-export default function Error404() {
+export default function NotFound() {
   return (
     <main className="auth-page">
       <nav className="auth-nav">

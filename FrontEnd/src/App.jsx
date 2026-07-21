@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
-import Home from './component/pages/Home'
-import Loader from './component/pages/Loader'
-import Login from './component/pages/Login'
-import MainLayout from './component/pages/MainLayout'
-import Error404 from './component/pages/Error404'
-import SitePage from './component/pages/SitePage'
-import SignUp from './component/pages/SignUp'
+import AppLayout from './components/layout/AppLayout'
+import Home from './pages/Home'
+import Loader from './pages/Loader'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import Signup from './pages/Signup'
+import SitePage from './pages/SitePage'
 
 
 function App() {
@@ -28,11 +27,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="*" element={<Error404 />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
 
-          <Route element={<MainLayout />}>
+          <Route element={<AppLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/artist" element={<SitePage page="artists" />} />
             <Route path="/categories" element={<SitePage page="categories" />} />

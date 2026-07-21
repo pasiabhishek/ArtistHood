@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./SitePage.css";
+import "./css/SitePage.css";
 
 const pageContent = {
   artists: {

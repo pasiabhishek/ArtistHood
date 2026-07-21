@@ -1,6 +1,6 @@
 import React from "react";
 import { MdCalendarMonth, MdPayments, MdSentimentSatisfied, MdStarRate, MdSupportAgent, MdVerifiedUser } from "react-icons/md";
-import "./Categories_card.css";
+import "../../pages/css/HomeSections.css";
 
 const features = [{ title: "Verified artists", text: "Every artist is quality checked before joining our community.", Icon: MdVerifiedUser }, { title: "Secure bookings", text: "Simple, transparent bookings from first enquiry to final performance.", Icon: MdPayments }, { title: "Helpful support", text: "Our team is here to help you find the right fit for your event.", Icon: MdSupportAgent }];
 const stats = [{ value: "500+", label: "Artists", Icon: MdSentimentSatisfied }, { value: "10K+", label: "Bookings", Icon: MdCalendarMonth }, { value: "4.9★", label: "Average rating", Icon: MdStarRate }];

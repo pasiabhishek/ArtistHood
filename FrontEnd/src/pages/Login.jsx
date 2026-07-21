@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Auth.css";
+import "./css/Auth.css";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
