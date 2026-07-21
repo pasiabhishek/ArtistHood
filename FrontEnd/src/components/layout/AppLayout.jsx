@@ -1,9 +1,9 @@
 import React from 'react'
-import Footer from '../common/Footer'
 import { Outlet } from 'react-router-dom'
-import Header from '../common/Header'
+import Footer from './Footer'
+import Header from './Header'
 
-export default function MainLayout() {
+export default function AppLayout() {
     return (
         <div>
             <Header />

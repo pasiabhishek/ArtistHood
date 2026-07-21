@@ -1,0 +1,108 @@
+.hero {
+    min-height: min(720px, calc(100vh - 80px));
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(8, 7, 20, 0.97) 5%, rgba(9, 8, 23, 0.82) 47%, rgba(9, 8, 23, 0.2) 100%),
+        url("/src/assets/herobg.png") center / cover no-repeat;
+}
+.hero-content {
+    width: min(1180px, 100%);
+    min-height: inherit;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 72px 40px;
+}
+.hero-text {
+    max-width: 640px;
+}
+.hero-tagline {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid rgba(181, 169, 255, 0.55);
+    border-radius: 999px;
+    color: #c3bbff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+.hero h1 {
+    max-width: 620px;
+    margin: 20px 0;
+    font-size: clamp(3rem, 6vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.06em;
+}
+.hero h1 span {
+    color: #a99cff;
+}
+.hero-para {
+    max-width: 535px;
+    color: #d4d1df;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    line-height: 1.75;
+}
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-top: 30px;
+}
+.hero-actions a {
+    padding: 13px 21px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition:
+        transform 0.2s,
+        background 0.2s;
+}
+.hero-actions a:hover {
+    transform: translateY(-2px);
+}
+.hero-primary {
+    background: var(--btn-bg);
+}
+.hero-primary:hover {
+    background: #604bd3;
+}
+.hero-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    background: rgba(255, 255, 255, 0.07);
+}
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    align-items: center;
+    margin-top: 38px;
+    color: #bab7c5;
+    font-size: 0.78rem;
+}
+.hero-trust strong {
+    color: #fff;
+}
+.hero-trust i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #8d7df1;
+}
+@media (max-width: 700px) {
+    .hero {
+        min-height: 620px;
+        background-position: 62% center;
+    }
+    .hero-content {
+        padding: 60px 24px;
+    }
+    .hero h1 {
+        font-size: clamp(2.8rem, 12vw, 4.3rem);
+    }
+    .hero-trust {
+        margin-top: 30px;
+    }
+}
