@@ -1,78 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Auth.css";
 
 export default function Login() {
-    return (
-        <div className="hero " style={{ margin: "0px" }}>
-
-            {/* nav */}
-            <nav className="nav">
-                <div className="logo">
-                    ARTIST<span>HOOD</span>
-                </div>
-            </nav>
-
-            <div className="w-[300px] md:w-[400px] h-110  justify-center items-center flex flex-col rounded-3xl bg-gray-950 border-1 border-gray-800 text-amber-50" style={{ margin: "5px 70px 50px 70px" }}>
-                <h2 className="text-2xl font-bold">Welcome back!</h2>
-
-                <p className="text-[8px] md:text-[10px] font-bold p-2">Login to yout account and <span className="text-[var(--btn-bg)]">continue your journey.</span></p>
-
-                <form className="flex flex-col justify-around h-auto rounded-3xl bg-gray-950" style={{ padding: "15px", margin: "20px" }}>
-
-                    <label htmlFor="email">Email Address</label>
-                    <input
-                        type="Email"
-                        id="Email"
-                        placeholder="Enter your Email Address"
-                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
-                        required
-
-                    />
-                    <label htmlFor="email">Password </label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your Password"
-                        className=" border-2 border-gray-600 w-50 md:w-70 text-sm rounded-md" style={{ padding: "5px", margin: "5px 0px" }}
-                        required
-
-                    />
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            id="checkbox"
-                            className="border-2 border-gray-600"
-                            required
-                        />
-
-                        <label htmlFor="checkbox">
-                            Remember me
-                        </label>
-                    </div>
-
-
-
-                    <button
-                        type="submit"
-                        className="
-                            w-full
-                            mt-4
-                            py-4
-                            h-8
-                            rounded-lg
-                            bg-[var(--btn-bg)]
-                            text-white
-                            font-bold
-                            transition
-                            duration-300
-                            hover:scale-105
-                            hover:opacity-90
-                            active:scale-95
-                        "
-                    >
-                        Login
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
+  const [showPassword, setShowPassword] = useState(false);
+  return <main className="auth-page"><nav className="auth-nav"><Link className="logo" to="/" aria-label="ArtistHood home">ARTIST<span>HOOD</span></Link><p>New to ArtistHood? <Link to="/signup">Create an account</Link></p></nav><section className="auth-content" aria-labelledby="login-heading"><div className="auth-intro"><p className="auth-eyebrow">WELCOME BACK</p><h1>Your next great event starts here.</h1><p>Log in to manage your bookings and discover remarkable artists for every occasion.</p></div><div className="auth-card"><div className="auth-card-heading"><h2 id="login-heading">Welcome back</h2><p>Enter your details to continue to ArtistHood.</p></div><form className="auth-form"><label>Email address<input type="email" name="email" placeholder="you@example.com" autoComplete="email" required /></label><label>Password<div className="password-input"><input type={showPassword ? "text" : "password"} name="password" placeholder="Enter your password" autoComplete="current-password" required /><button type="button" onClick={() => setShowPassword(value => !value)}>{showPassword ? "Hide" : "Show"}</button></div></label><div className="auth-form-options"><label className="auth-check"><input type="checkbox" name="remember" /><span>Remember me</span></label><a href="#forgot-password">Forgot password?</a></div><button className="auth-submit" type="submit">Log in</button></form><p className="auth-switch">New to ArtistHood? <Link to="/signup">Create an account</Link></p></div></section></main>;
 }

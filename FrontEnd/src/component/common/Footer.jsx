@@ -3,6 +3,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 
 export default function Footer() {
@@ -39,24 +40,24 @@ export default function Footer() {
                     <h6 className='text-red-50 font-bold'>Company</h6>
                     <ul className='flex flex-col justify-around items-center  w-30 text-center text-amber-50 ' style={{ margin: " 5px auto 12px auto " }}>
                         <li className='m-2'  >
-                            <a href="#">
+                            <Link to="/">
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/about">
                                 About Us
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/contact">
                                 Contact
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/careers">
                                 Career
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -66,19 +67,17 @@ export default function Footer() {
                     <h6 className='text-red-50 font-bold'>Explore</h6>
                     <ul className='flex flex-col justify-around items-center  w-30 text-center text-amber-50 ' style={{ margin: " 5px auto 12px auto " }}>
                         <li className='m-2'  >
-                            <a href="#">
+                            <Link to="/artist">
                                 Artist
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
-                                Categoreis
-                            </a>
+                            <Link to="/categories">Categories</Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/about">
                                 How it Works
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -88,19 +87,19 @@ export default function Footer() {
                     <h6 className='text-red-50 font-bold'>Legal</h6>
                     <ul className='flex flex-col justify-around items-center  w-30 text-center text-amber-50 ' style={{ margin: " 5px auto 12px auto " }}>
                         <li className='m-2'  >
-                            <a href="#">
+                            <Link to="/privacy">
                                 Privacy Policy
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/terms">
                                 Terms of Service
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/refunds">
                                 Refund Policy
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

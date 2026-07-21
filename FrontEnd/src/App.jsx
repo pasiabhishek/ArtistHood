@@ -7,6 +7,8 @@ import Login from './component/pages/Login'
 import MainLayout from './component/pages/MainLayout'
 import Error404 from './component/pages/Error404'
 import SitePage from './component/pages/SitePage'
+import SignUp from './component/pages/SignUp'
+
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -26,6 +28,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/SignUp" element={<SignUp />} />
           <Route path="*" element={<Error404 />} />
 
           <Route element={<MainLayout />}>
