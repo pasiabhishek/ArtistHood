@@ -6,14 +6,16 @@
 .site-page-hero {
     padding: clamp(72px, 12vw, 140px) max(24px, calc((100% - 1040px) / 2));
     color: #fff;
-    background: linear-gradient(105deg, rgba(7, 6, 18, .96), rgba(21, 17, 54, .8)), url("/src/assets/herobg.png") center / cover;
+    background:
+        linear-gradient(105deg, rgba(7, 6, 18, 0.96), rgba(21, 17, 54, 0.8)),
+        url("/src/assets/herobg.png") center / cover;
 }
 
 .site-page-eyebrow {
     color: #b9afff;
-    font-size: .76rem;
+    font-size: 0.76rem;
     font-weight: 800;
-    letter-spacing: .15em;
+    letter-spacing: 0.15em;
 }
 
 .site-page-hero h1 {
@@ -21,7 +23,7 @@
     margin: 14px 0;
     font-size: clamp(2.4rem, 5vw, 4.5rem);
     line-height: 1.05;
-    letter-spacing: -.045em;
+    letter-spacing: -0.045em;
 }
 
 .site-page-copy {
@@ -37,7 +39,7 @@
     border-radius: 8px;
     background: var(--btn-bg);
     color: #fff;
-    font-size: .88rem;
+    font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
 }
@@ -60,12 +62,12 @@
     border: 1px solid #e3e1ef;
     border-radius: 16px;
     background: #fff;
-    box-shadow: 0 12px 30px rgba(24, 21, 53, .08);
+    box-shadow: 0 12px 30px rgba(24, 21, 53, 0.08);
 }
 
 .site-page-cards span {
     color: var(--btn-bg);
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-weight: 800;
 }
 
@@ -76,7 +78,7 @@
 
 .site-page-cards p {
     color: #747182;
-    font-size: .85rem;
+    font-size: 0.85rem;
     line-height: 1.6;
 }
 

@@ -1,16 +1,15 @@
-import React from 'react'
+import React from "react";
 
-import './css/Loader.css'
+import "./css/Loader.css";
 
 export default function Loader() {
-  return (
-    
+    return (
         <div className="loading-page">
-          <div className="loading-content">
-            <h1>ARTIST<span>HOOD</span></h1>
-          </div>
+            <div className="loading-content">
+                <h1>
+                    ARTIST<span>HOOD</span>
+                </h1>
+            </div>
         </div>
-      
-    
-  )
+    );
 }
