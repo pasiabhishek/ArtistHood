@@ -1,6 +1,5 @@
 import React from 'react'
 import './Hero.css'
-import Header from './Header'
 
 export default function Hero(prop) {
     return (

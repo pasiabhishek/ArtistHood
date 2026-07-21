@@ -1,6 +1,5 @@
 import React from 'react'
 import './Categories_card.css'
-import { GiMicrophone } from "react-icons/gi";
 
 export default function Categories_card() {
     const TopCats = [
@@ -14,11 +13,11 @@ export default function Categories_card() {
     return (
         <div>
             <div className="TopCategories">
-                <p className="Explore" className="">
+                <p className="Explore">
                     Explore
                 </p>
                 <h3 className="Popular">
-                    Popular Categoroes
+                    Popular Categories
                 </h3>
                 <div className="cardholder">
                     {TopCats.map((Cat) => (
@@ -26,7 +25,7 @@ export default function Categories_card() {
 
 
                             <div className="categoiresIcon">
-                                <img src={Cat.icon} alt="" srcset="" />
+                                <img src={Cat.icon} alt={Cat.name} />
 
 
                             </div>
