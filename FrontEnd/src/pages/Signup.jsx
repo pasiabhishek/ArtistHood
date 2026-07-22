@@ -6,7 +6,7 @@ export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [addSignUp, addNewSignUp] = useState();
     const handleSignUP = () =>{
-        console.log("hii");
+        console.log(addSignUp);
     }
     return (
         <main className="auth-page">
@@ -29,7 +29,7 @@ export default function Signup() {
                         <h2 id="signup-heading">Create your account</h2>
                         <p>Start your ArtistHood journey today.</p>
                     </div>
-                    <form className="auth-form">
+                    <div className="auth-form">
                         <div className="auth-name-row">
                             <label>
                                 First name
@@ -95,10 +95,12 @@ export default function Signup() {
                             <input type="checkbox" required />
                             <span>I agree to the Terms of Service and Privacy Policy.</span>
                         </label>
-                        <button className="auth-submit" type="submit">
+                        <button className="auth-submit" type="submit"
+                        onClick={handleSignUP}
+                        >
                             Create account
                         </button>
-                    </form>
+                    </div>
                     <p className="auth-switch">
                         Already have an account? <Link to="/login">Log in</Link>
                     </p>
