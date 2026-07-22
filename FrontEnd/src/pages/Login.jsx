@@ -7,6 +7,7 @@ export default function Login() {
     const [addLogin, AddNewLogin] = useState();
     const handleLogin = () => {
         console.log(addLogin)
+        
     }
     return (
         <main className="auth-page">

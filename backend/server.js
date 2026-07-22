@@ -16,11 +16,11 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
 
 // Health Check Route
-app.get("/", (req, res) => {
+app.post("/login", (req, res) => {
     res.send("Artist Hood API Running");
 });
 
-// Server Listen
+// Server Listenc
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
