@@ -4,6 +4,10 @@ import "./css/Auth.css";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const [addLogin, AddNewLogin] = useState();
+    const handleLogin = () => {
+        console.log(addLogin)
+    }
     return (
         <main className="auth-page">
             <nav className="auth-nav">
@@ -25,10 +29,13 @@ export default function Login() {
                         <h2 id="login-heading">Welcome back</h2>
                         <p>Enter your details to continue to ArtistHood.</p>
                     </div>
-                    <form className="auth-form">
+                    <div className="auth-form">
                         <label>
                             Email address
                             <input
+                                onChange={(event) => AddNewLogin(
+                                    { ...addLogin, Email: event.target.value }
+                                )}
                                 type="email"
                                 name="email"
                                 placeholder="you@example.com"
@@ -40,6 +47,9 @@ export default function Login() {
                             Password
                             <div className="password-input">
                                 <input
+                                    onChange={(event) => AddNewLogin(
+                                        { ...addLogin, Password: event.target.value }
+                                    )}
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     placeholder="Enter your password"
@@ -53,15 +63,19 @@ export default function Login() {
                         </label>
                         <div className="auth-form-options">
                             <label className="auth-check">
-                                <input type="checkbox" name="remember" />
+                                <input type="checkbox" name="remember"
+                                    onChange={(event) => addNewLogin(
+                                        {...addLogin, Remember: event.target.value}
+                                )}
+                                    />
                                 <span>Remember me</span>
                             </label>
                             <a href="#forgot-password">Forgot password?</a>
                         </div>
-                        <button className="auth-submit" type="submit">
+                        <button onClick={handleLogin} className="auth-submit" type="submit">
                             Log in
                         </button>
-                    </form>
+                    </div>
                     <p className="auth-switch">
                         New to ArtistHood? <Link to="/signup">Create an account</Link>
                     </p>

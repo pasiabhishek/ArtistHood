@@ -4,6 +4,10 @@ import "./css/Auth.css";
 
 export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
+    const [addSignUp, addNewSignUp] = useState();
+    const handleSignUP = () =>{
+        console.log("hii");
+    }
     return (
         <main className="auth-page">
             <nav className="auth-nav">
@@ -35,6 +39,9 @@ export default function Signup() {
                                     placeholder="First name"
                                     autoComplete="given-name"
                                     required
+                                    onChange={(event)=>addNewSignUp(
+                                        {...addSignUp, FirstName : event.target.value}
+                                    )}
                                 />
                             </label>
                             <label>
@@ -45,6 +52,9 @@ export default function Signup() {
                                     placeholder="Last name"
                                     autoComplete="family-name"
                                     required
+                                    onChange={(event)=>addNewSignUp(
+                                        {...addSignUp, LastName: event.target.value}
+                                    )}
                                 />
                             </label>
                         </div>
@@ -56,6 +66,9 @@ export default function Signup() {
                                 placeholder="you@example.com"
                                 autoComplete="email"
                                 required
+                                onChange={(event)=>addNewSignUp(
+                                    {...addSignUp, Email:event.target.value}
+                                )}
                             />
                         </label>
                         <label>
@@ -68,6 +81,9 @@ export default function Signup() {
                                     autoComplete="new-password"
                                     minLength="8"
                                     required
+                                    onChange={(event)=>addNewSignUp(
+                                        {...addSignUp, Password:event.target.value}
+                                    )}
                                 />
                                 <button type="button" onClick={() => setShowPassword((value) => !value)}>
                                     {showPassword ? "Hide" : "Show"}
