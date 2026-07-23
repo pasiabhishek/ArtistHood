@@ -16,8 +16,11 @@ export default function CategoriesCard() {
     return (
         <section className="home-section categories-section">
             <div className="section-heading">
-                <p>EXPLORE CATEGORIES</p>
-                <h2>Talent for every kind of event.</h2>
+                <div className="">
+                    <h2 className="font-bold text-3xl">Talent for every kind of event.</h2>
+                    <p>EXPLORE CATEGORIES</p>
+                </div>
+                    
                 <Link to="/categories">View all categories</Link>
             </div>
             <div className="category-grid">
