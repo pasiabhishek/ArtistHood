@@ -1,13 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./css/Auth.css";
+import axios from "axios";
+
 
 export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
-    const [addSignUp, addNewSignUp] = useState();
-    const handleSignUP = () =>{
-        console.log(addSignUp);
-    }
+    const [addSignUp, addNewSignUp] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: ""
+    });
+    const handleSignUP = async (e) => {
+
+        e.preventDefault();
+
+        try {
+
+            const res = await axios.post(
+                "http://localhost:5000/api/auth/signup",
+                addSignUp
+            );
+
+            console.log(res.data);
+
+            alert("Account Created");
+
+        } catch (err) {
+
+            console.log(err);
+
+            alert("Signup Failed");
+
+        }
+
+    }; 
+    
     return (
         <main className="auth-page">
             <nav className="auth-nav">
@@ -39,8 +68,8 @@ export default function Signup() {
                                     placeholder="First name"
                                     autoComplete="given-name"
                                     required
-                                    onChange={(event)=>addNewSignUp(
-                                        {...addSignUp, FirstName : event.target.value}
+                                    onChange={(event) => addNewSignUp(
+                                        { ...addSignUp, firstName: event.target.value }
                                     )}
                                 />
                             </label>
@@ -52,8 +81,8 @@ export default function Signup() {
                                     placeholder="Last name"
                                     autoComplete="family-name"
                                     required
-                                    onChange={(event)=>addNewSignUp(
-                                        {...addSignUp, LastName: event.target.value}
+                                    onChange={(event) => addNewSignUp(
+                                        { ...addSignUp, lastName: event.target.value }
                                     )}
                                 />
                             </label>
@@ -66,8 +95,8 @@ export default function Signup() {
                                 placeholder="you@example.com"
                                 autoComplete="email"
                                 required
-                                onChange={(event)=>addNewSignUp(
-                                    {...addSignUp, Email:event.target.value}
+                                onChange={(event) => addNewSignUp(
+                                    { ...addSignUp, email: event.target.value }
                                 )}
                             />
                         </label>
@@ -81,8 +110,8 @@ export default function Signup() {
                                     autoComplete="new-password"
                                     minLength="8"
                                     required
-                                    onChange={(event)=>addNewSignUp(
-                                        {...addSignUp, Password:event.target.value}
+                                    onChange={(event) => addNewSignUp(
+                                        { ...addSignUp, password: event.target.value }
                                     )}
                                 />
                                 <button type="button" onClick={() => setShowPassword((value) => !value)}>
@@ -96,7 +125,7 @@ export default function Signup() {
                             <span>I agree to the Terms of Service and Privacy Policy.</span>
                         </label>
                         <button className="auth-submit" type="submit"
-                        onClick={handleSignUP}
+                            onClick={handleSignUP}
                         >
                             Create account
                         </button>

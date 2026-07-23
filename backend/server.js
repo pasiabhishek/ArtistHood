@@ -1,12 +1,24 @@
-import e from "express";
+require("dotenv").config();
 
-const app = e();
+const express = require("express");
+const cors = require("cors");
 
-app.get("/", (req, resp)=>{
-    resp.send({
-        message:"Basic api",
-        success:true
-    })
-})
+const connectDB = require("./config/db");
 
-app.listen(3000);
+const app = express();
+
+connectDB();
+
+app.use(cors());
+
+app.use(express.json());
+
+app.use("/api/auth", require("./routes/authRoutes"));
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+
+    console.log(`🚀 Server Running on ${PORT}`);
+
+});
