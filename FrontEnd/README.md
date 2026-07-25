@@ -1,16 +1,35 @@
-# React + Vite
+# 🎨 Artisthood
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> **Where talent meets opportunity.**
 
-Currently, two official plugins are available:
+Finding the right artist for an event shouldn't be complicated, and talented artists deserve a place where their work can be seen. **Artisthood** was built to make that connection easier.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Whether you're a client planning a wedding, concert, corporate event, or private celebration, or an artist looking to showcase your talent and grow your career, Artisthood brings everyone together on one platform.
 
-## React Compiler
+With artist profiles, easy search, booking requests, real-time communication, and reviews, we make the booking experience simple, transparent, and stress-free.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ What You Can Do
 
-## Expanding the Oxlint configuration
+### For Clients
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+* Browse talented artists across different categories.
+* Search and filter artists based on your needs.
+* View detailed profiles, portfolios, and reviews.
+* Send booking requests with ease.
+* Track your bookings from request to confirmation.
+
+### For Artists
+
+* Create a professional profile that showcases your talent.
+* Upload photos, videos, and portfolio content.
+* Manage booking requests in one place.
+* Build credibility through client ratings and reviews.
+* Reach more people and grow your audience.
+
+## 💡 Why Artisthood?
+
+We believe every artist deserves opportunities, and every event deserves the perfect performance. Our goal is to create a community where creativity thrives and meaningful connections happen effortlessly.
+
+Whether you're discovering new talent or sharing your own, Artisthood is here to make every booking experience smooth, reliable, and enjoyable.
+
+**Made with ❤️ for artists, creators, and dreamers.**
