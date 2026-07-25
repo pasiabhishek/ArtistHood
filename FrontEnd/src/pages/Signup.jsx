@@ -58,7 +58,7 @@ export default function Signup() {
                         <h2 id="signup-heading">Create your account</h2>
                         <p>Start your ArtistHood journey today.</p>
                     </div>
-                    <div className="auth-form">
+                    <form className="auth-form" action={handleSignUP}>
                         <div className="auth-name-row">
                             <label>
                                 First name
@@ -129,7 +129,7 @@ export default function Signup() {
                         >
                             Create account
                         </button>
-                    </div>
+                    </form>
                     <p className="auth-switch">
                         Already have an account? <Link to="/login">Log in</Link>
                     </p>
