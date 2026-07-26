@@ -56,6 +56,7 @@ const pageContent = {
 export default function SitePage({ page }) {
     const content = pageContent[page] ?? pageContent.about;
 
+    
     return (
         <main className="site-page">
             <section className="site-page-hero">

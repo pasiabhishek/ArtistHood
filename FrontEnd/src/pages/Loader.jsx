@@ -8,6 +8,7 @@ export default function Loader() {
             <div className="loading-content">
                 <h1>
                     ARTIST<span>HOOD</span>
+                    
                 </h1>
             </div>
         </div>
