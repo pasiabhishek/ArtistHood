@@ -3,7 +3,7 @@
     color: #fff;
     background:
         linear-gradient(90deg, rgba(8, 7, 20, 0.97) 5%, rgba(9, 8, 23, 0.82) 47%, rgba(9, 8, 23, 0.2) 100%),
-        url("https://chatgpt.com/backend-api/estuary/content?id=file_00000000bfdc81f68db47eb196b2905b&ts=495915&p=fs&cid=1&sig=0ee585c737245638859633601252112876f5ca9ad7993a2142720961d6227172&v=0") center / cover no-repeat;
+        url("\src/assets/herobg.png") center / cover no-repeat;
 }
 .hero-content {
     width: min(1180px, 100%);
