@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./css/Auth.css";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function Signup() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +28,7 @@ export default function Signup() {
             };
 
             const res = await axios.post(
-                "http://localhost:5000/api/auth/register",
+                `${API_BASE_URL}/api/auth/register`,
                 payload
             );
 
