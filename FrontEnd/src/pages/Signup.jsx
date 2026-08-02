@@ -1,42 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/Auth.css";
 import axios from "axios";
 
-
 export default function Signup() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [addSignUp, addNewSignUp] = useState({
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: ""
     });
-    const handleSignUP = async (e) => {
 
+    const handleSignUP = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
+            const payload = {
+                fullName: `${formData.firstName} ${formData.lastName}`.trim(),
+                email: formData.email,
+                password: formData.password
+            };
 
             const res = await axios.post(
-                "http://localhost:5000/api/auth/signup",
-                addSignUp
+                "http://localhost:5000/api/auth/register",
+                payload
             );
 
-            console.log(res.data);
-
+            localStorage.setItem("token", res.data.user.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");
-
+            navigate("/after-login");
         } catch (err) {
-
-            console.log(err);
-
-            alert("Signup Failed");
-
+            alert(err.response?.data?.message || "Signup Failed");
+        } finally {
+            setLoading(false);
         }
+    };
 
-    }; 
-    
     return (
         <main className="auth-page">
             <nav className="auth-nav">
@@ -58,7 +62,7 @@ export default function Signup() {
                         <h2 id="signup-heading">Create your account</h2>
                         <p>Start your ArtistHood journey today.</p>
                     </div>
-                    <form className="auth-form" action={handleSignUP}>
+                    <form className="auth-form" onSubmit={handleSignUP}>
                         <div className="auth-name-row">
                             <label>
                                 First name
@@ -68,8 +72,9 @@ export default function Signup() {
                                     placeholder="First name"
                                     autoComplete="given-name"
                                     required
-                                    onChange={(event) => addNewSignUp(
-                                        { ...addSignUp, firstName: event.target.value }
+                                    value={formData.firstName}
+                                    onChange={(event) => setFormData(
+                                        { ...formData, firstName: event.target.value }
                                     )}
                                 />
                             </label>
@@ -81,8 +86,9 @@ export default function Signup() {
                                     placeholder="Last name"
                                     autoComplete="family-name"
                                     required
-                                    onChange={(event) => addNewSignUp(
-                                        { ...addSignUp, lastName: event.target.value }
+                                    value={formData.lastName}
+                                    onChange={(event) => setFormData(
+                                        { ...formData, lastName: event.target.value }
                                     )}
                                 />
                             </label>
@@ -95,8 +101,9 @@ export default function Signup() {
                                 placeholder="you@example.com"
                                 autoComplete="email"
                                 required
-                                onChange={(event) => addNewSignUp(
-                                    { ...addSignUp, email: event.target.value }
+                                value={formData.email}
+                                onChange={(event) => setFormData(
+                                    { ...formData, email: event.target.value }
                                 )}
                             />
                         </label>
@@ -110,8 +117,9 @@ export default function Signup() {
                                     autoComplete="new-password"
                                     minLength="8"
                                     required
-                                    onChange={(event) => addNewSignUp(
-                                        { ...addSignUp, password: event.target.value }
+                                    value={formData.password}
+                                    onChange={(event) => setFormData(
+                                        { ...formData, password: event.target.value }
                                     )}
                                 />
                                 <button type="button" onClick={() => setShowPassword((value) => !value)}>
@@ -124,10 +132,8 @@ export default function Signup() {
                             <input type="checkbox" required />
                             <span>I agree to the Terms of Service and Privacy Policy.</span>
                         </label>
-                        <button className="auth-submit" type="submit"
-                            onClick={handleSignUP}
-                        >
-                            Create account
+                        <button className="auth-submit" type="submit" disabled={loading}>
+                            {loading ? "Creating account..." : "Create account"}
                         </button>
                     </form>
                     <p className="auth-switch">

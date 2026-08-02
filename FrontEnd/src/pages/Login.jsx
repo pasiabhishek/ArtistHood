@@ -1,15 +1,38 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./css/Auth.css";
 
 export default function Login() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [addLogin, AddNewLogin] = useState();
-    const handleLogin = () => {
-        console.log(addLogin)
-        
-        
-    }
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const res = await axios.post(
+                "http://localhost:5000/api/auth/login",
+                formData
+            );
+
+            localStorage.setItem("token", res.data.user.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            alert("Login successful");
+            navigate("/after-login");
+        } catch (err) {
+            alert(err.response?.data?.message || "Login Failed");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <main className="auth-page">
             <nav className="auth-nav">
@@ -31,12 +54,13 @@ export default function Login() {
                         <h2 id="login-heading">Welcome back</h2>
                         <p>Enter your details to continue to ArtistHood.</p>
                     </div>
-                    <div className="auth-form">
+                    <form className="auth-form" onSubmit={handleLogin}>
                         <label>
                             Email address
                             <input
-                                onChange={(event) => AddNewLogin(
-                                    { ...addLogin, Email: event.target.value }
+                                value={formData.email}
+                                onChange={(event) => setFormData(
+                                    { ...formData, email: event.target.value }
                                 )}
                                 type="email"
                                 name="email"
@@ -49,8 +73,9 @@ export default function Login() {
                             Password
                             <div className="password-input">
                                 <input
-                                    onChange={(event) => AddNewLogin(
-                                        { ...addLogin, Password: event.target.value }
+                                    value={formData.password}
+                                    onChange={(event) => setFormData(
+                                        { ...formData, password: event.target.value }
                                     )}
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -65,19 +90,15 @@ export default function Login() {
                         </label>
                         <div className="auth-form-options">
                             <label className="auth-check">
-                                <input type="checkbox" name="remember"
-                                    onChange={(event) => addNewLogin(
-                                        {...addLogin, Remember: event.target.value}
-                                )}
-                                    />
+                                <input type="checkbox" name="remember" />
                                 <span>Remember me</span>
                             </label>
                             <a href="#forgot-password">Forgot password?</a>
                         </div>
-                        <button onClick={handleLogin} className="auth-submit" type="submit">
-                            Log in
+                        <button className="auth-submit" type="submit" disabled={loading}>
+                            {loading ? "Logging in..." : "Log in"}
                         </button>
-                    </div>
+                    </form>
                     <p className="auth-switch">
                         New to ArtistHood? <Link to="/signup">Create an account</Link>
                     </p>

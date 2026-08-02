@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import SitePage from "./pages/SitePage";
+import AfterLogin from "./pages/AfterLogin";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -27,6 +28,7 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/after-login" element={<AfterLogin />} />
                     <Route path="*" element={<NotFound />} />
 
                     <Route element={<AppLayout />}>

@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.3",
+    "mongodb-memory-server": "^11.2.0",
     "mongoose": "^9.7.4"
   },
   "devDependencies": {
