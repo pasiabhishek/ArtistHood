@@ -205,6 +205,7 @@ https://artist-hood.vercel.app/
 
 This project is licensed under the **MIT License**.
 
+
 Feel free to use, modify, and learn from this project for educational and personal purposes.
 
 ---
