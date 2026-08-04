@@ -188,17 +188,6 @@ JWT_SECRET=your_secret_key
 - 🔄 AI-Powered Artist Recommendations
 - 🔄 Progressive Web App (PWA)
 
----
-
-## Screenshots
-
-> Add screenshots of the application here.
-
-| Home | Artist Profile | Portfolio |
-|------|----------------|-----------|
-| Screenshot | Screenshot | Screenshot |
-
----
 
 ## Live Demo
 
