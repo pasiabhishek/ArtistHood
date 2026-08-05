@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./css/Auth.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://artist-hood.vercel.app";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function Login() {
     const navigate = useNavigate();
