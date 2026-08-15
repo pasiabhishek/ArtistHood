@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Imperial+Script&family=Manrope:wght@200..800&display=swap');
+
 :root {
     --logo-color: rgb(49, 37, 127);
     --btn-bg: rgb(75, 58, 185);
     --background: #f0f0f0;
-    --font-logo: "Poppins", sans-serif;
+    --font-logo: "Cormorant Garamond", serif;
     --font-size: 12px;
     --logo-font-size: 20px;
 }
