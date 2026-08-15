@@ -11,7 +11,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    padding: 72px 40px;
+    padding: 20vh 2rem;
 }
 .hero-text {
     max-width: 640px;
@@ -30,7 +30,7 @@
 .hero h1 {
     max-width: 620px;
     margin: 20px 0;
-    font-size: clamp(3rem, 6vw, 5.25rem);
+    font-size: 3.5rem;
     line-height: 1.02;
     letter-spacing: -0.06em;
 }
