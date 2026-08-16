@@ -3,7 +3,7 @@
     color: #fff;
     background:
         linear-gradient(90deg, rgba(8, 7, 20, 0.97) 5%, rgba(9, 8, 23, 0.82) 47%, rgba(9, 8, 23, 0.2) 100%),
-        url("\src/assets/herobg.png") center / cover no-repeat;
+        url("src/assets/herobg.png") center / cover no-repeat;
 }
 .hero-content {
     width: min(1180px, 100%);
