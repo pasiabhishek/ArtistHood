@@ -15,36 +15,43 @@ export default function Header() {
                 </div>
 
                 {/* Hamburger Icon */}
-                <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+                <button
+                    className="menu-icon"
+                    type="button"
+                    aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                    aria-expanded={menuOpen}
+                    aria-controls="primary-navigation"
+                    onClick={() => setMenuOpen((isOpen) => !isOpen)}
+                >
                     {menuOpen ? <FaTimes /> : <FaBars />}
-                </div>
+                </button>
 
                 {/* Navigation */}
-                <div className={`navbar ${menuOpen ? "active" : ""}`}>
+                <div id="primary-navigation" className={`navbar ${menuOpen ? "active" : ""}`}>
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                         </li>
                         <li>
-                            <Link to="/artist">Artist</Link>
+                            <Link to="/artist" onClick={() => setMenuOpen(false)}>Artist</Link>
                         </li>
                         <li>
-                            <Link to="/categories">Categories</Link>
+                            <Link to="/categories" onClick={() => setMenuOpen(false)}>Categories</Link>
                         </li>
                         <li>
-                            <Link to="/about">About</Link>
+                            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
                         </li>
                         <li>
-                            <Link to="/contact">Contact</Link>
+                            <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
                         </li>
                     </ul>
 
                     {/* Mobile Buttons */}
                     <div className="logsign mobile-btn">
-                        <Link to={"/login"}>
+                        <Link to={"/login"} onClick={() => setMenuOpen(false)}>
                             <button className="login">Login</button>
                         </Link>
-                        <Link to="/signup">
+                        <Link to="/signup" onClick={() => setMenuOpen(false)}>
                             <button className="signup">Get Started</button>
                         </Link>
                     </div>
