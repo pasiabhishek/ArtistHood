@@ -2,30 +2,38 @@
     width: min(1160px, calc(100% - 48px));
     margin: 0 auto;
     padding: 88px 0;
+    background-color: #131724;
 }
 .section-heading {
-    display: grid;
-    grid-template-columns: 1fr auto;
     gap: 8px 24px;
-    align-items: end;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100vw;
 }
 .section-heading p {
     color: var(--btn-bg);
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.14em;
+    text-align: left;
 }
 .section-heading h2 {
     margin: 0;
     color: #1b1925;
     font-size: clamp(1.8rem, 3vw, 2.55rem);
     letter-spacing: -0.04em;
+    text-align: left;
+    
 }
 .section-heading a {
     color: var(--btn-bg);
     font-size: 0.82rem;
     font-weight: 800;
     text-decoration: none;
+    text-align: right;
+    width: 100%;
 }
 .category-grid {
     display: grid;
@@ -37,8 +45,8 @@
     padding: 25px 15px;
     border: 1px solid #e4e2ec;
     border-radius: 16px;
-    background: #fff;
-    color: #1b1925;
+    background: #131724;
+    color: #131724;
     text-align: center;
     text-decoration: none;
     transition: 0.22s;
@@ -61,14 +69,15 @@
 }
 .category-card h3 {
     font-size: 0.95rem;
+    color: #fff;
 }
 .category-card p {
     margin-top: 3px;
-    color: #7b7887;
+    color: #fff;
     font-size: 0.7rem;
 }
 .why-section {
-    background: #fff;
+    background: #131724;
 }
 .why-heading {
     margin-bottom: 32px;
@@ -91,7 +100,7 @@
     font-size: 1.7rem;
 }
 .feature-grid h3 {
-    color: #201d29;
+    color: #fff;
     font-size: 1rem;
 }
 .feature-grid p {
@@ -107,7 +116,7 @@
     padding: 28px;
     border-radius: 18px;
     background: #1a1730;
-    color: #fff;
+    color: #131724;
 }
 .stats-grid div {
     display: grid;
@@ -127,6 +136,7 @@
 }
 .stats-grid strong {
     font-size: 1.5rem;
+    color: #fff;
 }
 .stats-grid span {
     color: #bdb9cd;

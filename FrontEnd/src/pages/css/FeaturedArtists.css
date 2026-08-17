@@ -1,7 +1,8 @@
 .featured-section {
-	background: #f5f4f9;
+	background: #131724;
 }
 .section-heading{
+	color: #fff;
     
 }
 .artist-grid {
@@ -15,7 +16,7 @@
 	overflow: hidden;
 	border: 1px solid #e3e1ed;
 	border-radius: 16px;
-	background: #fff;
+	background: #131724;
 	transition: transform .22s, box-shadow .22s;
 }
 
@@ -63,7 +64,7 @@
 	align-items: center;
 	gap: 5px;
 	margin: 10px 0 7px;
-	color: #1d1a28;
+	color: #fff;
 	font-size: 1.1rem;
 }
 
@@ -91,7 +92,7 @@
 }
 
 .artist-card-footer strong {
-	color: #252131;
+	color: #FFF;
 	font-size: .95rem;
 }
 
@@ -121,4 +122,8 @@
 	.artist-card>img {
 		height: 260px
 	}
+}
+
+.section-heading h2 {
+	color: #fff;
 }
