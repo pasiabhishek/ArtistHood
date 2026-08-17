@@ -29,10 +29,10 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="*" element={<NotFound />} />
+                    <Route path="/feed" element={<AfterLogin />} />
 
                     <Route element={<AppLayout />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="/after-login" element={<AfterLogin />} />
                         <Route path="/artist" element={<SitePage page="artists" />} />
                         <Route path="/categories" element={<SitePage page="categories" />} />
                         <Route path="/about" element={<SitePage page="about" />} />
