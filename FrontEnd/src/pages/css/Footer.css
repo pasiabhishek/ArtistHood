@@ -29,6 +29,7 @@
 
 .site-footer__logo span {
     color: var(--btn-bg);
+    font-family: inherit;
 }
 
 .site-footer__description {
