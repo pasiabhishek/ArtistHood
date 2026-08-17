@@ -26,7 +26,6 @@ export default function Login() {
 
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
-            alert("Login successful");
             navigate("/Feed");
         } catch (err) {
             alert(err.response?.data?.message || "Login Failed");
