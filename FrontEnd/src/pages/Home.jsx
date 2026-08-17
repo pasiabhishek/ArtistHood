@@ -3,8 +3,11 @@ import Categories from "../components/home/Categories";
 import FeaturedArtists from "../components/home/FeaturedArtists";
 import Hero from "../components/home/Hero";
 import WhyArtistHood from "../components/home/WhyArtistHood";
+import useTitle from "./UseTitle";
 
 export default function Home() {
+    useTitle("Home") 
+    
     return (
         <div>
             <Hero
