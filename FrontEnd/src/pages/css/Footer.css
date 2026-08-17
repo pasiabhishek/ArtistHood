@@ -1,0 +1,140 @@
+.site-footer {
+    background: #131724;
+    color: #fff;
+    font-family: "Anta", sans-serif;
+}
+
+.site-footer__main {
+    padding: 4.5rem 5%;
+}
+
+.site-footer__content {
+    display: grid;
+    grid-template-columns: minmax(245px, 1.8fr) repeat(3, minmax(120px, 0.7fr));
+    gap: 2.5rem;
+    width: min(100%, 1180px);
+    margin: 0 auto;
+}
+
+.site-footer__brand {
+    max-width: 320px;
+}
+
+.site-footer__logo {
+    font-family: var(--font-logo);
+    font-size: clamp(1.65rem, 2.2vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+.site-footer__logo span {
+    color: var(--btn-bg);
+}
+
+.site-footer__description {
+    margin-top: 0.9rem;
+    color: #aab0c0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.site-footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.site-footer__social {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid #343b4d;
+    border-radius: 50%;
+    color: #c8cedb;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, background-color 180ms ease;
+}
+
+.site-footer__social:hover,
+.site-footer__social:focus-visible {
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.site-footer__social--instagram:hover,
+.site-footer__social--instagram:focus-visible { border-color: #e1306c; color: #e1306c; }
+.site-footer__social--facebook:hover,
+.site-footer__social--facebook:focus-visible { border-color: #4e8cff; color: #4e8cff; }
+.site-footer__social--youtube:hover,
+.site-footer__social--youtube:focus-visible { border-color: #ff4a4a; color: #ff4a4a; }
+.site-footer__social--whatsapp:hover,
+.site-footer__social--whatsapp:focus-visible { border-color: #36c76c; color: #36c76c; }
+
+.site-footer__column h3 {
+    margin: 0 0 1.1rem;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.site-footer__column ul {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer__link {
+    display: inline-block;
+    color: #aab0c0;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+    color: #fff;
+    transform: translateX(4px);
+    outline: none;
+}
+
+.site-footer__bottom {
+    padding: 1.35rem 1.5rem;
+    border-top: 1px solid #252b3a;
+    color: #aab0c0;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.site-footer__bottom span {
+    color: #e1e5ed;
+    font-weight: 700;
+}
+
+@media (max-width: 800px) {
+    .site-footer__main { padding: 3.5rem 2rem; }
+    .site-footer__content { grid-template-columns: minmax(220px, 1.4fr) repeat(3, 1fr); gap: 2.25rem 1.5rem; }
+}
+
+@media (max-width: 620px) {
+    .site-footer__main { padding: 3rem 1.5rem; }
+    .site-footer__content { grid-template-columns: repeat(2, 1fr); gap: 2.25rem 1.5rem; }
+    .site-footer__brand { grid-column: 1 / -1; max-width: 420px; }
+}
+
+@media (max-width: 390px) {
+    .site-footer__content { grid-template-columns: 1fr; text-align: center; }
+    .site-footer__brand { grid-column: auto; }
+    .site-footer__socials { justify-content: center; }
+    .site-footer__link:hover, .site-footer__link:focus-visible { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer__social, .site-footer__link { transition: none; }
+}
