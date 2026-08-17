@@ -35,12 +35,6 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/artist" element={<SitePage page="artists" />} />
                         <Route path="/categories" element={<SitePage page="categories" />} />
-                        <Route path="/about" element={<SitePage page="about" />} />
-                        <Route path="/contact" element={<SitePage page="contact" />} />
-                        <Route path="/careers" element={<SitePage page="careers" />} />
-                        <Route path="/privacy" element={<SitePage page="privacy" />} />
-                        <Route path="/terms" element={<SitePage page="terms" />} />
-                        <Route path="/refunds" element={<SitePage page="refunds" />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
