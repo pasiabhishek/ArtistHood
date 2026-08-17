@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./css/Auth.css";
+import useTitle from "./UseTitle";
+
 
 export default function NotFound() {
+    useTitle("Error 404") 
+
     return (
         <main className="auth-page">
             <nav className="auth-nav">
