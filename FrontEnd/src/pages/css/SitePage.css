@@ -8,7 +8,7 @@
     color: #fff;
     background:
         linear-gradient(105deg, rgba(7, 6, 18, 0.96), rgba(21, 17, 54, 0.8)),
-        url("/src/assets/herobg.png") center / cover;
+        url("../../assets/herobg.png") center / cover;
 }
 
 .site-page-eyebrow {
