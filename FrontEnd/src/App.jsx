@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import SitePage from "./pages/SitePage";
-import AfterLogin from "./pages/AfterLogin";
+import AfterLogin from "./pages/Feed";
 
 function App() {
     const [loading, setLoading] = useState(true);

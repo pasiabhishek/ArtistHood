@@ -35,7 +35,7 @@ export default function Signup() {
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");
-            navigate("/after-login");
+            navigate("/Login");
         } catch (err) {
             alert(err.response?.data?.message || "Signup Failed");
         } finally {

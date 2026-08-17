@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./css/AfterLogin.css";
+import "./css/Feed.css";
 
 export default function AfterLogin() {
     const storedUser = localStorage.getItem("user");
