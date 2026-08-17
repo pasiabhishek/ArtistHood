@@ -1,6 +1,6 @@
 .site-page {
     min-height: 72vh;
-    background: #f7f7fb;
+    background: #131724;
 }
 
 .site-page-hero {
@@ -8,7 +8,7 @@
     color: #fff;
     background:
         linear-gradient(105deg, rgba(7, 6, 18, 0.96), rgba(21, 17, 54, 0.8)),
-        url("../../assets/herobg.png") center / cover;
+        url("/herobg.png") center / cover;
 }
 
 .site-page-eyebrow {
@@ -61,7 +61,7 @@
     padding: 25px;
     border: 1px solid #e3e1ef;
     border-radius: 16px;
-    background: #fff;
+    background: #131724;
     box-shadow: 0 12px 30px rgba(24, 21, 53, 0.08);
 }
 
@@ -74,6 +74,7 @@
 .site-page-cards h2 {
     margin: 13px 0 8px;
     font-size: 1.08rem;
+    color: #fff;
 }
 
 .site-page-cards p {
