@@ -70,13 +70,22 @@
   align-items: center;
   font-size: 1rem;
   justify-content: flex-start;  
-  margin-bottom: 2rem;
+  margin-bottom: 5vh;
 }
 
 @media (max-width: 580px) {
     .Left_Nav{
-      width: 100vw;
+      width: 70vw;
       height: 100vh;
+      font-size: 20px;
+    }
+    .Left_Nav_Navbar{
+      justify-content: center;
+      align-items: center;
     }
 
+    .Left_Nav_Navbar ul li{
+      font-size: 20px;
+      
+    }
 }
