@@ -1,6 +1,12 @@
 import React from 'react'
 
 export default function Left_nav() {
+
+    const storedUser = localStorage.getItem("user");
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const displayName = user?.fullName || "there";
+    const email = user?.email || "";
+    
     return (
         <div>
             <div className="Left_Nav">
