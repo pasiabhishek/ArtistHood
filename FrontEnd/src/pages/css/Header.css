@@ -1,7 +1,7 @@
 .nav {
     width: 100%;
     min-height: 80px;
-    background-color: #131724;
+    background-color: var(--background);
     /* background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)); */
     display: flex;
     justify-content: space-between;
@@ -171,7 +171,7 @@
         top: 80px;
         left: -100%;
         width: 100%;
-        background: #131724;
+        background: var(--background);
         flex-direction: column;
         justify-content: center;
         align-items: center;
