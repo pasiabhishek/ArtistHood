@@ -1,6 +1,6 @@
 .site-page {
     min-height: 72vh;
-    background: #131724;
+    background: var(--background);
 }
 
 .site-page-hero {
@@ -61,7 +61,7 @@
     padding: 25px;
     border: 1px solid #e3e1ef;
     border-radius: 16px;
-    background: #131724;
+    background: var(--background);
     box-shadow: 0 12px 30px rgba(24, 21, 53, 0.08);
 }
 

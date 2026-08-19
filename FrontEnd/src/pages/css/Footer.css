@@ -1,5 +1,5 @@
 .site-footer {
-    background: #131724;
+    background: var(--background);
     color: #fff;
     font-family: "Anta", sans-serif;
 }

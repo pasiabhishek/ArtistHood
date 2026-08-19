@@ -1,5 +1,5 @@
 .featured-section {
-	background: #131724;
+	background: var(--background);
 }
 .section-heading{
 	color: #fff;
@@ -16,7 +16,7 @@
 	overflow: hidden;
 	border: 1px solid #e3e1ed;
 	border-radius: 16px;
-	background: #131724;
+	background: var(--background);
 	transition: transform .22s, box-shadow .22s;
 }
 
