@@ -69,6 +69,6 @@
   display: flex;
   align-items: center;
   font-size: 12px;
-  justify-content: center;  
+  justify-content: flex-start;  
   margin-bottom: 2rem;
 }
