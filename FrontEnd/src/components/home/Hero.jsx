@@ -20,6 +20,7 @@ export default function Hero({ tagline, para }) {
                             Join as an artist
                         </Link>
                     </div>
+                    
                     <div className="hero-trust">
                         <strong>500+</strong> verified artists <i /> <strong>10K+</strong> successful bookings
                     </div>
