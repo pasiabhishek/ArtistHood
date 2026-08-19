@@ -79,10 +79,6 @@
 
 
 
-
-
-
-
 .Right_Nav {
   background-color: var(--background);
   color: #fff;
@@ -99,6 +95,10 @@
   padding: 2rem;
 }
 @media (max-width: 800px) {
+
+        .Left_Nav{
+          transform: translateX(-150%);
+        }
         .Right_Nav{
           display: none;
         }
