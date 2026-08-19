@@ -9,13 +9,12 @@
     padding: 15px 5%;
     font-family: var(--font-logo);
     position: relative;
-    z-index: 1000;
      font-family: "Cormorant Garamond", serif;
-     position: fixed;
+     /* position: fixed;
      top: 0%;
      left: 0%;
      right: 0%;
-     z-index: 1000;
+     z-index: 1000; */
    
 }
 
