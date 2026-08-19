@@ -11,7 +11,24 @@ export default function AfterLogin() {
     useTitle("Feed")
 
     return (
+        <div className="Feed">
+            <div className="Left_Nav">
+                <div className="Left_Nav_header">
+                    <div className="logo">
+                        ARTIST<span className="">HOOD</span>
+                    </div>
+                </div>
+                <div className="Left_Nav_Navbar">
+                    <ul>
+                        <li>Home</li>
+                        <li>Artist</li>
+                        <li>Booking</li>
+                        <li>Messages</li>
+                        <li>Notification</li>
+                    </ul>
+                </div>
 
-       
+            </div>
+        </div>
     );
 }
