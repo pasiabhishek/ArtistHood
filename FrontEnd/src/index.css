@@ -6,8 +6,8 @@
 :root {
     --logo-color: rgb(49, 37, 127);
     --btn-bg: rgb(75, 58, 185);
-    /* --background: #01010f; */
-    --background: #ffffff;
+    --background: #01010f;
+    /* --background: #00000f; */
     --font-logo: "Cormorant Garamond", serif;
     --font-size: 12px;
     --logo-font-size: 20px;
