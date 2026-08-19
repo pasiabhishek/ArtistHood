@@ -25,7 +25,12 @@ export default function AfterLogin() {
                         <li>Booking</li>
                         <li>Messages</li>
                         <li>Notification</li>
+                        <li><button>+Create Post</button></li>
                     </ul>
+                </div>
+                <div className="profile">
+                    <img src="favicon.ico" alt="profile picture" />
+                    <h3>{displayName}</h3>
                 </div>
 
             </div>
