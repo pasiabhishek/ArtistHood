@@ -12,38 +12,7 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-            <div className="Left_Nav">
-                <div className="Left_Nav_header">
-                    <div className="logo">
-                        ARTIST<span className="">HOOD</span>
-                    </div>
-                </div>
-                <div className="Left_Nav_Navbar">
-                    <ul>
-                        <li>
-                            <i class="fa-regular fa-house"></i> Home
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-users"></i> Artist
-                        </li>
-                        <li>
-                            <i class="fa-regular fa-calendar-check"></i> Booking
-                            </li>
-                        <li>
-                            <i class="fa-solid fa-message"></i> Messages
-                            </li>
-                        <li>
-                            <i class="fa-regular fa-bell"></i> Notification
-                            </li>
-                        <li><button>+ Create Post</button></li>
-                    </ul>
-                </div>
-                <div className="Left_Nav_Footer">
-                    <img src="favicon.ico" alt="profile picture" />
-                    <h3>{displayName}</h3>
-                </div>
-
-            </div>
+            
         </div>
     );
 }
