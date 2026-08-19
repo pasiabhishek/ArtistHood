@@ -1,5 +1,4 @@
 .Feed {
-  background-color: red;
   width: 100VW;
   height: 100vh;
 
@@ -18,6 +17,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
+  border-right: 0.1px solid #ffffff;
 }
 .Left_Nav_header{
   width: 100%;
@@ -84,5 +84,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-left: 0.1px solid #ffffff;
   padding: 2rem;
 }
