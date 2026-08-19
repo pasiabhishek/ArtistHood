@@ -72,20 +72,3 @@
   justify-content: flex-start;  
   margin-bottom: 5vh;
 }
-
-@media (max-width: 580px) {
-    .Left_Nav{
-      width: 70vw;
-      height: 100vh;
-      font-size: 20px;
-    }
-    .Left_Nav_Navbar{
-      justify-content: center;
-      align-items: center;
-    }
-
-    .Left_Nav_Navbar ul li{
-      font-size: 20px;
-      
-    }
-}
