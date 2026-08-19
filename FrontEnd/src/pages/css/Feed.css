@@ -72,3 +72,11 @@
   justify-content: flex-start;  
   margin-bottom: 2rem;
 }
+
+@media (max-width: 580px) {
+    .Left_Nav{
+      width: 100vw;
+      height: 100vh;
+    }
+
+}
