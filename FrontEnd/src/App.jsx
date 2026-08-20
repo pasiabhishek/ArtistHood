@@ -42,7 +42,7 @@ function App() {
                     <Route path="/role" element={<SelectRole/>}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
-                    <Route Route element={auth?<AppLayout />:<Login/>}>
+                    <Route Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
                     </Route>
 
