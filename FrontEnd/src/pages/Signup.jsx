@@ -17,7 +17,6 @@ export default function Signup() {
         email: "",
         password: ""
     });
-
     // Convert the two name fields into the API's single fullName property.
     const handleSignUP = async (e) => {
         e.preventDefault();

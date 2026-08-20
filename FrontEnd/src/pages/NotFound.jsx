@@ -6,7 +6,6 @@ import useTitle from "./UseTitle";
 
 export default function NotFound() {
     useTitle("Error 404") 
-
     return (
         <main className="auth-page">
             <nav className="auth-nav">

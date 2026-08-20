@@ -36,10 +36,7 @@ export default function Login() {
             setLoading(false);
         }
     };
-
         useTitle("Login") 
-    
-
     return (
         <main className="auth-page">
             <nav className="auth-nav">
