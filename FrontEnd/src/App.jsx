@@ -38,6 +38,8 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
+
+
                     {/* Feed pages share the signed-in navigation layout. */}
                     <Route Route element={auth?<AppLayout />:<Login/>}>
                         <Route path="/feed" element={<Feed />} />
