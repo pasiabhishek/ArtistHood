@@ -77,6 +77,7 @@
 }
 .why-section {
     background: var(--background);
+    height: 70vh;
 }
 .why-heading {
     margin-bottom: 32px;

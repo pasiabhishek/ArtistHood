@@ -31,13 +31,14 @@ const stats = [
     { value: "10K+", label: "Bookings", Icon: MdCalendarMonth },
     { value: "4.9★", label: "Average rating", Icon: MdStarRate },
 ];
+
 export default function WhyAH() {
     return (
         <section className="why-section">
             <div className="home-section">
                 <div className="section-heading why-heading">
                     <p>WHY ARTISTHOOD</p>
-                    <h2>Booking made memorable.</h2>
+                    {/* <h2>Booking made memorable.</h2> */}
                 </div>
                 <div className="feature-grid">
                     {features.map(({ title, text, Icon }) => (

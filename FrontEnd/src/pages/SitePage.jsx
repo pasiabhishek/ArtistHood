@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./css/SitePage.css";
+import artistCategories from "../data/artistCategories";
+import Header from "../components/home/Header";
+import Footer from "../components/home/Footer";
 
 const pageContent = {
     artists: {
@@ -55,10 +58,12 @@ const pageContent = {
 
 export default function SitePage({ page }) {
     const content = pageContent[page] ?? pageContent.about;
+    const isCategoriesPage = page === "categories";
 
-    
+
     return (
         <main className="site-page">
+            <Header />
             <section className="site-page-hero">
                 <p className="site-page-eyebrow">{content.eyebrow}</p>
                 <h1>{content.title}</h1>
@@ -67,15 +72,16 @@ export default function SitePage({ page }) {
                     Get started
                 </Link>
             </section>
-            <section className="site-page-cards" aria-label={`${page} highlights`}>
-                {content.items.map((item, index) => (
+            <section className={isCategoriesPage ? "site-page-categories" : "site-page-cards"} aria-label={`${page} highlights`}>
+                {(isCategoriesPage ? artistCategories : content.items).map((item, index) => (
                     <article key={item}>
-                        <span>0{index + 1}</span>
+                        {!isCategoriesPage && <span>0{index + 1}</span>}
                         <h2>{item}</h2>
-                        <p>ArtistHood helps you move from idea to an unforgettable event with confidence.</p>
+                        <p>{isCategoriesPage ? "Find trusted talent for your next event." : "ArtistHood helps you move from idea to an unforgettable event with confidence."}</p>
                     </article>
                 ))}
             </section>
+            <Footer />
         </main>
     );
 }
