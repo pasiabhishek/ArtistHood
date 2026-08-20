@@ -9,7 +9,7 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-
+            <h1>hello</h1>
         </div>
     );
 }

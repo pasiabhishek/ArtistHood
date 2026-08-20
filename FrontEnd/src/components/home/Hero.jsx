@@ -17,8 +17,8 @@ export default function Hero({ tagline, para }) {
                         <Link className="hero-primary" to="/signup">
                             Explore artists
                         </Link>
-                        <Link className="hero-secondary" to="/artist-signup">
-                            Join as an artist
+                        <Link className="hero-secondary" to="/signup">
+                            Join ArtistHood
                         </Link>
                     </div>
 
