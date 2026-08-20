@@ -22,12 +22,12 @@
   text-decoration: none;
   border: 2px solid white;
   margin: 2rem;
-  transition: all ease-in-out 1s;
+  transition: all ease-in-out 0.1s;
 
 }
 
 .button:hover{
-    transform: translateY(-1px);
+    transform: translateY(-5px);
     background: #fff;
     color: var(--background);
 }
