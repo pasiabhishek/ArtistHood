@@ -1,6 +1,7 @@
 .Feed {
-  width: 50VW;
+  width: 770px;
   height: 100vh;
+  padding: 1rem 2rem;
   background-color: #111138;
   margin: auto;
 
@@ -19,7 +20,6 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
-  z-index: 10;
 
 }
 .Left_Nav_header{
