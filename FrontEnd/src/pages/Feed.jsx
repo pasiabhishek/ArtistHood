@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./css/Feed.css";
 import useTitle from "./UseTitle";
-import Left_nav from "../components/feed/Left_nav";
-import Right_nav from "../components/feed/Right_nav";
 
 export default function AfterLogin() {
     
@@ -11,8 +9,7 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-            <Left_nav/>
-            <Right_nav/>
+
         </div>
     );
 }
