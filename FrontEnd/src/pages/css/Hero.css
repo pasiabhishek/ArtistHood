@@ -1,9 +1,12 @@
 .hero {
-    min-height: min(720px, calc(100vh - 80px));
+    height: 100vh;
     color: #fff;
     background:
         linear-gradient(90deg, rgba(8, 7, 20, 0.97) 5%, rgba(9, 8, 23, 0.82) 47%, rgba(9, 8, 23, 0.2) 100%),
         url("/herobg.png") center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .hero-content {
     width: min(1180px, 100%);

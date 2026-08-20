@@ -6,6 +6,7 @@ import Loader from "./pages/Loader";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
+import ArtistSignUp from "./pages/ArtistSignUp";
 import SitePage from "./pages/SitePage";
 import Feed from "./pages/Feed";
 
@@ -28,13 +29,14 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/artist-signup" element={<ArtistSignUp />} />
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
 
                     <Route element={<AppLayout />}>
-                    <Route path="/feed" element={<Feed />} />
+                        <Route path="/feed" element={<Feed />} />
 
                     </Route>
                 </Routes>

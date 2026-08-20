@@ -115,6 +115,106 @@
 .auth-form input::placeholder {
     color: #777487;
 }
+.artist-signup-content {
+    width: min(1180px, 100%);
+    min-height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 36px 32px 72px;
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(420px, 620px);
+    align-items: start;
+    gap: clamp(48px, 8vw, 120px);
+}
+.artist-signup-page {
+    overflow-x: hidden;
+}
+.artist-signup-content .auth-intro {
+    position: sticky;
+    top: 40px;
+    margin-top: 110px;
+}
+.artist-signup-card {
+    padding: 30px;
+}
+.artist-signup-card .auth-form {
+    gap: 18px;
+}
+.artist-signup-card fieldset {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid #343245;
+    border-radius: 12px;
+}
+.artist-signup-card legend {
+    padding: 0 8px;
+    color: #a99cff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.auth-form select,
+.auth-form textarea {
+    width: 100%;
+    border: 1px solid #3a394b;
+    border-radius: 9px;
+    background: #191827;
+    color: #fff;
+    font: inherit;
+    font-weight: 400;
+    outline: none;
+}
+.auth-form select {
+    min-height: 42px;
+    padding: 10px 12px;
+}
+.auth-form textarea {
+    min-height: 110px;
+    padding: 11px 12px;
+    resize: vertical;
+}
+.auth-form select:focus,
+.auth-form textarea:focus {
+    border-color: #8575f5;
+    box-shadow: 0 0 0 3px rgba(117, 98, 237, 0.18);
+}
+.optional-label {
+    color: #777487;
+    font-size: 0.68rem;
+    font-weight: 400;
+}
+.artist-signup-success h2 {
+    margin: 14px 0 10px;
+    font-size: 1.65rem;
+}
+.artist-signup-success > p:not(.auth-eyebrow) {
+    color: #aaa8ba;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+.artist-signup-success-link {
+    display: block;
+    margin-top: 24px;
+    text-align: center;
+    text-decoration: none;
+}
+.artist-signup-reset {
+    display: block;
+    margin: 18px auto 0;
+    border: 0;
+    background: transparent;
+    color: #a99cff;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.artist-signup-card input,
+.artist-signup-card select,
+.artist-signup-card textarea {
+    min-width: 0;
+}
 .auth-password-note {
     margin-top: -9px;
     color: #888496;
@@ -237,6 +337,27 @@
     text-decoration: none;
 }
 
+@media (max-width: 980px) {
+    .artist-signup-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 42px 32px 64px;
+    }
+    .artist-signup-content .auth-intro {
+        position: static;
+        max-width: 620px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .artist-signup-content .auth-intro > p:last-child {
+        margin: 0 auto;
+    }
+    .artist-signup-card {
+        width: min(720px, 100%);
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 760px) {
     .auth-nav {
         padding: 15px 20px;
@@ -259,6 +380,12 @@
     .auth-card {
         width: min(440px, 100%);
         margin: 0 auto;
+    }
+    .artist-signup-content {
+        padding: 32px 20px 48px;
+    }
+    .artist-signup-card {
+        padding: 24px 20px;
     }
 }
 
