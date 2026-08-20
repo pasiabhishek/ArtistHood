@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home";
 import Loader from "./pages/Loader";
@@ -13,6 +13,7 @@ import Feed from "./pages/Feed";
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
     const [loading, setLoading] = useState(true);
+    const auth = localStorage.getItem('user')
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -37,15 +38,14 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
-
                     {/* Feed pages share the signed-in navigation layout. */}
-                    <Route element={<AppLayout />}>
+                    <Route Route element={auth?<AppLayout />:<Login/>}>
                         <Route path="/feed" element={<Feed />} />
-
                     </Route>
+
                 </Routes>
             </BrowserRouter>
-        </div>
+        </div >
     );
 }
 
