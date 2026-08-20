@@ -24,6 +24,7 @@ export default function CategoriesCard() {
                 <Link to="/categories">View all categories</Link>
             </div>
             <div className="category-grid">
+                {/* Keep the homepage preview short and link visitors to the full list. */}
                 {categories.map(({ name, icon: Icon }) => (
                     <Link to="/categories" className="category-card" key={name}>
                         <span>

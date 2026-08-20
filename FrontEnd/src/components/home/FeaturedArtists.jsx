@@ -17,6 +17,7 @@ export default function FeaturedArtist() {
                     <Link to="/artist">See all artists</Link>
                 </div>
                 <div className="artist-grid">
+                    {/* The home page shows a small preview; the artist page can grow later. */}
                     {artists.slice(0, 3).map((artist) => (
                         <article className="artist-card" key={artist.id}>
                             <img src={artist.image} alt={artist.name} />

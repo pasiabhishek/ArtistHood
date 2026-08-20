@@ -6,6 +6,7 @@ import Header from "../components/home/Header";
 import Footer from "../components/home/Footer";
 
 const pageContent = {
+    // Shared copy keeps simple informational routes consistent in layout and tone.
     artists: {
         eyebrow: "DISCOVER TALENT",
         title: "Find an artist for every moment.",
@@ -57,6 +58,7 @@ const pageContent = {
 };
 
 export default function SitePage({ page }) {
+    // Fall back to the About content if a link passes an unknown page key.
     const content = pageContent[page] ?? pageContent.about;
     const isCategoriesPage = page === "categories";
 
@@ -72,6 +74,7 @@ export default function SitePage({ page }) {
                     Get started
                 </Link>
             </section>
+            {/* Categories use the full shared taxonomy; other pages use three highlights. */}
             <section className={isCategoriesPage ? "site-page-categories" : "site-page-cards"} aria-label={`${page} highlights`}>
                 {(isCategoriesPage ? artistCategories : content.items).map((item, index) => (
                     <article key={item}>
