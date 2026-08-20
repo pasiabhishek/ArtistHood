@@ -1,0 +1,33 @@
+.SelectRole{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.SelectRole h2{
+    font-size: 2.5rem;
+}
+.buttonSet{
+
+}
+
+.button {
+  padding: 10px 41px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  border: 2px solid white;
+  margin: 2rem;
+  transition: all ease-in-out 1s;
+
+}
+
+.button:hover{
+    transform: translateY(-1px);
+    background: #fff;
+    color: var(--background);
+}

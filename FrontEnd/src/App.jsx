@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import ArtistSignUp from "./pages/ArtistSignUp";
 import SitePage from "./pages/SitePage";
 import Feed from "./pages/Feed";
+import SelectRole from "./pages/SelectRole";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -38,7 +39,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
-
+                    <Route path="/role" element={<SelectRole/>}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     <Route Route element={auth?<AppLayout />:<Login/>}>
