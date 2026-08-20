@@ -9,13 +9,16 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-            <div className="search">
+            <div className="feed_header">
                 <img src="favicon.ico" alt="" />
-                <form action="#">
-                    <input type="search" />
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
+                <div className="search">
+                    <form action="#">
+                        <input type="search" />
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </form>
+                </div>
             </div>
+
             <div className="Create_post">
 
             </div>

@@ -6,8 +6,11 @@
   margin: auto;
   color: #fff;
 }
+.Feed img{
+  width: 20%;
+}
 .search{
-  width: 100%;
+  width: 70%;
   height: auto;
   padding: 0.3rem 0.5rem;
   border: 1px solid #fff;
