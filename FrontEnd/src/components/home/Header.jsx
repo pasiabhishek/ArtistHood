@@ -28,7 +28,7 @@ export default function Header() {
 
                 {/* Navigation */}
                 <div id="primary-navigation" className={`navbar ${menuOpen ? "active" : ""}`}>
-                    <ul>
+                    {/* <ul>
                         <li>
                             <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                         </li>
@@ -44,7 +44,7 @@ export default function Header() {
                         <li>
                             <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
                         </li>
-                    </ul>
+                    </ul> */}
 
                     {/* Mobile Buttons */}
                     <div className="logsign mobile-btn">
