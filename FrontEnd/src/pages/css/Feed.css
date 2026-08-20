@@ -1,7 +1,8 @@
 .Feed {
-  width: 100VW;
+  width: 50VW;
   height: 100vh;
   background-color: #111138;
+  margin: auto;
 
 }
 
