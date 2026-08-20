@@ -12,15 +12,15 @@ export default function Home() {
 
     return (
         <div>
-            <Header/>
+            <Header />
             <Hero
                 tagline="India's Premium Artist Booking Platform."
                 para=" Discover and look top singers , DJs , dancers and performers for your events."
             />
+            <WhyArtistHood />
             <Categories />
             <FeaturedArtists />
-            <WhyArtistHood />
-            <Footer/>
+            <Footer />
 
         </div>
     );
