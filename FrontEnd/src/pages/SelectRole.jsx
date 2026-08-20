@@ -9,7 +9,7 @@ export default function SelectRole() {
                 <Link to='/feed'>
                     <button className='button'>Client</button>
                 </Link>
-                <Link to="/arist-signup">
+                <Link to="/artist-signup">
                     <button className='button'>Artist</button>
                 </Link>
             </div>
