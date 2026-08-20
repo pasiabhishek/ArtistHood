@@ -14,7 +14,7 @@ export default function Hero({ tagline, para }) {
                     </h1>
                     <p className="hero-para">{para}</p>
                     <div className="hero-actions">
-                        <Link className="hero-primary" to="/signup">
+                        <Link className="hero-primary" to="/login">
                             Explore artists
                         </Link>
                         <Link className="hero-secondary" to="/signup">
