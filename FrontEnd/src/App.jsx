@@ -11,6 +11,7 @@ import SitePage from "./pages/SitePage";
 import Feed from "./pages/Feed";
 
 function App() {
+    // Keep the loader visible briefly while the first screen is prepared.
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,14 +28,17 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
+                    {/* Public authentication pages do not use the dashboard shell. */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/artist-signup" element={<ArtistSignUp />} />
+                    {/* Unknown URLs are handled by the branded 404 page. */}
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
 
+                    {/* Feed pages share the signed-in navigation layout. */}
                     <Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
 

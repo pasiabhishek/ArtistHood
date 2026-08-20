@@ -18,6 +18,7 @@ export default function Signup() {
         password: ""
     });
 
+    // Convert the two name fields into the API's single fullName property.
     const handleSignUP = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -34,6 +35,7 @@ export default function Signup() {
                 payload
             );
 
+            // Save the session so the dashboard can identify the new member.
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");

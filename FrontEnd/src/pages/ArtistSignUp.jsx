@@ -5,6 +5,7 @@ import useTitle from "./UseTitle";
 import artistCategories from "../data/artistCategories";
 
 const initialForm = {
+  // Keep every field in one object so the form can be submitted as one profile.
   firstName: "",
   lastName: "",
   stageName: "",
@@ -31,6 +32,7 @@ export default function ArtistSignUp() {
   const [submitted, setSubmitted] = useState(false);
 
   const updateField = (event) => {
+    // The same handler supports text inputs, selects, textareas, and checkboxes.
     const { name, value, type, checked } = event.target;
     setFormData((current) => ({
       ...current,
@@ -40,6 +42,7 @@ export default function ArtistSignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // This is temporary client-side storage until the artist API is connected.
     localStorage.setItem("artistApplication", JSON.stringify(formData));
     setSubmitted(true);
   };
@@ -67,6 +70,7 @@ export default function ArtistSignUp() {
           </p>
         </div>
         <div className="auth-card artist-signup-card">
+          {/* Show a confirmation state after the local profile save succeeds. */}
           {submitted ? (
             <div className="artist-signup-success" role="status">
               <p className="auth-eyebrow">PROFILE SAVED</p>
@@ -95,6 +99,7 @@ export default function ArtistSignUp() {
                 <h2 id="artist-signup-heading">Create your artist profile</h2>
                 <p>Tell clients what you do and how they can book you.</p>
               </div>
+              {/* Group related fields so a long profile remains easy to scan. */}
               <fieldset>
                 <legend>Basic details</legend>
                 <div className="auth-name-row">

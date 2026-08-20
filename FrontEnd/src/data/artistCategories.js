@@ -1,3 +1,4 @@
+// This list is shared by the signup selector and the public categories page.
 const artistCategories = [
     "Playback Singer",
     "Classical / Folk Singer",

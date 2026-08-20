@@ -4,6 +4,7 @@
 @import "tailwindcss";
 
 :root {
+    /* These values keep the brand colors consistent across every component. */
     --logo-color: rgb(49, 37, 127);
     --btn-bg: rgb(75, 58, 185);
     /* --background: #01010f; */

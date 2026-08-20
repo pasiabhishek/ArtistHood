@@ -15,6 +15,7 @@ export default function Login() {
         password: ""
     });
 
+    // Submit credentials to the API, then keep the returned session details locally.
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -25,6 +26,7 @@ export default function Login() {
                 formData
             );
 
+            // The token is used by later authenticated requests.
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             navigate("/Feed");

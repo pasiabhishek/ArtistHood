@@ -21,7 +21,7 @@ export default function Left_nav() {
                             <i class="fa-regular fa-house"></i> Home
                         </li>
                         <li>
-                            <i class="fa-solid fa-users"></i> Artist
+                            <i class="fa-solid fa-users"></i> Discover
                         </li>
                         <li>
                             <i class="fa-regular fa-calendar-check"></i> Booking
