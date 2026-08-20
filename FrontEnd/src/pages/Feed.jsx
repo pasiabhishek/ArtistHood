@@ -9,7 +9,12 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-            <h1>hello</h1>
+            <div className="search">
+                <form action="#">
+                <input type="search" />
+
+                </form>
+            </div>
         </div>
     );
 }
