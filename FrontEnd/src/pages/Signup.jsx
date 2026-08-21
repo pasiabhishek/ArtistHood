@@ -45,7 +45,7 @@ export default function Signup() {
             setLoading(false);
         }
     };
-    useTitle("Sign Up") 
+    useTitle("Sign Up")
 
     return (
         <main className="auth-page">
@@ -128,10 +128,19 @@ export default function Signup() {
                                         { ...formData, password: event.target.value }
                                     )}
                                 />
+
                                 <button type="button" onClick={() => setShowPassword((value) => !value)}>
                                     {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
+                            </label>
+                             <label>
+                            Role
+                            <select name="Select_Your_Role">
+                                <option value="" disabled selected hidden>--Select Your Role--</option>
+                                <option value="artist">Artist</option>
+                                <option value="client">Client</option>
+                            </select>
                         </label>
                         <p className="auth-password-note">Use at least 8 characters.</p>
                         <label className="auth-check">
