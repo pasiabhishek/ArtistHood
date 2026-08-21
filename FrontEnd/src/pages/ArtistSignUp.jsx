@@ -6,12 +6,7 @@ import artistCategories from "../data/artistCategories";
 
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
-  firstName: "",
-  lastName: "",
   stageName: "",
-  email: "",
-  phone: "",
-  password: "",
   category: "",
   bio: "",
   city: "",
@@ -53,9 +48,9 @@ export default function ArtistSignUp() {
         <Link className="logo" to="/" aria-label="ArtistHood home">
           ARTIST<span>HOOD</span>
         </Link>
-        <p>
+        {/* <p>
           Already registered? <Link to="/login">Log in</Link>
-        </p>
+        </p> */}
       </nav>
       <section
         className="artist-signup-content"
@@ -102,28 +97,7 @@ export default function ArtistSignUp() {
               {/* Group related fields so a long profile remains easy to scan. */}
               <fieldset>
                 <legend>Basic details</legend>
-                <div className="auth-name-row">
-                  <label>
-                    First name
-                    <input
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={updateField}
-                      autoComplete="given-name"
-                      required
-                    />
-                  </label>
-                  <label>
-                    Last name
-                    <input
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={updateField}
-                      autoComplete="family-name"
-                      required
-                    />
-                  </label>
-                </div>
+                
                 <label>
                   Stage or professional name
                   <input
@@ -135,17 +109,7 @@ export default function ArtistSignUp() {
                   />
                 </label>
                 <div className="auth-name-row">
-                  <label>
-                    Email address
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={updateField}
-                      autoComplete="email"
-                      required
-                    />
-                  </label>
+{/*                  
                   <label>
                     Phone number
                     <input
@@ -156,7 +120,7 @@ export default function ArtistSignUp() {
                       autoComplete="tel"
                       required
                     />
-                  </label>
+                  </label> */}
                 </div>
               </fieldset>
               <fieldset>
@@ -295,20 +259,6 @@ export default function ArtistSignUp() {
                 </label>
               </fieldset>
               <fieldset>
-                <legend>Secure your account</legend>
-                <label>
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={updateField}
-                    minLength="8"
-                    autoComplete="new-password"
-                    required
-                  />
-                </label>
-                <p className="auth-password-note">Use at least 8 characters.</p>
                 <label className="auth-check">
                   <input
                     type="checkbox"
