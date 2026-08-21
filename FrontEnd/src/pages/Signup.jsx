@@ -40,8 +40,12 @@ export default function Signup() {
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");
-            
-            navigate("/feed");
+            if (formData.role.value == 'Artist') {
+                navigate("/artist-signup");
+            }
+            else {
+                navigate("/feed");
+            }
         } catch (err) {
             alert(err.response?.data?.message || "Signup Failed");
         } finally {
@@ -137,6 +141,8 @@ export default function Signup() {
                                 </button>
                             </div>
                         </label>
+                        <p className="auth-password-note">Use at least 8 characters.</p>
+
                         <label>
                             Role
                             <select name="Select_Your_Role"
@@ -150,7 +156,6 @@ export default function Signup() {
                                 <option value="Client">Client</option>
                             </select>
                         </label>
-                        <p className="auth-password-note">Use at least 8 characters.</p>
                         <label className="auth-check">
                             <input type="checkbox" required />
                             <span>I agree to the Terms of Service and Privacy Policy.</span>
