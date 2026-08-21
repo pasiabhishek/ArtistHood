@@ -15,7 +15,8 @@ export default function Signup() {
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        role: ""
     });
     // Convert the two name fields into the API's single fullName property.
     const handleSignUP = async (e) => {
@@ -26,7 +27,8 @@ export default function Signup() {
             const payload = {
                 fullName: `${formData.firstName} ${formData.lastName}`.trim(),
                 email: formData.email,
-                password: formData.password
+                password: formData.password,
+                role: formData.role
             };
 
             const res = await axios.post(
@@ -38,7 +40,7 @@ export default function Signup() {
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");
-            navigate("/role");
+            navigate("/feed");
         } catch (err) {
             alert(err.response?.data?.message || "Signup Failed");
         } finally {
@@ -133,10 +135,15 @@ export default function Signup() {
                                     {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
-                            </label>
-                             <label>
+                        </label>
+                        <label>
                             Role
-                            <select name="Select_Your_Role">
+                            <select name="Select_Your_Role"
+                                required
+                                value={formData.role}
+                                onChange={(event) => setFormData(
+                                    { ...formData, role: event.target.value }
+                                )}>
                                 <option value="" disabled selected hidden>--Select Your Role--</option>
                                 <option value="artist">Artist</option>
                                 <option value="client">Client</option>
