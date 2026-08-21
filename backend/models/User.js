@@ -7,12 +7,88 @@ const PortfolioSchema = new mongoose.Schema({
     description: { type: String, default: '' },
 }, { _id: false });
 
-const ArtistProfileSchema = new mongoose.Schema({
-    category: { type: String, required: true },
-    pricing: { type: Number, required: true },
-    rating: { type: Number, default: 0.0 },
-    portfolio: { type: [PortfolioSchema], default: [] },
-}, { _id: false });
+const ArtistProfileSchema = new mongoose.Schema(
+    {
+        stageName: {
+            type: String,
+            required: true,
+        },
+
+        category: {
+            type: String,
+            required: true,
+        },
+
+        bio: {
+            type: String,
+            required: true,
+            minlength: 40,
+            maxlength: 500,
+        },
+
+        experience: {
+            type: Number,
+            required: true,
+        },
+
+        city: {
+            type: String,
+            required: true,
+        },
+
+        state: {
+            type: String,
+            required: true,
+        },
+
+        availability: {
+            type: Date,
+            required: true,
+        },
+
+        pricing: {
+            type: Number,
+            required: true,
+            min: 0,
+        },
+
+        priceType: {
+            type: String,
+            enum: ["per event", "per hour", "per day"],
+            default: "per event",
+        },
+
+        rating: {
+            type: Number,
+            default: 0,
+            min: 0,
+            max: 5,
+        },
+
+        instagram: {
+            type: String,
+            default: "",
+        },
+
+        youtube: {
+            type: String,
+            default: "",
+        },
+
+        website: {
+            type: String,
+            default: "",
+        },
+
+        portfolio: {
+            type: [PortfolioSchema],
+            default: [],
+        },
+    },
+    { _id: false }
+);
+
+
 
 //user schema
 const UserSchema = new mongoose.Schema({
