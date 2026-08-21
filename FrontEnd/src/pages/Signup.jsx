@@ -145,8 +145,8 @@ export default function Signup() {
                                     { ...formData, role: event.target.value }
                                 )}>
                                 <option value="" disabled selected hidden>--Select Your Role--</option>
-                                <option value="artist">Artist</option>
-                                <option value="client">Client</option>
+                                <option value="Artist">Artist</option>
+                                <option value="Client">Client</option>
                             </select>
                         </label>
                         <p className="auth-password-note">Use at least 8 characters.</p>
