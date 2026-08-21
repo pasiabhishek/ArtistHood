@@ -40,7 +40,8 @@ export default function Signup() {
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             alert("Account Created");
-            if (formData.role.value == 'Artist') {
+            // alert(formData.role);
+            if (formData.role == 'Artist') {
                 navigate("/artist-signup");
             }
             else {
