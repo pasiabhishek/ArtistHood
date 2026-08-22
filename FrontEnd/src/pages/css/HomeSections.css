@@ -117,6 +117,8 @@
     border-radius: 18px;
     background: #1a1730;
     color: var(--background);
+    width: 100vw;
+    height:auto;
 }
 .stats-grid div {
     display: grid;
@@ -125,8 +127,7 @@
     align-items: center;
     justify-content: center;
     border-right: 1px solid rgba(255, 255, 255, 0.14);
-    width: 100vw;
-    height:auto;
+    
 }
 .stats-grid div:last-child {
     border: 0;
