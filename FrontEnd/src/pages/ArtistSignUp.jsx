@@ -91,7 +91,7 @@ export default function ArtistSignUp() {
           ) : (
             <form className="auth-form" onSubmit={handleSubmit}>
               <div className="auth-card-heading">
-                <h2 id="artist-signup-heading">Create your artist profile</h2>
+                <h2 id="artist-signup-heading">Update your artist profile</h2>
                 <p>Tell clients what you do and how they can book you.</p>
               </div>
               {/* Group related fields so a long profile remains easy to scan. */}
