@@ -259,7 +259,7 @@ export default function ArtistSignUp() {
                 </label>
               </fieldset>
               <fieldset>
-                <label className="auth-check">
+                {/* <label className="auth-check">
                   <input
                     type="checkbox"
                     name="terms"
@@ -267,11 +267,11 @@ export default function ArtistSignUp() {
                     onChange={updateField}
                     required
                   />
-                  {/* <span>
+                  <span>
                     I agree to the ArtistHood Terms of Service and Privacy
                     Policy.
-                  </span> */}
-                </label>
+                  </span> 
+                </label>*/}
               </fieldset>
               <button className="auth-submit" type="submit">
                 Create artist profile
