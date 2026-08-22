@@ -267,10 +267,10 @@ export default function ArtistSignUp() {
                     onChange={updateField}
                     required
                   />
-                  <span>
+                  {/* <span>
                     I agree to the ArtistHood Terms of Service and Privacy
                     Policy.
-                  </span>
+                  </span> */}
                 </label>
               </fieldset>
               <button className="auth-submit" type="submit">
