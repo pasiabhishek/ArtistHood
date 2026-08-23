@@ -34,24 +34,6 @@ const createArtistProfile = async (req, res) => {
             portfolio: req.body.portfolio || []
         };
 
-
-        // Create artist profile
-        user.artistProfile = {
-            stageName,
-            category,
-            bio,
-            experience,
-            city,
-            state,
-            availability,
-            pricing,
-            priceType,
-            instagram,
-            youtube,
-            website,
-            portfolio: portfolio || []
-        };
-
         await user.save();
 
         res.status(201).json({
