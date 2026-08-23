@@ -7,6 +7,9 @@ export default function AfterLogin() {
 
     useTitle("Feed")
 
+
+
+
     return (
         <div className="Feed">
             <div className="feed_header">
