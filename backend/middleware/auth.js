@@ -1,41 +1,30 @@
-const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler');
-const User = require('../models/User');
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-// Verifies the JWT sent in the Authorization header and attaches the user to req.user
-const protect = asyncHandler(async (req, res, next) => {
-    let token;
+const protect = async (req, res, next) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
 
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        try {
-            token = req.headers.authorization.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!token)
+            return res.status(401).json({ message: "No token provided" });
 
-            // Attach user (without password) to the request object
-            req.user = await User.findById(decoded.id).select('-password');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-            if (!req.user) {
-                res.status(401);
-                throw new Error('User not found, authorization denied');
-            }
+        req.user = await User.findById(decoded.id).select("-password");
 
-            next();
-        } catch (error) {
-            res.status(401);
-            throw new Error('Not authorized, token failed or expired');
-        }
-    } else {
-        res.status(401);
-        throw new Error('Not authorized, no token provided');
+        if (!req.user)
+            return res.status(401).json({ message: "User not found" });
+
+        next();
+    } catch {
+        res.status(401).json({ message: "Not authorized" });
     }
-});
+};
 
-// Restricts a route to specific roles, e.g. authorize('Admin') or authorize('Artist', 'Admin')
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            res.status(403);
-            throw new Error(`Role '${req.user.role}' is not permitted to perform this action`);
+            return res.status(403).json({ message: "Access denied" });
         }
         next();
     };
