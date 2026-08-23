@@ -35,12 +35,44 @@ export default function ArtistSignUp() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // This is temporary client-side storage until the artist API is connected.
-    localStorage.setItem("artistApplication", JSON.stringify(formData));
-    setSubmitted(true);
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login again.");
+        navigate("/login");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/artist-signup`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      console.log(response.data);
+
+      alert("Artist profile created successfully!");
+
+      navigate("/feed");
+
+    } catch (error) {
+      console.error("Artist profile error:", error);
+
+      alert(
+        error.response?.data?.message ||
+        "Failed to create artist profile"
+      );
+    }
   };
+
 
   return (
     <main className="auth-page artist-signup-page">
@@ -97,7 +129,7 @@ export default function ArtistSignUp() {
               {/* Group related fields so a long profile remains easy to scan. */}
               <fieldset>
                 <legend>Basic details</legend>
-                
+
                 <label>
                   Stage or professional name
                   <input
@@ -109,7 +141,7 @@ export default function ArtistSignUp() {
                   />
                 </label>
                 <div className="auth-name-row">
-{/*                  
+                  {/*                  
                   <label>
                     Phone number
                     <input
@@ -258,7 +290,7 @@ export default function ArtistSignUp() {
                   />
                 </label>
               </fieldset>
-             {/*   <fieldset>
+              {/*   <fieldset>
                <label className="auth-check">
                   <input
                     type="checkbox"
