@@ -5,7 +5,7 @@ const generateToken = require("../utils/generateToken");
 // Register User
 const registerUser = async (req, res) => {
     try {
-        const { fullName, email, password, role, artistProfile } = req.body;
+        const { fullName, email, password, role } = req.body;
 
         if (!fullName || !email || !password) {
             return res.status(400).json({
@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
             email,
             password,
             role: role || "Client",
-            artistProfile: role === "Artist" ? artistProfile : null
+            artistProfile: null
         });
 
         res.status(201).json({

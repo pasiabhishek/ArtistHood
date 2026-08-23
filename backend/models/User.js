@@ -46,7 +46,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             required: true,
         },
 
-        pricing: {
+        price: {
             type: Number,
             required: true,
             min: 0,
