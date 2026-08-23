@@ -25,7 +25,6 @@ export default function Login() {
                 `${API_BASE_URL}/api/auth/login`,
                 formData
             );
-
             // The token is used by later authenticated requests.
             localStorage.setItem("token", res.data.user.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
