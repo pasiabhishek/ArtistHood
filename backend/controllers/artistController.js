@@ -11,7 +11,6 @@ const createArtistProfile = async (req, res) => {
             });
         }
 
-        // Only artists can create artist profiles
         if (user.role !== "Artist") {
             return res.status(403).json({
                 message: "Only artists can create an artist profile"
@@ -36,7 +35,7 @@ const createArtistProfile = async (req, res) => {
         };
 
 
-        // Create embedded artist profile
+        // Create artist profile
         user.artistProfile = {
             stageName,
             category,
@@ -57,11 +56,13 @@ const createArtistProfile = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: "Artist created ",
+            message: "Artist profile created successfully",
             artistProfile: user.artistProfile
         });
 
     } catch (error) {
+        console.error("Create artist profile error:", error);
+
         res.status(500).json({
             message: error.message
         });
