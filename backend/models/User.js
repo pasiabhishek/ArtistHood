@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 
-const PortfolioSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    url: { type: String, required: true },
-    description: { type: String, default: '' },
-}, { _id: false });
 
 const ArtistProfileSchema = new mongoose.Schema(
     {
@@ -79,11 +74,6 @@ const ArtistProfileSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
-
-        portfolio: {
-            type: [PortfolioSchema],
-            default: [],
-        },
     },
     { _id: false }
 );
@@ -116,3 +106,35 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 module.exports = mongoose.model('User', UserSchema, 'user');
+
+/*
+// User Schema Structure
+User
+│
+├── fullName
+├── email
+├── password
+├── role
+│
+└── artistProfile
+    ├── stageName
+    ├── category
+    ├── bio
+    ├── experience
+    ├── city
+    ├── state
+    ├── availability
+    ├── price
+    └── social links
+
+
+//post Schema Structure
+Post
+│
+├── artist → User
+├── caption
+├── media[]
+├── isPortfolio
+├── likes[]
+└── timestamps
+*/
