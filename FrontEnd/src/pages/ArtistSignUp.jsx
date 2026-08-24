@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/Auth.css";
+import axios from "axios";
 import useTitle from "./UseTitle";
 import artistCategories from "../data/artistCategories";
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com";
 
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
@@ -23,6 +27,8 @@ const initialForm = {
 
 export default function ArtistSignUp() {
   useTitle("Artist Sign Up");
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
 
