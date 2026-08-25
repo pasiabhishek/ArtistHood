@@ -9,6 +9,13 @@
     --btn-bg: rgb(75, 58, 185);
     /* --background: #01010f; */
     --background: #010118;
+    --feed-background: #0b0b24;
+    --card-background: #111138;
+    --border: #4a4872;
+    --border-dark: #22223f;
+    --text-muted: #b4b2ca;
+    --purple: #7465df;
+    --purple-hover: #897cf0;
     --font-logo: "Cormorant Garamond", serif;
     --font-size: 12px;
     --logo-font-size: 20px;
