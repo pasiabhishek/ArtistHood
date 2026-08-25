@@ -359,12 +359,10 @@ body {
 textarea {
   width: 100%;
   min-height: 80px;
-
   padding: 0.75rem;
-
   border: 0;
   outline: 0;
-
+  font-size: 12px;
   resize: vertical;
 
   background: transparent;
@@ -375,6 +373,7 @@ textarea {
 
 textarea::placeholder {
   color: #9a97b5;
+  font-size: 12px;
 }
 
 /* Second row */
