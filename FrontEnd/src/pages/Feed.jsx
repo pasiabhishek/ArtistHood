@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./css/Feed.css";
 import useTitle from "./UseTitle";
 
@@ -9,13 +8,11 @@ export default function AfterLogin() {
 
     return (
         <div className="Feed">
-            <div className="feed_header">
-                <div className="search">
-                    <form action="#">
-                        <input type="search" />
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </form>
-                </div>
+            <div className="search">
+                <form action="#">
+                    <i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="search" placeholder="Search artists, posts, or events" aria-label="Search artists, posts, or events" />
+                </form>
             </div>
 
             <div className="Create_post">
