@@ -21,6 +21,9 @@ export default function AfterLogin() {
                     <textarea placeholder="Share something with the community..." />
 
                 </div>
+                <div className="sec_row">
+                    <button>Post</button>
+                </div>
 
 
             </div>
