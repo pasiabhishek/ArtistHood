@@ -10,7 +10,6 @@ export default function AfterLogin() {
     return (
         <div className="Feed">
             <div className="feed_header">
-                <img src="favicon.ico" alt="" />
                 <div className="search">
                     <form action="#">
                         <input type="search" />
