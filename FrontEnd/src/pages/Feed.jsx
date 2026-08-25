@@ -22,6 +22,11 @@ export default function AfterLogin() {
 
                 </div>
                 <div className="sec_row">
+                    <div className="post_icon">
+                        <i class="fa-regular fa-image"></i>
+                        <i class="fa-solid fa-video"></i>
+
+                    </div>
                     <button>Post</button>
                 </div>
 

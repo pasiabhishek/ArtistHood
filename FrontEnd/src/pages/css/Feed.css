@@ -251,18 +251,29 @@
   justify-content: space-around;
 
 }
-textarea{
+
+textarea {
   width: 100%;
 }
-.sec_row{
+
+.sec_row {
   width: 100%;
   justify-content: space-between;
   padding: 10px;
+  flex-direction: row;
+  display: flex;
 }
-.sec_row button{
-  
-  width: 100%;
-  min-height: 42px;
+
+.sec_row .post_icon {
+  display: flex;
+  align-items: center;
+  width: 30%;
+}
+
+.sec_row button {
+
+  width: 100px;
+  min-height: 37px;
   padding: 0 1rem;
   border: 0;
   border-radius: 7px;
