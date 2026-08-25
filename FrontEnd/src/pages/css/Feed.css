@@ -76,6 +76,10 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
+  z-index: 10;
+  border-right: 1px solid #22223f;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.12);
+  transition: transform 180ms ease;
 
 }
 
@@ -83,55 +87,111 @@
   width: 100%;
   display: flex;
   align-items: center;
-
 }
 
 .Left_Nav_Navbar {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  justify-content: space-around;
+  flex: 1;
+  justify-content: center;
+}
 
+.Left_Nav_Navbar ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .Left_Nav_Navbar ul li {
-  padding: 0.5rem;
-  margin: 1.5vh auto;
-  text-decoration: none;
-  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 44px;
+  margin: 0.35rem 0;
+  padding: 0 0.85rem;
+  border-radius: 7px;
+  color: #b4b2ca;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.Left_Nav_Navbar ul li i {
+  width: 1.2rem;
+  color: #918da9;
+  text-align: center;
+  transition: color 180ms ease;
+}
+
+.Left_Nav_Navbar ul li:hover,
+.Left_Nav_Navbar ul li:focus-within {
+  background-color: #171737;
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.Left_Nav_Navbar ul li:hover i,
+.Left_Nav_Navbar ul li:focus-within i {
+  color: #aaa1ff;
 }
 
 .Left_Nav_Navbar ul li button {
-  padding: 7px 21px;
-  border-radius: 8px;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 7px;
+  background-color: #7465df;
   color: #fff;
-  font-weight: 800;
-  text-decoration: none;
-  border: 2px solid white;
-
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
 }
 
-.Left_Nav_Navbar ul li:hover {
+.Left_Nav_Navbar ul li:last-child {
+  margin-top: 1.25rem;
+  padding: 0;
+  background: transparent;
+}
+
+.Left_Nav_Navbar ul li button:hover,
+.Left_Nav_Navbar ul li button:focus-visible {
+  background-color: #897cf0;
+  outline: none;
   transform: translateY(-2px);
 }
 
 .Left_Nav_Footer img {
   width: 2rem;
   height: 2rem;
-  margin: 0 0.5rem;
+  flex: 0 0 auto;
+  margin-right: 0.7rem;
   border: 1px solid #ffffff;
   border-radius: 50%;
-
+  object-fit: cover;
 }
 
 .Left_Nav_Footer {
   width: 100%;
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  justify-content: flex-start;
-  margin-bottom: 5vh;
+  min-width: 0;
+  padding-top: 1rem;
+  border-top: 1px solid #272741;
+  color: #fff;
+}
+
+.Left_Nav_Footer h3 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
