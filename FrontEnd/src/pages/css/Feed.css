@@ -223,10 +223,23 @@
 }
 
 
-.Create_post{
-
+.Create_post {
+  width: min(100%, 520px);
+  margin: 0 auto 2rem;
+  padding: 0.5rem;
+  border: 1px solid #4a4872;
+  border-radius: 10px;
+  background-color: #111138;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
-.Create_post img{
+
+.first_row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.Create_post img {
   width: 3rem;
   height: 3rem;
   flex: 0 0 auto;
@@ -235,4 +248,7 @@
   border-radius: 50%;
   object-fit: cover;
 
+}
+textarea{
+  width: 100%;
 }

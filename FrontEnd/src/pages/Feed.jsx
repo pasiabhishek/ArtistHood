@@ -16,8 +16,11 @@ export default function AfterLogin() {
             </div>
 
             <div className="Create_post">
-                <img src="favicon.ico" alt="profile picture" />
-                <textarea placeholder="Share something with the community..." />
+                <div className="first_row">
+                    <img src="favicon.ico" alt="profile picture" />
+                    <textarea placeholder="Share something with the community..." />
+
+                </div>
 
 
             </div>
