@@ -36,8 +36,6 @@
   background: transparent;
   color: #fff;
   font: inherit;
-  appearance: none;
-  -webkit-appearance: none;
 }
 
 .search input::-webkit-search-cancel-button {
