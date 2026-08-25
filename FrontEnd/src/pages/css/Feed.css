@@ -12,7 +12,7 @@
   justify-content: space-around;
 }
 .search{
-  width: auto;
+  width: 100%;
   height: auto;
   padding: 0.1rem 0.1rem;
   border: 1px solid #fff;
@@ -24,14 +24,13 @@
 
 }
 .search input{
-  width: 90%;
+  width: auto;
   height: auto;
   padding: 0.3rem 1rem;
   margin: 2px;
 }
 .search i{
-  width: ;
-  height: auto;
+  height: 10%;
   border-radius: 0px 30px 30px 0px;
   margin: auto;
   font-size: 17px;
