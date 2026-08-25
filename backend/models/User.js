@@ -46,7 +46,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             required: true,
         },
 
-        pricing: {
+        price: {
             type: Number,
             required: true,
             min: 0,
@@ -116,3 +116,35 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 module.exports = mongoose.model('User', UserSchema, 'user');
+
+/*
+// User Schema Structure
+User
+│
+├── fullName
+├── email
+├── password
+├── role
+│
+└── artistProfile
+    ├── stageName
+    ├── category
+    ├── bio
+    ├── experience
+    ├── city
+    ├── state
+    ├── availability
+    ├── price
+    └── social links
+
+
+//post Schema Structure
+Post
+│
+├── artist → User
+├── caption
+├── media[]
+├── isPortfolio
+├── likes[]
+└── timestamps
+*/

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/Auth.css";
+import axios from "axios";
 import useTitle from "./UseTitle";
 import artistCategories from "../data/artistCategories";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com";
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
   stageName: "",
@@ -23,6 +26,7 @@ const initialForm = {
 
 export default function ArtistSignUp() {
   useTitle("Artist Sign Up");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,13 +39,43 @@ export default function ArtistSignUp() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // This is temporary client-side storage until the artist API is connected.
-    localStorage.setItem("artistApplication", JSON.stringify(formData));
-    setSubmitted(true);
-  };
 
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login again.");
+        navigate("/login");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/artist-signup`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      console.log(response.data);
+
+      alert("Artist profile created successfully!");
+
+      navigate("/feed");
+
+    } catch (error) {
+      console.error("Artist profile error:", error);
+
+      alert(
+        error.response?.data?.message ||
+        "Failed to create artist profile"
+      );
+    }
+  };
   return (
     <main className="auth-page artist-signup-page">
       <nav className="auth-nav">
@@ -97,7 +131,6 @@ export default function ArtistSignUp() {
               {/* Group related fields so a long profile remains easy to scan. */}
               <fieldset>
                 <legend>Basic details</legend>
-                
                 <label>
                   Stage or professional name
                   <input
@@ -109,7 +142,7 @@ export default function ArtistSignUp() {
                   />
                 </label>
                 <div className="auth-name-row">
-{/*                  
+                  {/*
                   <label>
                     Phone number
                     <input

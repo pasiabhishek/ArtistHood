@@ -6,7 +6,6 @@ export default function Left_nav() {
     const user = storedUser ? JSON.parse(storedUser) : null;
     const displayName = user?.fullName || "there";
     const email = user?.email || "";
-    
     return (
         <div>
             <div className="Left_Nav">
@@ -18,24 +17,23 @@ export default function Left_nav() {
                 <div className="Left_Nav_Navbar">
                     <ul>
                         <li>
-                            <i class="fa-regular fa-house"></i> Home
+                            <i className="fa-regular fa-house"></i> Home
                         </li>
                         <li>
-                            <i class="fa-solid fa-users"></i> Discover
+                            <i className="fa-solid fa-users"></i> Discover
                         </li>
                         <li>
-                            <i class="fa-regular fa-calendar-check"></i> Booking
+                            <i className="fa-regular fa-calendar-check"></i> Booking
                         </li>
                         <li>
-                            <i class="fa-solid fa-message"></i> Messages
+                            <i className="fa-solid fa-message"></i> Messages
                         </li>
                         <li>
-                            <i class="fa-regular fa-bell"></i> Notification
+                            <i className="fa-regular fa-bell"></i> Notification
                         </li>
                         <li><button>+ Create Post</button></li>
                     </ul>
                 </div>
-                
                 <div className="Left_Nav_Footer">
                     <img src="favicon.ico" alt="profile picture" />
                     <h3>{displayName}</h3>

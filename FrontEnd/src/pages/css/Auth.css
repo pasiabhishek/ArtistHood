@@ -1,5 +1,5 @@
 .auth-page {
-    min-height: 100vh;
+    height: 100vh;
     color: #fff;
     background:
         linear-gradient(105deg, rgba(7, 6, 18, 0.97) 0%, rgba(9, 8, 23, 0.91) 48%, rgba(9, 8, 23, 0.48) 100%),
@@ -127,6 +127,7 @@
 }
 .artist-signup-page {
     overflow-x: hidden;
+    width:100vw;
 }
 .artist-signup-content .auth-intro {
     position: sticky;

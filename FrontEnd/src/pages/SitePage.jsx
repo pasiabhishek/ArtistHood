@@ -4,7 +4,6 @@ import "./css/SitePage.css";
 import artistCategories from "../data/artistCategories";
 import Header from "../components/home/Header";
 import Footer from "../components/home/Footer";
-
 const pageContent = {
     // Shared copy keeps simple informational routes consistent in layout and tone.
     artists: {

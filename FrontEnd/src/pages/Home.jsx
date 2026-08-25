@@ -10,7 +10,6 @@ import Header from "../components/home/Header";
 export default function Home() {
     // Home is assembled from small sections so each area can be maintained independently.
     useTitle("Home")
-
     return (
         <div>
             <Header />

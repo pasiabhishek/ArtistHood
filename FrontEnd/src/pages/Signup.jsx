@@ -152,7 +152,7 @@ export default function Signup() {
                                 onChange={(event) => setFormData(
                                     { ...formData, role: event.target.value }
                                 )}>
-                                <option value="" disabled selected hidden>--Select Your Role--</option>
+<option value="" disabled hidden>--Select Your Role--</option>
                                 <option value="Artist">Artist</option>
                                 <option value="Client">Client</option>
                             </select>
