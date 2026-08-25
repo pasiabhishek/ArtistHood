@@ -35,7 +35,7 @@ export default function Left_nav() {
                     </ul>
                 </div>
                 <div className="Left_Nav_Footer">
-                    <img src="favicon.ico" alt="profile picture" />
+                    <img src="favicon2.png" alt="profile picture" />
                     <h3>{displayName}</h3>
                 </div>
 

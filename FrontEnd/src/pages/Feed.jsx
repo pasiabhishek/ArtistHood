@@ -17,7 +17,7 @@ export default function AfterLogin() {
 
             <div className="Create_post">
                 <div className="first_row">
-                    <img src="favicon.ico" alt="profile picture" />
+                    <img src="favicon2.png" alt="profile picture" />
                     <textarea placeholder="Share something with the community..." />
                 </div>
                 <div className="sec_row">
@@ -31,7 +31,7 @@ export default function AfterLogin() {
             <div className="posts">
                 <div className="post-card">
                     <div className="first_row">
-                        <img src="favicon.ico" alt="profile picture" />
+                        <img src="favicon2.png" alt="profile picture" />
                         <div className="post-heading">
                             <h3 id="post-heading-h3">MASTER AAZAM</h3>
                             <h5 id="post-heading-h5">Writer</h5>

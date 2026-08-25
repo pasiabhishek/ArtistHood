@@ -461,6 +461,10 @@ textarea::placeholder {
   font-size: 10px;
   color: var(--text-muted);
 }
+.sec_row p{
+  font-size: 12px;
+  text-align: justify;
+}
 
 @media (max-width: 1100px) {
   .Right_Nav {
