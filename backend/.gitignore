@@ -4,9 +4,8 @@ node_modules/
 # Environment secrets
 .env
 .env.local
-.env
 
-env
+
 
 # Logs
 npm-debug.log*

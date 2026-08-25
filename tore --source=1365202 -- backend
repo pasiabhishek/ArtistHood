@@ -1,0 +1,24 @@
+[33mdac6c07[m index on server: b990077 login updated and signUp  done
+[33mcfc9ef3[m Update .gitignore
+[33m54f7ada[m Merge branch 'main' of https://github.com/pasiabhishek/ArtistHood
+[33m1365202[m create seperate post schema
+[33m954574a[m remove portfolio from user model
+[33me65a0b9[m add upload method using multer
+[33m486acba[m add uplaod.js
+[33m81f2d8e[m fix artist signup
+[33mf6a9712[m update routes
+[33mbecbc82[m add artist-profile routes
+[33m1609ca0[m update artist controller
+[33m49fe683[m add artist signup
+[33m5323aaa[m create artistController
+[33mf6fef31[m fix authController and user model
+[33m2d5abd4[m update auth middleware
+[33mc3d5344[m update gitignore
+[33m8805065[m add cloudinary keys
+[33ma406257[m add cloudinary keys
+[33mf304ded[m add cloudinary.js
+[33m8b40a88[m add cloudinary.js
+[33m3c8c66a[m add initilize cloudinary
+[33m8643cd6[m add initilize cloudinary
+[33m0ba3d56[m update asrtist profile schema
+[33mb6fb812[m update asrtist profile schema

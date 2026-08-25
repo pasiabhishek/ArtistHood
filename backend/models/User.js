@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 
-const PortfolioSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    url: { type: String, required: true },
-    description: { type: String, default: '' },
-}, { _id: false });
 
 const ArtistProfileSchema = new mongoose.Schema(
     {
@@ -78,11 +73,6 @@ const ArtistProfileSchema = new mongoose.Schema(
         website: {
             type: String,
             default: "",
-        },
-
-        portfolio: {
-            type: [PortfolioSchema],
-            default: [],
         },
     },
     { _id: false }
