@@ -1,9 +1,50 @@
 const mongoose = require("mongoose");
 
-const PortfolioSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    url: { type: String, required: true },
-    description: { type: String, default: '' },
-}, { _id: true, timestamps: true });
+const PostSchema = new mongoose.Schema(
+    {
+        artist: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
+        },
 
-module.exports = PortfolioSchema;
+        caption: {
+            type: String,
+            default: ""
+        },
+
+        media: {
+            type: String,
+            required: true
+        },
+
+        mediaType: {
+            type: String,
+            enum: ["image", "video", "audio"],
+            required: true
+        },
+
+        likes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ]
+    },
+    { timestamps: true }
+);
+
+module.exports = mongoose.model("Post", PostSchema);
+
+
+/*
+POST COLLECTION
+Post
+├── _id
+├── artist → User._id
+├── caption
+├── media
+├── mediaType
+├── likes[]
+└── timestamps
+*/
