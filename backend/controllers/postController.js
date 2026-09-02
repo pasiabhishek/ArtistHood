@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const cloudinary = require('../config/cloudinary');
+const path = require('path');
 
 const createPost = async (req, res) => {
     try {
@@ -12,14 +13,18 @@ const createPost = async (req, res) => {
                 message: "Media file is required",
             });
         }
+        //mimetype check
+        console.log("Received file:", req.file.originalname, "with mimetype:", req.file.mimetype);
 
         let mediaType;
+        // file extension
+        const extension = path.extname(req.file.originalname).toLowerCase();
 
-        if (req.file.mimetype.startsWith("image/")) {
+        if ([".jpg", ".jpeg", ".png", ".gif", ".webp"].includes(extension)) {
             mediaType = "image";
-        } else if (req.file.mimetype.startsWith("video/")) {
+        } else if ([".mp4", ".mov", ".avi", ".mkv", ".webm"].includes(extension)) {
             mediaType = "video";
-        } else if (req.file.mimetype.startsWith("audio/")) {
+        } else if ([".mp3", ".wav", ".aac", ".m4a", ".ogg"].includes(extension)) {
             mediaType = "audio";
         } else {
             return res.status(400).json({
@@ -27,6 +32,7 @@ const createPost = async (req, res) => {
                 message: "Only image, video and audio files are allowed",
             });
         }
+
         const result = await new Promise((resolve, reject) => {
             cloudinary.uploader.upload_stream(
                 {
