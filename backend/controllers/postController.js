@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const cloudinary = require('../config/cloudinary');
 
 const createPost = async (req, res) => {
     try {
@@ -26,11 +27,23 @@ const createPost = async (req, res) => {
                 message: "Only image, video and audio files are allowed",
             });
         }
+        const result = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                {
+                    folder: "artistHood/Posts",
+                    resource_type: "auto",
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            ).end(req.file.buffer);
+        });
 
         const post = await Post.create({
             artist,
             caption,
-            media: req.file.path,
+            media: result.secure_url,
             mediaType,
         });
 
