@@ -1,7 +1,8 @@
 import React from "react";
 import "./css/Feed.css";
+import CreatePost from "./CreatePost";
 import useTitle from "./UseTitle";
-
+import { Link } from "react-router-dom";
 export default function AfterLogin() {
 
     useTitle("Feed")
@@ -14,6 +15,7 @@ export default function AfterLogin() {
                     <input type="search" placeholder="Search artists, posts, or events" aria-label="Search artists, posts, or events" />
                 </form>
             </div>
+                        <Link to="/create-post">
 
             <div className="Create_post">
                 <div className="first_row">
@@ -28,6 +30,8 @@ export default function AfterLogin() {
                     <button>Post</button>
                 </div>
             </div>
+
+            </Link>
             <div className="posts">
                 <div className="post-card">
                     <div className="first_row">
@@ -45,6 +49,8 @@ export default function AfterLogin() {
                 </div>
                
             </div>
+                                    {/* <CreatePost /> */}
+
 
         </div>
     );

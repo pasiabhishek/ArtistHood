@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 export default function Left_nav() {
 
@@ -31,7 +32,14 @@ export default function Left_nav() {
                         <li>
                             <i className="fa-regular fa-bell"></i> Notification
                         </li>
-                        <li><button>+ Create Post</button></li>
+                        <Link to="/create-post">
+                            <li>
+                                <button>
+                                    + Create Post
+                                </button>
+                            </li>
+                        </Link>
+
                     </ul>
                 </div>
                 <div className="Left_Nav_Footer">

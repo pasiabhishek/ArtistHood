@@ -10,6 +10,7 @@ import ArtistSignUp from "./pages/ArtistSignUp";
 import SitePage from "./pages/SitePage";
 import Feed from "./pages/Feed";
 import SelectRole from "./pages/SelectRole";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -28,6 +29,7 @@ function App() {
 
     return (
         <div>
+
             <BrowserRouter>
                 <Routes>
                     {/* Public authentication pages do not use the dashboard shell. */}
@@ -44,6 +46,7 @@ function App() {
                     {/* Feed pages share the signed-in navigation layout. */}
                     <Route Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
+                        <Route path="/create-post" element={<CreatePost />} />
                     </Route>
 
                 </Routes>
