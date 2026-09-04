@@ -30,8 +30,14 @@ label {
 
 .content input,
 .content textarea,
-.content select,
-.content option {
+.content select{
+    padding: 10px;
+    width: 100%;
+    border: 1px solid var(--purple);
+    margin: 10px auto;
+    font-size: 12px;
+}
+.mediaType option {
     padding: 10px;
     width: 100%;
     border: 1px solid var(--purple);
