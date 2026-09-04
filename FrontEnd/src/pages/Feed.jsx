@@ -8,6 +8,7 @@ export default function AfterLogin() {
     useTitle("Feed")
 
     return (
+        
         <div className="Feed">
             <div className="search">
                 <form action="#">
