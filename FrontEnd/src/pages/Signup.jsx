@@ -5,7 +5,7 @@ import axios from "axios";
 import useTitle from "./UseTitle";
 
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "mongodb://localhost:27017" || "https://artisthood-1.onrender.com/";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com/";
 
 export default function Signup() {
     const navigate = useNavigate();

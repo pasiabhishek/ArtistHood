@@ -4,7 +4,7 @@ import axios from "axios";
 import "./css/Auth.css";
 import useTitle from "./UseTitle";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com/";
 
 export default function Login() {
     const navigate = useNavigate();
