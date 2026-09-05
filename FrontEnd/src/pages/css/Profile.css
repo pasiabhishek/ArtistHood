@@ -1,54 +1,109 @@
 .profile {
     width: 100vw;
     height: 100vw;
-    background-color: red;
+    overflow-x: hidden;
+    /* background-color: red; */
 }
 
 .profile-banner {
     width: 100vw;
-    height: 200px;
-    background: forestgreen; 
-    border-bottom: 2px solid var(--purple);
-
+    height: 25vh;
+    background: forestgreen;
+    border-bottom: 4px solid var(--purple);
+    background: linear-gradient(rgba(0, 0, 0, 0.45)), url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg") no-repeat center center;
+    background-size: cover
 }
 
 .profile-container {
     width: 700px;
-    height: 100vh;
+    height: 100%;
     background-color: blueviolet;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--purple);
+    border-right: 2px solid var(--purple);
 }
 
 .profile-container-header {
-    height: 20px;
+    height: 200px;
     width: 100%;
-    background-color: yellow;
+    background-color: var(--background);
     display: flex;
+    justify-content: space-around;
 }
 
 .profile-container-header-left {
     width: 200px;
-    height: 250px;
-    background-color: aquamarine;
+    height: 200px;
+    /* background-color: aquamarine; */
 }
 
 .profile-container-header-left>img {
     width: 150px;
     height: 150px;
-    border: 2px solid var(--purple);
+    border: 4px solid var(--purple);
     border-radius: 50%;
     transform: translateY(-75px);
     margin: auto;
 
 }
+
 .profile-container-header-right {
     width: 500px;
-    height: 250px;
-    background-color: chocolate;
+    height: 200px;
+    padding:15px 5px;
+    color: var(--text-color);
+    /* background-color: chocolate; */
 }
 
-.profile-container-header2 {
+.profile-container-header-right-name {
+    font-size: 25px;
+    text-transform: capitalize;
+    margin: 13px auto;
+    font-weight: bolder;
+
+}
+
+.profile-container-header-right-username {
+    font-size: 12px;
+    text-transform: lowercase;
+    margin: 17px auto;
+    font-weight: lighter;
+
+}
+
+.profile-container-header-right-profession {
+    font-size: 15px;
+    text-transform: capitalize;
+    margin: 5px auto;
+    font-weight: bold;
+    
+
+}
+
+.profile-container-header-right-bio {
+    font-size: 10px;
+    text-transform: auto;
+    font-weight: 100;
+
+}
+
+@media (max-width: 500px) {
+    .profile-container-header-left {
+        width: 150px;
+    }
+
+    .profile-container-header-left>img {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+.profile-container-header {
     height: 200px;
     width: 100%;
-    background-color: rgb(2, 11, 27);
+    /* background-color: yellow; */
+    display: flex;
+    justify-content: space-around;
 }
