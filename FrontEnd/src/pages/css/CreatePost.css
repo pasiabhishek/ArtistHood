@@ -34,7 +34,6 @@ label {
     padding: 10px;
     width: 100%;
     border: 1px solid var(--purple);
-    margin: auto;
     font-size: 12px;
 }
 .mediaType option {
