@@ -21,8 +21,8 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    border-left: 2px solid var(--purple);
-    border-right: 2px solid var(--purple);
+    border-left: 1px solid var(--purple);
+    border-right: 1px solid var(--purple);
 }
 
 .profile-container-header {
@@ -31,7 +31,7 @@
     background-color: var(--background);
     display: flex;
     justify-content: space-around;
-    border-bottom: 4px solid var(--purple);
+    border-bottom: 1px solid var(--purple);
 }
 
 .profile-container-header-left {
@@ -43,7 +43,7 @@
 .profile-container-header-left>img {
     width: 150px;
     height: 150px;
-    border: 1px solid var(--purple);
+    border: 4px solid var(--purple);
     border-radius: 50%;
     transform: translateY(-75px);
     margin: auto;
@@ -51,7 +51,7 @@
 }
 
 .profile-container-header-right {
-    width: 500px;
+    width: 470px;
     height: 200px;
     padding:15px 5px;
     color: var(--text-color);
