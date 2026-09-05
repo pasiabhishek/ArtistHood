@@ -6,7 +6,7 @@
 
 .profile-banner {
     width: 100vw;
-    height: 15vh;
+    height: 250px;
     background: forestgreen;
     border-bottom: 2px solid var(--purple);
 
