@@ -17,7 +17,7 @@
 .profile-container {
     width: 700px;
     height: 100%;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -31,6 +31,7 @@
     background-color: var(--background);
     display: flex;
     justify-content: space-around;
+    border-bottom: 4px solid var(--purple);
 }
 
 .profile-container-header-left {
@@ -42,7 +43,7 @@
 .profile-container-header-left>img {
     width: 150px;
     height: 150px;
-    border: 4px solid var(--purple);
+    border: 1px solid var(--purple);
     border-radius: 50%;
     transform: translateY(-75px);
     margin: auto;
