@@ -1,55 +1,81 @@
-import React from 'react'
-import './css/CreatePost.css'
+import { useState } from "react";
+import React from "react";
+import "./css/CreatePost.css";
+
 export default function CreatePost() {
-    
-    let user = JSON.parse(localStorage.getItem("user"));
-    let userId = user ? user.id : null;
-    
-    const [postData, setPostData] = React.useState({
-        userId: userId,
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const [postData, setPostData] = useState({
+        userId: user?.id || null,
         media: null,
         caption: "",
-        mediaType: "image"
+        mediaType: "image",
     });
 
-    const postHandler = (e) => {
+    const postHandler = async (e) => {
         e.preventDefault();
-        // Handle post submission logic here
-        alert(JSON.stringify(postData));
-    }
+
+        const formData = new FormData();
+        formData.append("userId", postData.userId);
+        formData.append("media", postData.media);
+        formData.append("caption", postData.caption);
+        formData.append("mediaType", postData.mediaType);
+
+        try {
+            const res = await fetch("http://localhost:5000/create", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error("Failed to create post");
+
+            alert("Post created successfully!");
+        } catch (error) {
+            console.error(error);
+            alert("Failed to create post");
+        }
+    };
+
     return (
-        <div className='CreatePost'>
+        <div className="CreatePost">
             <div className="header">
                 <h1>Create Post</h1>
             </div>
+
             <div className="content">
                 <form className="create-post-form" onSubmit={postHandler}>
                     <div className="form-group">
-                        <label htmlFor="media">Media</label>
-                        <input type="file" id="media" name="media" accept="image/*,video/*,audio/*" 
-                        onChange={(e) => setPostData({ ...postData, media: e.target.files[0] })}
-                        required/>
+                        <label>Media</label>
+                        <input
+                            type="file"
+                            accept="image/*,video/*,audio/*"
+                            onChange={(e) =>
+                                setPostData({
+                                    ...postData,
+                                    media: e.target.files[0],
+                                })
+                            }
+                            required
+                        />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="caption">Caption</label>
-                        <textarea id="caption" name="caption" 
-                        onChange={(e) => setPostData({ ...postData, caption: e.target.value })}
-                            required />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="mediaType">Media Type</label>
-                        <select id="mediaType" name="mediaType" 
-                        onChange={(e) => setPostData({ ...postData, mediaType: e.target.value })}
-                        required>
-                            <option value="image">Image</option>
-                            <option value="video">Video</option>
-                            <option value="audio">Audio</option>
-                        </select>
-                    </div>
-                    <button type="submit" onClick={postHandler}>Post</button>
-                </form>
-            </div >
-        </div >
-    )
-}
 
+                    <div className="form-group">
+                        <label>Caption</label>
+                        <textarea
+                            value={postData.caption}
+                            onChange={(e) =>
+                                setPostData({
+                                    ...postData,
+                                    caption: e.target.value,
+                                })
+                            }
+                            required
+                        />
+                    </div>
+
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
+    );
+}
