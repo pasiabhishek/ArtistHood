@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "user": {
+      "id": 101,
+      "fullName": "MASTER AAZAM",
+      "role": "Writer",
+      "profileImage": "https://i.pravatar.cc/150?img=12"
+    },
+    "content": "Grateful to perform live at Aarambha Collective Studio. Every stage is an opportunity to connect through poetry, storytelling, and creativity. Thank you to everyone who made this experience memorable. Looking forward to many more performances. 🎙️✨",
+    "media": {
+      "type": "image",
+      "url": "https://media.licdn.com/dms/image/v2/D4D22AQG9KvIQjn37Xw/feedshare-shrink_480/B4DZ9jbcQmJwAo-/0/1784079566522?e=1788998400&v=beta&t=2mP5yYWanSKojiCwgCXQnubSKLRXX28H19RmFC8sYEI"
+    },
+    "createdAt": "2026-09-05T10:30:00Z",
+    "likes": 128,
+    "comments": 24,
+    "shares": 8,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 2,
+    "user": {
+      "id": 102,
+      "fullName": "RIYA SHARMA",
+      "role": "Digital Artist",
+      "profileImage": "https://i.pravatar.cc/150?img=47"
+    },
+    "content": "Just finished a new digital artwork inspired by the colors of Mumbai. Art is always a way of turning emotions into something people can see. 🎨💜",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-04T15:45:00Z",
+    "likes": 96,
+    "comments": 17,
+    "shares": 5,
+    "likedByCurrentUser": true
+  },
+  {
+    "id": 3,
+    "user": {
+      "id": 103,
+      "fullName": "ARJUN MEHTA",
+      "role": "Musician",
+      "profileImage": "https://i.pravatar.cc/150?img=68"
+    },
+    "content": "Late night studio sessions always hit differently. Working on something new and I can't wait to share it with everyone. 🎸🎶",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-04T21:15:00Z",
+    "likes": 214,
+    "comments": 31,
+    "shares": 14,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 4,
+    "user": {
+      "id": 104,
+      "fullName": "ANANYA VERMA",
+      "role": "Photographer",
+      "profileImage": "https://i.pravatar.cc/150?img=44"
+    },
+    "content": "There is something magical about capturing ordinary moments and turning them into memories. 📸✨",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1452780212940-6f5c0d14d848?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-03T09:20:00Z",
+    "likes": 76,
+    "comments": 12,
+    "shares": 3,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 5,
+    "user": {
+      "id": 105,
+      "fullName": "KARAN SINGH",
+      "role": "Filmmaker",
+      "profileImage": "https://i.pravatar.cc/150?img=11"
+    },
+    "content": "Behind every beautiful scene there are hours of planning, mistakes, retakes, and a lot of coffee. 🎬☕ Finally wrapped this project!",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-02T18:10:00Z",
+    "likes": 183,
+    "comments": 29,
+    "shares": 11,
+    "likedByCurrentUser": true
+  },
+  {
+    "id": 6,
+    "user": {
+      "id": 106,
+      "fullName": "MEERA JOSHI",
+      "role": "Dancer",
+      "profileImage": "https://i.pravatar.cc/150?img=32"
+    },
+    "content": "Dance has taught me that progress doesn't always look perfect. Sometimes showing up and trying again is the biggest achievement. 💃✨",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-01T13:40:00Z",
+    "likes": 145,
+    "comments": 22,
+    "shares": 7,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 7,
+    "user": {
+      "id": 107,
+      "fullName": "ROHAN KAPOOR",
+      "role": "Graphic Designer",
+      "profileImage": "https://i.pravatar.cc/150?img=13"
+    },
+    "content": "Sharing a branding project I've been working on for the last few weeks. Would love to hear what other designers think about it. ✍️🔥",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-08-31T11:25:00Z",
+    "likes": 89,
+    "comments": 19,
+    "shares": 6,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 8,
+    "user": {
+      "id": 108,
+      "fullName": "PRIYA NAIR",
+      "role": "Singer",
+      "profileImage": "https://i.pravatar.cc/150?img=49"
+    },
+    "content": "A little preview from today's recording session. Still working on the vocals, but I'm really happy with how this one is coming together. 🎤❤️",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-08-30T17:50:00Z",
+    "likes": 267,
+    "comments": 43,
+    "shares": 18,
+    "likedByCurrentUser": true
+  }
+]
