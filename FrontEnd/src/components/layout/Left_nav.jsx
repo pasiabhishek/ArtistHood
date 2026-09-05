@@ -18,19 +18,29 @@ export default function Left_nav() {
                 <div className="Left_Nav_Navbar">
                     <ul>
                         <li>
-                            <i className="fa-regular fa-house"></i> Home
+                            <Link to="/feed">
+                                <i className="fa-regular fa-house"></i> Home
+                            </Link>
                         </li>
                         <li>
-                            <i className="fa-solid fa-users"></i> Discover
+                            <Link to="/discover">
+                                <i className="fa-solid fa-users"></i> Discover
+                            </Link>
                         </li>
                         <li>
-                            <i className="fa-regular fa-calendar-check"></i> Booking
+                            <Link to="/booking">
+                                <i className="fa-regular fa-calendar-check"></i> Booking
+                            </Link>
                         </li>
                         <li>
-                            <i className="fa-solid fa-message"></i> Messages
+                            <Link to="/messages">
+                                <i className="fa-solid fa-message"></i> Messages
+                            </Link>
                         </li>
                         <li>
-                            <i className="fa-regular fa-bell"></i> Notification
+                            <Link to="/notifications">
+                                <i className="fa-regular fa-bell"></i> Notification
+                            </Link>
                         </li>
                         <Link to="/create-post">
                             <li>
