@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 
+// add profile pic 
 
 const ArtistProfileSchema = new mongoose.Schema(
     {

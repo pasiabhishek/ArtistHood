@@ -4,6 +4,7 @@ import "./css/CreatePost.css";
 
 export default function CreatePost() {
     const user = JSON.parse(localStorage.getItem("user"));
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     const [postData, setPostData] = useState({
         userId: user?.id || null,
@@ -22,7 +23,7 @@ export default function CreatePost() {
         formData.append("mediaType", postData.mediaType);
 
         try {
-            const res = await fetch("http://localhost:5000/create", {
+            const res = await fetch(`${API_BASE_URL}/create`, {
                 method: "POST",
                 body: formData,
             });
