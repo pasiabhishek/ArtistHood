@@ -102,6 +102,14 @@ body {
   pointer-events: none;
 }
 
+.post-media {
+  width: 100%;
+  max-height: 600px;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 /* =========================
    LEFT NAVIGATION
 ========================= */
@@ -356,7 +364,7 @@ body {
 .Left_Nav_Navbar ul {
   width: 100%;
   margin: 0;
-  padding: 0;   
+  padding: 0;
   list-style: none;
 }
 

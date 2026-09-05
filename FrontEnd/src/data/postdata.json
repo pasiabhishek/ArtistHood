@@ -26,7 +26,7 @@
       "role": "Digital Artist",
       "profileImage": "https://i.pravatar.cc/150?img=47"
     },
-    "content": "Just finished a new digital artwork inspired by the colors of Mumbai. Art is always a way of turning emotions into something people can see. 🎨💜",
+    "content": "Just finished a new digital artwork inspired by the colors of Mumbai. 🎨💜",
     "media": {
       "type": "image",
       "url": "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80"
@@ -47,8 +47,8 @@
     },
     "content": "Late night studio sessions always hit differently. Working on something new and I can't wait to share it with everyone. 🎸🎶",
     "media": {
-      "type": "image",
-      "url": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80"
+      "type": "video",
+      "url": "https://www.w3schools.com/html/mov_bbb.mp4"
     },
     "createdAt": "2026-09-04T21:15:00Z",
     "likes": 214,
@@ -85,8 +85,8 @@
     },
     "content": "Behind every beautiful scene there are hours of planning, mistakes, retakes, and a lot of coffee. 🎬☕ Finally wrapped this project!",
     "media": {
-      "type": "image",
-      "url": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80"
+      "type": "video",
+      "url": "https://www.w3schools.com/html/movie.mp4"
     },
     "createdAt": "2026-09-02T18:10:00Z",
     "likes": 183,
@@ -104,8 +104,8 @@
     },
     "content": "Dance has taught me that progress doesn't always look perfect. Sometimes showing up and trying again is the biggest achievement. 💃✨",
     "media": {
-      "type": "image",
-      "url": "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=1200&q=80"
+      "type": "video",
+      "url": "https://www.w3schools.com/html/mov_bbb.mp4"
     },
     "createdAt": "2026-09-01T13:40:00Z",
     "likes": 145,
@@ -142,8 +142,8 @@
     },
     "content": "A little preview from today's recording session. Still working on the vocals, but I'm really happy with how this one is coming together. 🎤❤️",
     "media": {
-      "type": "image",
-      "url": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80"
+      "type": "video",
+      "url": "https://www.w3schools.com/html/mov_bbb.mp4"
     },
     "createdAt": "2026-08-30T17:50:00Z",
     "likes": 267,
