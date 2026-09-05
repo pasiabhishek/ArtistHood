@@ -1,0 +1,54 @@
+.profile {
+    width: 100vw;
+    height: 100vw;
+    background-color: red;
+}
+
+.profile-banner {
+    width: 100vw;
+    height: 25vh;
+    background: forestgreen;
+    border-bottom: 2px solid var(--purple);
+
+}
+
+.profile-container {
+    width: 700px;
+    height: 100vh;
+    background-color: blueviolet;
+    margin: auto;
+}
+
+.profile-container-header {
+    height: 20px;
+    width: 100%;
+    background-color: yellow;
+    display: flex;
+}
+
+.profile-container-header-left {
+    width: 200px;
+    height: 250px;
+    background-color: aquamarine;
+}
+
+.profile-container-header-left>img {
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--purple);
+    border-radius: 50%;
+    transform: translateY(-75px);
+    margin: auto;
+
+}
+.profile-container-header-right {
+    width: 500px;
+    height: 250px;
+    background-color: chocolate;
+}
+
+.profile-container-header2 {
+    height: 200px;
+    width: 100%;
+    background-color: rgb(2, 11, 27);
+}

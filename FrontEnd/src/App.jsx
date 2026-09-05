@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Profiler } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home";
@@ -15,6 +15,7 @@ import Discover from "./pages/Discover";
 import Notification from "./pages/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
+import Profile from "./pages/profile";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
                     <Route path="/role" element={<SelectRole/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     <Route Route element={<AppLayout />}>
