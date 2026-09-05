@@ -22,7 +22,7 @@
     height: 100%;
 }
 
-label {
+.content label {
     padding: 10px;
     width: 100%;
     margin: 20px auto;
@@ -34,6 +34,7 @@ label {
     padding: 10px;
     width: 100%;
     border: 1px solid var(--purple);
+    margin: 10px auto;
     font-size: 12px;
 }
 .mediaType option {
