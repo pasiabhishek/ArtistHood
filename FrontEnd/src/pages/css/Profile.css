@@ -1,3 +1,9 @@
+:root {
+    --profile-width: 700px;
+    --profile-mobile-width: 92%;
+    --profile-small-width: 90%;
+}
+
 /* Main profile wrapper */
 .profile {
     width: 100%;
