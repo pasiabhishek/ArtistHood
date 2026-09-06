@@ -1,110 +1,380 @@
+/* Main profile wrapper */
 .profile {
-    width: 100vw;
-    height: 100vw;
+    width: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
-    /* background-color: red; */
-}
 
-.profile-banner {
-    width: 100vw;
-    height: 100px;
-    background: forestgreen;
-    border-bottom: 4px solid var(--purple);
-    background: linear-gradient(rgba(0, 0, 0, 0.45)), url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg") no-repeat center center;
-    background-size: cover
-}
-
-.profile-container {
-    width: 700px;
-    height: 100%;
-    /* background-color: blueviolet; */
-    margin: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+
+/* Cover / banner at the top of the profile */
+.profile-banner {
+    width: 100%;
+    height: 25vh;
+    min-height: 180px;
+
+    border-bottom: 4px solid var(--purple);
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.45)),
+        url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg")
+        no-repeat center center;
+
+    background-size: cover;
+}
+
+
+/* Main profile area
+   It stays centered and doesn't become too wide on big screens */
+.profile-container {
+    width: 100%;
+    max-width: 700px;
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
     border-left: 1px solid var(--purple);
     border-right: 1px solid var(--purple);
+
+    box-sizing: border-box;
 }
 
+
+/* Name, username, image and bio section */
 .profile-container-header {
-    height: 200px;
     width: 100%;
+    min-height: 200px;
+
     background-color: var(--background);
+
     display: flex;
-    justify-content: space-around;
+    align-items: flex-start;
+    justify-content: space-between;
+
     border-bottom: 1px solid var(--purple);
+
+    box-sizing: border-box;
 }
 
+
+/* Left side where the profile picture sits */
 .profile-container-header-left {
     width: 200px;
+    min-width: 200px;
     height: 200px;
-    /* background-color: aquamarine; */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    box-sizing: border-box;
 }
 
-.profile-container-header-left>img {
+
+/* Profile picture slightly overlaps the banner */
+.profile-container-header-left > img {
     width: 150px;
     height: 150px;
+
+    object-fit: cover;
+
     border: 4px solid var(--purple);
     border-radius: 50%;
+
     transform: translateY(-75px);
-    margin: auto;
 
+    display: block;
 }
 
+
+/* Right side containing the profile information */
 .profile-container-header-right {
-    width: 490px;
-    height: 200px;
-    padding:15px 5px;
+    flex: 1;
+    min-width: 0;
+    min-height: 200px;
+
+    padding: 15px 20px;
+
     color: var(--text-color);
-    /* background-color: chocolate; */
+
+    box-sizing: border-box;
 }
 
+
+/* Profile name */
 .profile-container-header-right-name {
-    font-size: 25px;
-    text-transform: capitalize;
-    margin: 13px auto;
-    font-weight: bolder;
+    font-size: clamp(20px, 3vw, 25px);
 
+    text-transform: capitalize;
+
+    margin: 13px 0;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    /* Stops long names from breaking the layout */
+    overflow-wrap: break-word;
 }
 
+
+/* @username */
 .profile-container-header-right-username {
     font-size: 12px;
+
     text-transform: lowercase;
-    margin: 17px auto;
-    font-weight: lighter;
 
+    margin: 10px 0;
+
+    font-weight: 400;
+
+    opacity: 0.8;
 }
 
+
+/* Artist / profession */
 .profile-container-header-right-profession {
-    font-size: 15px;
+    font-size: clamp(13px, 2vw, 15px);
+
     text-transform: capitalize;
-    margin: 5px auto;
-    font-weight: bold;
-    
 
+    margin: 8px 0;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    overflow-wrap: break-word;
 }
 
+
+/* Short profile description */
 .profile-container-header-right-bio {
-    font-size: 10px;
-    text-transform: auto;
-    font-weight: 100;
+    font-size: 12px;
 
+    font-weight: 400;
+
+    line-height: 1.5;
+
+    margin: 10px 0;
+
+    overflow-wrap: break-word;
 }
 
-@media (max-width: 500px) {
+
+/* --------------------------------
+   Tablet
+-------------------------------- */
+
+@media (max-width: 768px) {
+
+    .profile-banner {
+        height: 23vh;
+        min-height: 160px;
+    }
+
+    /* Give the profile some breathing room on tablets */
+    .profile-container {
+        width: 95%;
+        max-width: 650px;
+    }
+
     .profile-container-header-left {
-        width: 150px;
+        width: 180px;
+        min-width: 180px;
     }
 
-    .profile-container-header-left>img {
-        width: 130px;
-        height: 130px;
+    .profile-container-header-left > img {
+        width: 140px;
+        height: 140px;
+
+        transform: translateY(-70px);
+    }
+
+    .profile-container-header-right {
+        padding: 15px;
     }
 }
 
-.profile-container-header {
-    height: 200px;
-    width: 100%;
-    /* background-color: yellow; */
-    display: flex;
-    justify-content: space-around;
+
+/* --------------------------------
+   Normal mobile screens
+-------------------------------- */
+
+@media (max-width: 600px) {
+
+    .profile-banner {
+        height: 20vh;
+        min-height: 140px;
+    }
+
+    /* Keep the profile narrow and centered on mobile */
+    .profile-container {
+        width: 92%;
+        max-width: 430px;
+
+        margin: 0 auto;
+
+        border-left: 1px solid var(--purple);
+        border-right: 1px solid var(--purple);
+    }
+
+    .profile-container-header {
+        min-height: 220px;
+
+        justify-content: center;
+    }
+
+    /* Smaller space for the profile image */
+    .profile-container-header-left {
+        width: 120px;
+        min-width: 120px;
+        height: 180px;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .profile-container-header-left > img {
+        width: 110px;
+        height: 110px;
+
+        border: 3px solid var(--purple);
+
+        transform: translateY(-55px);
+    }
+
+    /* Keep the text from getting squeezed */
+    .profile-container-header-right {
+        flex: 1;
+        min-width: 0;
+
+        padding: 12px 10px;
+    }
+
+    .profile-container-header-right-name {
+        font-size: 20px;
+        margin: 8px 0;
+    }
+
+    .profile-container-header-right-username {
+        font-size: 11px;
+        margin: 6px 0;
+    }
+
+    .profile-container-header-right-profession {
+        font-size: 13px;
+        margin: 6px 0;
+    }
+
+    .profile-container-header-right-bio {
+        font-size: 10px;
+        line-height: 1.4;
+        margin: 8px 0;
+    }
+}
+
+
+/* --------------------------------
+   Smaller phones
+-------------------------------- */
+
+@media (max-width: 400px) {
+
+    /* Make the profile a little narrower */
+    .profile-container {
+        width: 90%;
+        max-width: 380px;
+    }
+
+    .profile-container-header {
+        min-height: 200px;
+    }
+
+    .profile-container-header-left {
+        width: 105px;
+        min-width: 105px;
+        height: 160px;
+    }
+
+    .profile-container-header-left > img {
+        width: 95px;
+        height: 95px;
+
+        transform: translateY(-48px);
+    }
+
+    .profile-container-header-right {
+        padding: 10px 8px;
+    }
+
+    .profile-container-header-right-name {
+        font-size: 17px;
+        margin: 6px 0;
+    }
+
+    .profile-container-header-right-username {
+        font-size: 10px;
+        margin: 5px 0;
+    }
+
+    .profile-container-header-right-profession {
+        font-size: 11px;
+        margin: 5px 0;
+    }
+
+    .profile-container-header-right-bio {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+}
+
+
+/* --------------------------------
+   Very small phones
+-------------------------------- */
+
+@media (max-width: 320px) {
+
+    .profile-container {
+        width: 92%;
+    }
+
+    .profile-container-header-left {
+        width: 90px;
+        min-width: 90px;
+    }
+
+    .profile-container-header-left > img {
+        width: 80px;
+        height: 80px;
+
+        transform: translateY(-40px);
+    }
+
+    .profile-container-header-right {
+        padding: 8px 6px;
+    }
+
+    .profile-container-header-right-name {
+        font-size: 15px;
+    }
+
+    .profile-container-header-right-username {
+        font-size: 9px;
+    }
+
+    .profile-container-header-right-profession {
+        font-size: 10px;
+    }
+
+    .profile-container-header-right-bio {
+        font-size: 9px;
+    }
 }
