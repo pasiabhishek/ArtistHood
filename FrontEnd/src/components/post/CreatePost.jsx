@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import "./css/CreatePost.css";
+import "../../styles/post/CreatePost.css";
 
 export default function CreatePost() {
     const user = JSON.parse(localStorage.getItem("user"));

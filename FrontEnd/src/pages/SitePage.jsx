@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./css/SitePage.css";
+import "../styles/SitePage.css";
 import artistCategories from "../data/artistCategories";
 import Header from "../components/home/Header";
-import Footer from "../components/home/Footer";
+import Footer from "../components/layout/Footer";
 const pageContent = {
     // Shared copy keeps simple informational routes consistent in layout and tone.
     artists: {

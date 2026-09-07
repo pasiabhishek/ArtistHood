@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdLocationOn, MdVerified } from "react-icons/md";
 import artists from "../../data/artists.json";
-import "../../pages/css/FeaturedArtists.css";
+import "../../styles/home/FeaturedArtists.css";
 
 export default function FeaturedArtist() {
     return (

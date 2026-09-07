@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./css/Auth.css";
-import useTitle from "./UseTitle";
+import "../../styles/auth/Auth.css";
+import useTitle from "../../hooks/useTitle";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com/";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./css/Auth.css";
-import useTitle from "./UseTitle";
+import "../styles/auth/Auth.css";
+import useTitle from "../hooks/useTitle";
 
 
 export default function NotFound() {

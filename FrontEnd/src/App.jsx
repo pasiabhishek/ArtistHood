@@ -2,20 +2,20 @@ import { useState, useEffect, Profiler } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home";
-import Loader from "./pages/Loader";
-import Login from "./pages/Login";
+import Loader from "./components/common/Loader";
+import Login from "./pages/auth/Login";
 import NotFound from "./pages/NotFound";
-import Signup from "./pages/Signup";
-import ArtistSignUp from "./pages/ArtistSignUp";
+import Signup from "./pages/auth/Signup";
+import ArtistSignUp from "./pages/auth/ArtistSignUp";
 import SitePage from "./pages/SitePage";
-import Feed from "./pages/Feed";
-import SelectRole from "./pages/SelectRole";
-import CreatePost from "./pages/CreatePost";
+import Feed from "./components/post/Feed";
+import SelectRole from "./pages/auth/SelectRole";
+import CreatePost from "./components/post/CreatePost";
 import Discover from "./pages/Discover";
-import Notification from "./pages/Notification";
+import Notification from "./components/notification/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
-import Profile from "./pages/profile";
+import Profile from "./pages/Profile";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.

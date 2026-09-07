@@ -1,10 +1,9 @@
 import React from "react";
-import "./css/Feed.css";
-import CreatePost from "./CreatePost";
-import useTitle from "./UseTitle";
+import "../../styles/post/Feed.css";
+import useTitle from "../../hooks/useTitle";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import postsData from "../data/postdata.json";
+import postsData from "../../data/postdata.json";
 
 export default function AfterLogin() {
     useTitle("Feed");
@@ -28,7 +27,7 @@ export default function AfterLogin() {
             <Link to="/create-post">
                 <div className="Create_post">
                     <div className="first_row">
-                        <img src="favicon2.png" alt="profile picture" />
+                        <img src="/favicon.ico" alt="profile picture" />
                         <textarea
                             placeholder="Share something with the community..."
                         />

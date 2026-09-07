@@ -2,7 +2,7 @@ import React from "react";
 import { FaInstagram, FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { Link } from "react-router-dom";
-import "../../pages/css/Footer.css";
+import "../../styles/layout/Footer.css";
 
 export default function Footer() {
     return (

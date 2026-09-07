@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./css/Auth.css";
+import "../../styles/auth/Auth.css";
 import axios from "axios";
-import useTitle from "./UseTitle";
+import useTitle from "../../hooks/useTitle";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;

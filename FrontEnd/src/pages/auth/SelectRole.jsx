@@ -1,5 +1,5 @@
 import React from 'react'
-import "./css/SelectRole.css"
+import "../../styles/auth/SelectRole.css"
 import { Link } from 'react-router-dom'
 export default function SelectRole() {
     return (

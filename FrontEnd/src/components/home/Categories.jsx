@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MdCelebration, MdGraphicEq, MdMic, MdMusicNote, MdRecordVoiceOver, MdTheaterComedy } from "react-icons/md";
-import "../../pages/css/HomeSections.css";
+import "../../styles/home/HomeSections.css";
 
 const categories = [
     { name: "Singers", icon: MdMic },

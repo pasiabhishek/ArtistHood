@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../pages/css/Hero.css";
+import "../../styles/home/Hero.css";
 
 export default function Hero({ tagline, para }) {
     return (

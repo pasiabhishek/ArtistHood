@@ -7,7 +7,7 @@ import {
     MdSupportAgent,
     MdVerifiedUser,
 } from "react-icons/md";
-import "../../pages/css/HomeSections.css";
+import "../../styles/home/HomeSections.css";
 
 const features = [
     {

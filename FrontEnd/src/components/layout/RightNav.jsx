@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Right_nav() {
+export default function RightNav() {
     return (
         <div>
             <div className="Right_Nav">

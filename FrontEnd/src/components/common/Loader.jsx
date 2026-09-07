@@ -1,6 +1,6 @@
 import React from "react";
-import "./css/Loader.css";
-import useTitle from "./UseTitle";
+import "../../styles/common/Loader.css";
+import useTitle from "../../hooks/useTitle";
 
 export default function Loader() {
     useTitle("Loading")

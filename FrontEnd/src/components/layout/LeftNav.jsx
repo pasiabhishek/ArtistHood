@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Left_nav() {
+export default function LeftNav() {
     const storedUser = localStorage.getItem("user");
     const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -68,7 +68,7 @@ export default function Left_nav() {
             {/* Footer */}
             <div className="Left_Nav_Footer">
                 <img
-                    src="/favicon2.png"
+                    src="/favicon.ico"
                     alt="profile"
                 />
 
