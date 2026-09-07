@@ -5,6 +5,7 @@ import useTitle from "../../hooks/useTitle";
 export default function Loader() {
     useTitle("Loading")
 
+    // Keep the first screen simple while the app finishes starting up.
     return (
         <div className="loading-page">
             <div className="loading-content">

@@ -6,15 +6,16 @@ import { Link } from "react-router-dom";
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
 
+    // Closing the menu after a link click keeps mobile navigation tidy.
     return (
         <div className="bg-gray-950">
             <nav className="nav bg-gray-950">
-                {/* Logo */}
+                {/* The logo takes visitors back to the brand home. */}
                 <div className="logo">
                     ARTIST<span className="">HOOD</span>
                 </div>
 
-                {/* Hamburger Icon */}
+                {/* The hamburger button only matters on smaller screens. */}
                 <button
                     className="menu-icon"
                     type="button"
@@ -26,7 +27,7 @@ export default function Header() {
                     {menuOpen ? <FaTimes /> : <FaBars />}
                 </button>
 
-                {/* Navigation */}
+                {/* Mobile navigation slides open from this container. */}
                 <div id="primary-navigation" className={`navbar ${menuOpen ? "active" : ""}`}>
                     {/* <ul>
                         <li>
@@ -46,7 +47,7 @@ export default function Header() {
                         </li>
                     </ul> */}
 
-                    {/* Mobile Buttons */}
+                        {/* Mobile actions stay inside the opened menu. */}
                     <div className="logsign mobile-btn">
                         <Link to={"/login"} onClick={() => setMenuOpen(false)}>
                             <button className="login">Login</button>
@@ -57,7 +58,7 @@ export default function Header() {
                     </div>
                 </div>
 
-                {/* Desktop Buttons */}
+                {/* Desktop actions remain visible beside the navigation. */}
                 <div className="logsign desktop-btn">
                     <Link to="/login">
                         <button className="login">Login</button>

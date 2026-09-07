@@ -14,6 +14,7 @@ export default function Login() {
         password: ""
     });
 
+    // Keep the form values together so the API payload stays predictable.
     // Submit credentials to the API, then keep the returned session details locally.
     const handleLogin = async (e) => {
         e.preventDefault();

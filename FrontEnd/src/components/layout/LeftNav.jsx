@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function LeftNav() {
     const storedUser = localStorage.getItem("user");
+    // Read the saved profile so the navigation can greet the current member.
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const displayName = user?.fullName || "there";
@@ -10,14 +11,14 @@ export default function LeftNav() {
     return (
         <div className="Left_Nav">
 
-            {/* Header */}
+            {/* Brand mark stays at the top of the dashboard navigation. */}
             <div className="Left_Nav_header">
                 <div className="logo">
                     ARTIST<span>HOOD</span>
                 </div>
             </div>
 
-            {/* Navbar */}
+            {/* These links are the main shortcuts around the signed-in area. */}
             <div className="Left_Nav_Navbar">
                 <ul>
 
@@ -65,7 +66,7 @@ export default function LeftNav() {
                 </ul>
             </div>
 
-            {/* Footer */}
+            {/* Show a small account summary at the bottom of the rail. */}
             <div className="Left_Nav_Footer">
                 <img
                     src="/favicon.ico"

@@ -16,6 +16,7 @@ export default function Signup() {
         password: "",
         role: ""
     });
+    // The loading flag prevents duplicate account requests.
     // Convert the two name fields into the API's single fullName property.
     const handleSignUP = async (e) => {
         e.preventDefault();

@@ -33,6 +33,7 @@ const stats = [
 ];
 
 export default function WhyAH() {
+    // Benefits and numbers are kept in arrays so the layout stays easy to edit.
     return (
         <section className="why-section">
             <div className="home-section">

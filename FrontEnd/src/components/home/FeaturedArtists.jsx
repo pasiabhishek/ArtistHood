@@ -5,6 +5,7 @@ import artists from "../../data/artists.json";
 import "../../styles/home/FeaturedArtists.css";
 
 export default function FeaturedArtist() {
+    // The landing page highlights only a few artists to keep the section focused.
     return (
         <section className="featured-section">
             <div className="home-section">

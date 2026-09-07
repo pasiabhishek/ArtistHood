@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../styles/post/CreatePost.css";
 
 export default function CreatePost() {
+    // Use the saved account so the API knows who owns the new post.
     const user = JSON.parse(localStorage.getItem("user"));
     const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -14,6 +15,7 @@ export default function CreatePost() {
     const [previewUrl, setPreviewUrl] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Create a temporary image URL for instant feedback before publishing.
     useEffect(() => {
         if (!postData.media || !postData.media.type.startsWith("image/")) {
             setPreviewUrl("");
@@ -31,6 +33,7 @@ export default function CreatePost() {
 
         if (!media) return;
 
+        // Infer the media type from the selected file instead of asking twice.
         setPostData((currentPost) => ({
             ...currentPost,
             media,
@@ -41,12 +44,14 @@ export default function CreatePost() {
     const postHandler = async (e) => {
         e.preventDefault();
 
+        // FormData lets the caption and binary media travel in one request.
         const formData = new FormData();
         formData.append("userId", postData.userId);
         formData.append("media", postData.media);
         formData.append("caption", postData.caption);
         formData.append("mediaType", postData.mediaType);
 
+        // Disable the button while the upload is in progress.
         setIsSubmitting(true);
 
         try {

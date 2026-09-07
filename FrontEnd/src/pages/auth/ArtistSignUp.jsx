@@ -28,6 +28,7 @@ export default function ArtistSignUp() {
   const [formData, setFormData] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
 
+  // One change handler keeps all profile fields in sync with the form state.
   const updateField = (event) => {
     // The same handler supports text inputs, selects, textareas, and checkboxes.
     const { name, value, type, checked } = event.target;
@@ -40,6 +41,7 @@ export default function ArtistSignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Artist profiles require the token created during the first signup step.
     try {
       const token = localStorage.getItem("token");
 

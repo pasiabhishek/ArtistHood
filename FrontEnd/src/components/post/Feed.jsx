@@ -8,6 +8,7 @@ import postsData from "../../data/postdata.json";
 export default function AfterLogin() {
     useTitle("Feed");
 
+    // The feed currently uses local sample data until the posts API is connected.
     return (
         <div className="Feed">
             <div className="search">
@@ -24,6 +25,7 @@ export default function AfterLogin() {
                 </form>
             </div>
 
+            {/* Clicking the composer opens the complete post form. */}
             <Link to="/create-post">
                 <div className="Create_post">
                     <div className="first_row">
@@ -43,6 +45,7 @@ export default function AfterLogin() {
                 </div>
             </Link>
 
+            {/* Render the media control that matches each sample post. */}
             <div className="posts">
                 {postsData.map((post) => (
                     <div key={post.id} className="post-card">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/home/Hero.css";
 
 export default function Hero({ tagline, para }) {
+    // The home page supplies the copy so this hero can stay reusable.
     return (
         <section className="hero">
             <div className="hero-content">

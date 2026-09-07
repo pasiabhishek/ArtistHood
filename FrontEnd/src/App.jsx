@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
     const [loading, setLoading] = useState(true);
+    // The saved user is available here for future route protection.
     const auth = localStorage.getItem('user')
 
     useEffect(() => {
@@ -34,7 +35,6 @@ function App() {
 
     return (
         <div>
-
             <BrowserRouter>
                 <Routes>
                     {/* Public authentication pages do not use the dashboard shell. */}
@@ -50,6 +50,7 @@ function App() {
                     <Route path="/profile" element={<Profile/>}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
+                    {/* Signed-in pages share the left and right navigation shell. */}
                     <Route Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/Discover" element={<Discover />} />

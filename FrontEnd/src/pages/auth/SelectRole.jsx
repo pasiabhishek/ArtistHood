@@ -2,6 +2,7 @@ import React from 'react'
 import "../../styles/auth/SelectRole.css"
 import { Link } from 'react-router-dom'
 export default function SelectRole() {
+    // The selected role decides which onboarding form opens next.
     return (
         <div className='SelectRole'>
             <h2>Define Your Role..</h2>

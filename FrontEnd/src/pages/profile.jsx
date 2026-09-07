@@ -2,6 +2,7 @@ import React from 'react'
 import "../styles/common/Profile.css"
 
 export default function Profile() {
+  // This page currently shows a static profile while the account API is wired in.
   return (
     <div className='profile'>
       <div className="profile-banner">

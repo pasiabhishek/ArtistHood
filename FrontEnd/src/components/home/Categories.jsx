@@ -13,6 +13,7 @@ const categories = [
 ];
 
 export default function CategoriesCard() {
+    // Each category links to the full directory for a deeper browse.
     return (
         <section className="home-section categories-section">
                 <div className="section-heading">
