@@ -4,9 +4,7 @@ import "../../styles/auth/Auth.css";
 import axios from "axios";
 import useTitle from "../../hooks/useTitle";
 import artistCategories from "../../data/artistCategories";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com";
+import { API_BASE_URL } from "../../services/api";
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
   stageName: "",

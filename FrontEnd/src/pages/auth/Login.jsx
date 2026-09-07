@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/auth/Auth.css";
 import useTitle from "../../hooks/useTitle";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://artisthood-1.onrender.com/";
+import { API_BASE_URL, getAuthToken } from "../../services/api";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -26,9 +25,13 @@ export default function Login() {
                 formData
             );
             // The token is used by later authenticated requests.
-            localStorage.setItem("token", res.data.user.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            navigate("/Feed");
+            const token = getAuthToken(res);
+            if (!token) {
+                throw new Error("The login response did not include a token.");
+            }
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(res.data.user || res.data));
+            navigate("/feed");
         } catch (err) {
             alert(err.response?.data?.message || "Login Failed");
         } finally {

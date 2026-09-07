@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth/Auth.css";
 import axios from "axios";
 import useTitle from "../../hooks/useTitle";
-
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+import { API_BASE_URL, getAuthToken } from "../../services/api";
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -37,8 +35,12 @@ export default function Signup() {
             );
 
             // Save the session so the dashboard can identify the new member.
-            localStorage.setItem("token", res.data.user.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
+            const token = getAuthToken(res);
+            if (!token) {
+                throw new Error("The signup response did not include a token.");
+            }
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(res.data.user || res.data));
             alert("Account Created");
             // alert(formData.role);
             if (formData.role == 'Artist') {
