@@ -1,5 +1,4 @@
-import { useState } from "react";
-import React from "react";
+import { useEffect, useState } from "react";
 import "../../styles/post/CreatePost.css";
 
 export default function CreatePost() {
@@ -12,6 +11,32 @@ export default function CreatePost() {
         caption: "",
         mediaType: "image",
     });
+    const [previewUrl, setPreviewUrl] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (!postData.media || !postData.media.type.startsWith("image/")) {
+            setPreviewUrl("");
+            return undefined;
+        }
+
+        const objectUrl = URL.createObjectURL(postData.media);
+        setPreviewUrl(objectUrl);
+
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [postData.media]);
+
+    const handleMediaChange = (event) => {
+        const media = event.target.files[0];
+
+        if (!media) return;
+
+        setPostData((currentPost) => ({
+            ...currentPost,
+            media,
+            mediaType: media.type.split("/")[0],
+        }));
+    };
 
     const postHandler = async (e) => {
         e.preventDefault();
@@ -22,6 +47,8 @@ export default function CreatePost() {
         formData.append("caption", postData.caption);
         formData.append("mediaType", postData.mediaType);
 
+        setIsSubmitting(true);
+
         try {
             const res = await fetch(`${API_BASE_URL}/create`, {
                 method: "POST",
@@ -31,52 +58,87 @@ export default function CreatePost() {
             if (!res.ok) throw new Error("Failed to create post");
 
             alert("Post created successfully!");
+            setPostData((currentPost) => ({
+                ...currentPost,
+                media: null,
+                caption: "",
+            }));
+            e.target.reset();
         } catch (error) {
             console.error(error);
             alert("Failed to create post");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <div className="CreatePost">
-            <div className="header">
-                <h1>Create Post</h1>
-            </div>
+        <main className="CreatePost">
+            <header className="create-post-header">
+                <div>
+                    <p className="eyebrow">Community studio</p>
+                    <h1>Create a post</h1>
+                    <p className="intro">Share a moment, a work in progress, or something worth discovering.</p>
+                </div>
+                <span className="post-step">01 / 01</span>
+            </header>
 
-            <div className="content">
+            <div className="create-post-content">
                 <form className="create-post-form" onSubmit={postHandler}>
-                    <div className="form-group">
-                        <label>Media</label>
+                    <div className="form-group media-group">
+                        <div className="field-heading">
+                            <label htmlFor="post-media">Your media</label>
+                            <span>Required</span>
+                        </div>
+                        <label className={`upload-zone${postData.media ? " has-file" : ""}`} htmlFor="post-media">
+                            <span className="upload-icon" aria-hidden="true">+</span>
+                            <span className="upload-copy">
+                                <strong>{postData.media ? "Replace media" : "Choose a file"}</strong>
+                                <small>Image or video up to 10 MB</small>
+                            </span>
+                            {postData.media && <span className="file-name">{postData.media.name}</span>}
+                        </label>
                         <input
+                            id="post-media"
+                            className="media-input"
                             type="file"
-                            accept="image/*,video/*,audio/*"
-                            onChange={(e) =>
-                                setPostData({
-                                    ...postData,
-                                    media: e.target.files[0],
-                                })
-                            }
-                            required
+                            accept="image/*,video/*"
+                            onChange={handleMediaChange}
+                            required={!postData.media}
                         />
+                        {previewUrl && (
+                            <img className="media-preview" src={previewUrl} alt="Selected media preview" />
+                        )}
                     </div>
 
                     <div className="form-group">
-                        <label>Caption</label>
+                        <div className="field-heading">
+                            <label htmlFor="post-caption">Caption</label>
+                            <span>{postData.caption.length}/500</span>
+                        </div>
                         <textarea
+                            id="post-caption"
                             value={postData.caption}
+                            maxLength="500"
+                            placeholder="Tell the community what is happening here..."
                             onChange={(e) =>
-                                setPostData({
-                                    ...postData,
+                                setPostData((currentPost) => ({
+                                    ...currentPost,
                                     caption: e.target.value,
-                                })
+                                }))
                             }
                             required
                         />
                     </div>
 
-                    <button type="submit">Post</button>
+                    <div className="form-footer">
+                        <p><span aria-hidden="true">●</span> Your post will appear in the community feed.</p>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? "Publishing..." : "Publish post"}
+                        </button>
+                    </div>
                 </form>
             </div>
-        </div>
+        </main>
     );
 }
