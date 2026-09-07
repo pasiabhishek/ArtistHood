@@ -15,7 +15,7 @@ import Discover from "./pages/Discover";
 import Notification from "./components/notification/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
