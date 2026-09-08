@@ -5,24 +5,31 @@ const generateToken = require("../utils/generateToken");
 // Register User
 const registerUser = async (req, res) => {
     try {
-        const { fullName, email, password, role } = req.body;
+        const { fullName, username, email, password, role } = req.body;
+        const normalizedUsername = username?.trim().toLowerCase();
 
-        if (!fullName || !email || !password) {
+        if (!fullName || !normalizedUsername || !email || !password) {
             return res.status(400).json({
                 message: "Please provide all required fields"
             });
         }
 
-        const userExists = await User.findOne({ email });
+        const userExists = await User.findOne({
+            $or: [{ email }, { username: normalizedUsername }]
+        });
 
         if (userExists) {
+            const message = userExists.username === normalizedUsername
+                ? "Username is already taken"
+                : "User already exists";
             return res.status(400).json({
-                message: "User already exists"
+                message
             });
         }
 
         const user = await User.create({
             fullName,
+            username: normalizedUsername,
             email,
             password,
             role: role || "Client",
@@ -34,6 +41,7 @@ const registerUser = async (req, res) => {
             user: {
                 id: user._id,
                 fullName: user.fullName,
+                username: user.username,
                 email: user.email,
                 role: user.role,
                 token: generateToken(user._id)
@@ -41,6 +49,15 @@ const registerUser = async (req, res) => {
         });
 
     } catch (error) {
+        if (error.code === 11000) {
+            const field = Object.keys(error.keyPattern || {})[0];
+            return res.status(400).json({
+                message: field === "username"
+                    ? "Username is already taken"
+                    : "User already exists"
+            });
+        }
+
         res.status(500).json({
             message: error.message
         });
@@ -72,6 +89,7 @@ const loginUser = async (req, res) => {
             user: {
                 id: user._id,
                 fullName: user.fullName,
+                username: user.username,
                 email: user.email,
                 role: user.role,
                 token: generateToken(user._id)

@@ -12,6 +12,7 @@ export default function Signup() {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
+        username: "",
         email: "",
         password: "",
         role: ""
@@ -25,6 +26,7 @@ export default function Signup() {
         try {
             const payload = {
                 fullName: `${formData.firstName} ${formData.lastName}`.trim(),
+                username: formData.username,
                 email: formData.email,
                 password: formData.password,
                 role: formData.role
@@ -110,6 +112,24 @@ export default function Signup() {
                                 />
                             </label>
                         </div>
+                        <label>
+                            Username
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Choose a unique username"
+                                autoComplete="username"
+                                minLength="3"
+                                maxLength="30"
+                                pattern="[A-Za-z0-9_]+"
+                                title="Use 3-30 letters, numbers, or underscores."
+                                required
+                                value={formData.username}
+                                onChange={(event) => setFormData(
+                                    { ...formData, username: event.target.value }
+                                )}
+                            />
+                        </label>
                         <label>
                             Email address
                             <input

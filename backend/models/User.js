@@ -84,6 +84,16 @@ const ArtistProfileSchema = new mongoose.Schema(
 //user schema
 const UserSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        minlength: 3,
+        maxlength: 30,
+        match: /^[a-zA-Z0-9_]+$/,
+    },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 6, select: false },
     role: { type: String, enum: ['Client', 'Artist'], default: 'Client' },

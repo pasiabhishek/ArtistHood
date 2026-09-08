@@ -2,6 +2,7 @@
     {
         "id": 1,
         "name": "Master Aazam",
+        "username": "masteraazam",
         "stageName": "Master Aazam",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRROvvfrOEhVpHSlE1iWBXKeWnv5ryjCPnJ4CROvbkTig&s=10",
         "category": "Poet / Spoken Word Artist",
@@ -23,6 +24,7 @@
     {
         "id": 2,
         "name": "Aarav Sharma",
+        "username": "aaravsharma",
         "stageName": "Aarav Sharma",
         "image": "https://randomuser.me/api/portraits/men/32.jpg",
         "category": "Playback Singer",
@@ -44,6 +46,7 @@
     {
         "id": 3,
         "name": "Riya Kapoor",
+        "username": "riyakapoor",
         "stageName": "Riya Kapoor",
         "image": "https://randomuser.me/api/portraits/women/45.jpg",
         "category": "Dancer",
@@ -65,6 +68,7 @@
     {
         "id": 4,
         "name": "DJ Blaze",
+        "username": "djblaze",
         "stageName": "DJ Blaze",
         "image": "https://randomuser.me/api/portraits/men/60.jpg",
         "category": "DJ",
@@ -86,6 +90,7 @@
     {
         "id": 5,
         "name": "Neha Verma",
+        "username": "nehaverma",
         "stageName": "Neha Verma",
         "image": "https://randomuser.me/api/portraits/women/22.jpg",
         "category": "Anchor / Emcee",
@@ -107,6 +112,7 @@
     {
         "id": 6,
         "name": "Aman Verma",
+        "username": "amanverma",
         "stageName": "Aman Verma",
         "image": "https://randomuser.me/api/portraits/men/75.jpg",
         "category": "Anchor / Emcee",
