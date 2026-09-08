@@ -319,7 +319,7 @@
 
     .profile-banner {
         height: 23vh;
-        min-height: 160px;
+        min-height: 110px;
     }
 
     /* Give the profile some breathing room on tablets */
