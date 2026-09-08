@@ -364,8 +364,8 @@
 
         margin: 0 auto;
 
-        border-left: 1px solid var(--purple);
-        border-right: 1px solid var(--purple);
+        /* border-left: 1px solid var(--purple); */
+        /* border-right: 1px solid var(--purple); */
     }
 
     .profile-container-header {
