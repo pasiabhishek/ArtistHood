@@ -28,6 +28,9 @@ export default function Profile() {
             </div>
             <div className="profile-container-header-right-bio">
               i am master aazam. a writer and poet
+            </div>   
+            <div className="profile-container-header-right-bio">
+              i am master aazam. a writer and poet
             </div>
           </div>
         </div>
@@ -35,6 +38,7 @@ export default function Profile() {
 
 
         <div className="profile-container-header2">
+          <h1>hello</h1>
         </div>
 
       </div>

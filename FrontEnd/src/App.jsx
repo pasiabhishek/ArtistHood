@@ -16,6 +16,7 @@ import Notification from "./components/notification/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
 import Profile from "./pages/profile";
+import ListProfile from "./pages/ListProfile";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -47,7 +48,8 @@ function App() {
                     <Route path="/artist" element={<SitePage page="artists" />} />
                     <Route path="/categories" element={<SitePage page="categories" />} />
                     <Route path="/role" element={<SelectRole/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={<ListProfile/>}/>
+                    <Route path="/profile/:username" element={<Profile />}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     {/* Signed-in pages share the left and right navigation shell. */}

@@ -19,11 +19,8 @@
 /* Cover / banner at the top of the profile */
 .profile-banner {
     width: 100%;
-    height: 25vh;
-    min-height: 180px;
-
+    height: 107px;
     border-bottom: 4px solid var(--purple);
-
     background:
         linear-gradient(rgba(0, 0, 0, 0.45)),
         url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg")
