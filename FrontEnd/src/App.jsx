@@ -15,7 +15,7 @@ import Discover from "./pages/Discover";
 import Notification from "./components/notification/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
-import Profile from "./pages/profile";
+import Artists from "./pages/Artists";
 import ListProfile from "./pages/ListProfile";
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
                     <Route path="/categories" element={<SitePage page="categories" />} />
                     <Route path="/role" element={<SelectRole/>}/>
                     <Route path="/profile" element={<ListProfile/>}/>
-                    <Route path="/profile/:username" element={<Profile />}/>
+                    <Route path="/artists/:username" element={<Artists />}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     {/* Signed-in pages share the left and right navigation shell. */}

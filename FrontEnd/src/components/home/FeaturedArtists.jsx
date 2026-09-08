@@ -38,7 +38,7 @@ export default function FeaturedArtist() {
                                         <strong>₹{artist.price.toLocaleString("en-IN")}</strong>
                                         <small> / {artist.priceType}</small>
                                     </div>
-                                    <Link to={`/profile/${artist.username}`}>View profile</Link>
+                                    <Link to={`/artists/${artist.username}`}>View profile</Link>
                                 </div>
                             </div>
                         </article>

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import artists from "../data/artists.json";
 import "../styles/common/Profile.css";
 
-export default function Profile() {
+export default function Artists() {
   const { username } = useParams();
   const artist = artists.find((item) => item.username === username?.toLowerCase());
 
