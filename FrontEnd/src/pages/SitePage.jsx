@@ -6,12 +6,7 @@ import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 const pageContent = {
     // Shared copy keeps simple informational routes consistent in layout and tone.
-    artists: {
-        eyebrow: "DISCOVER TALENT",
-        title: "Find an artist for every moment.",
-        text: "Browse talented performers and make your next celebration unforgettable.",
-        items: ["Verified performers", "Simple booking process", "Personalised event matches"],
-    },
+    
     categories: {
         eyebrow: "EXPLORE CATEGORIES",
         title: "The right sound, style, and energy.",

@@ -1,5 +1,5 @@
-import { useState, useEffect, Profiler } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home";
 import Loader from "./components/common/Loader";
@@ -16,14 +16,11 @@ import Notification from "./components/notification/Notification";
 import Message from "./pages/Message";
 import Booking from "./pages/Booking";
 import Artists from "./pages/Artists";
-import ListProfile from "./pages/ListProfile";
+import ArtistsList from "./pages/ArtistsList";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
     const [loading, setLoading] = useState(true);
-    // The saved user is available here for future route protection.
-    const auth = localStorage.getItem('user')
-
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -45,10 +42,10 @@ function App() {
                     {/* Unknown URLs are handled by the branded 404 page. */}
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<Home />} />
-                    <Route path="/artist" element={<SitePage page="artists" />} />
+                    {/* <Route path="/artist" element={<SitePage page="artists" />} /> */}
                     <Route path="/categories" element={<SitePage page="categories" />} />
                     <Route path="/role" element={<SelectRole/>}/>
-                    <Route path="/profile" element={<ListProfile/>}/>
+                    <Route path="/artists" element={<ArtistsList />}/>
                     <Route path="/artists/:username" element={<Artists />}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}

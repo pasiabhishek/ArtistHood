@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ListProfile() {
+export default function ArtistsList() {
   return (
     <div>
       oggy
