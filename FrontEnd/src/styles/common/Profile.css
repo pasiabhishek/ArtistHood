@@ -128,15 +128,27 @@
 
 
 /* @username */
+.profile-meta-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 10px 0;
+}
+
 .profile-container-header-right-username {
     font-size: 12px;
 
     text-transform: lowercase;
 
-    margin: 10px 0;
-
     font-weight: 400;
 
+    opacity: 0.8;
+}
+
+.profile-container-header-right-location {
+    font-size: 12px;
+    font-weight: 500;
     opacity: 0.8;
 }
 
@@ -168,6 +180,25 @@
     margin: 10px 0;
 
     overflow-wrap: break-word;
+}
+
+.profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin: 12px 0 0;
+}
+
+.profile-links a {
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.profile-links a:hover,
+.profile-links a:focus-visible {
+    text-decoration: underline;
 }
 
 
