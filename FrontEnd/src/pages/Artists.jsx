@@ -71,13 +71,18 @@ export default function Artists() {
         </div>
 
         <div className="profile-container-header2">
-          <h2>About this artist</h2>
-          <p>{artist.experience} years of experience</p>
-          <p>
-            Starting at ₹{artist.price.toLocaleString("en-IN")} / {artist.priceType}
-          </p>
-          <p>Available from {artist.availability}</p>
-          <p>★ {artist.rating} ({artist.reviews} reviews)</p>
+          <div className="followers ">
+            <span>{artist.followers}</span><br />
+            <span>Followers</span>
+          </div>
+           <div className="followers ">
+            <span>{artist.following}</span><br />
+            <span>Followings</span>
+          </div>
+           <div className="followers ">
+            <span>{artist.bookings}</span><br />
+            <span>Bookings</span>
+          </div>
         </div>
 
       </div>
