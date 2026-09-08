@@ -72,15 +72,15 @@ export default function Artists() {
 
         <div className="profile-container-header2">
           <div className="followers ">
-            <span>{artist.followers}</span><br />
+            <span>{artist.followers}</span>
             <span>Followers</span>
           </div>
            <div className="followers ">
-            <span>{artist.following}</span><br />
+            <span>{artist.following}</span>
             <span>Followings</span>
           </div>
            <div className="followers ">
-            <span>{artist.bookings}</span><br />
+            <span>{artist.bookings}</span>
             <span>Bookings</span>
           </div>
         </div>
