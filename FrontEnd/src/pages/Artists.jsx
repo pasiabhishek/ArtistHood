@@ -26,6 +26,7 @@ export default function Artists() {
             <Link to="/artist">Browse artists</Link>
           </div>
         </div>
+        <Footer />
       </main>
     );
   }

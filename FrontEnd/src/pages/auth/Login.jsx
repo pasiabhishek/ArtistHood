@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../styles/auth/Auth.css";
 import useTitle from "../../hooks/useTitle";
 import { API_BASE_URL, getAuthToken } from "../../services/api";
+import Footer from "../../components/layout/Footer";
+import Header from "../../components/home/Header";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -42,14 +44,7 @@ export default function Login() {
         useTitle("Login") 
     return (
         <main className="auth-page">
-            <nav className="auth-nav">
-                <Link className="logo" to="/" aria-label="ArtistHood home">
-                    ARTIST<span>HOOD</span>
-                </Link>
-                <p>
-                    New to ArtistHood? <Link to="/signup">Create an account</Link>
-                </p>
-            </nav>
+            <Header />
             <section className="auth-content" aria-labelledby="login-heading">
                 <div className="auth-intro">
                     <p className="auth-eyebrow">WELCOME BACK</p>
@@ -111,6 +106,7 @@ export default function Login() {
                     </p>
                 </div>
             </section>
+            <Footer />
         </main>
     );
 }

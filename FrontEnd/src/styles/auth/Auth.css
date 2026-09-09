@@ -1,9 +1,13 @@
 .auth-page {
-    height: 100vh;
+    min-height: 100vh;
     color: #fff;
     background:
         linear-gradient(105deg, rgba(7, 6, 18, 0.97) 0%, rgba(9, 8, 23, 0.91) 48%, rgba(9, 8, 23, 0.48) 100%),
         url("/herobg.png") center / cover no-repeat;
+}
+
+.not-found-page {
+    padding-top: 80px;
 }
 
 .auth-nav {
@@ -39,7 +43,7 @@
     width: min(1080px, 100%);
     min-height: calc(100vh - 80px);
     margin: 0 auto;
-    padding: 36px 32px 64px;
+    padding: 116px 32px 64px;
     display: grid;
     grid-template-columns: 1fr minmax(360px, 440px);
     align-items: center;
@@ -119,7 +123,7 @@
     width: min(1180px, 100%);
     min-height: calc(100vh - 80px);
     margin: 0 auto;
-    padding: 36px 32px 72px;
+    padding: 116px 32px 72px;
     display: grid;
     grid-template-columns: minmax(260px, 1fr) minmax(420px, 620px);
     align-items: start;
@@ -132,7 +136,7 @@
 .artist-signup-content .auth-intro {
     position: sticky;
     top: 40px;
-    margin-top: 110px;
+    margin-top: 0;
 }
 .artist-signup-card {
     padding: 30px;
@@ -342,7 +346,7 @@
     .artist-signup-content {
         grid-template-columns: 1fr;
         gap: 32px;
-        padding: 42px 32px 64px;
+        padding: 116px 32px 64px;
     }
     .artist-signup-content .auth-intro {
         position: static;
@@ -369,7 +373,7 @@
     .auth-content {
         grid-template-columns: 1fr;
         gap: 32px;
-        padding: 42px 20px;
+        padding: 116px 20px 42px;
     }
     .auth-intro {
         text-align: center;
@@ -383,7 +387,7 @@
         margin: 0 auto;
     }
     .artist-signup-content {
-        padding: 32px 20px 48px;
+        padding: 116px 20px 48px;
     }
     .artist-signup-card {
         padding: 24px 20px;

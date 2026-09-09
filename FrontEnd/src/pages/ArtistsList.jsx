@@ -4,6 +4,7 @@ import { MdLocationOn, MdVerified } from "react-icons/md";
 import artists from "../data/artists.json";
 import "../styles/home/FeaturedArtists.css";
 import Header from "../components/home/Header";
+import Footer from "../components/layout/Footer";
 
 
 export default function ArtistsList() {
@@ -50,6 +51,7 @@ export default function ArtistsList() {
                     </article>
                 ))}
             </section>
+            <Footer />
         </main>
   )
 }

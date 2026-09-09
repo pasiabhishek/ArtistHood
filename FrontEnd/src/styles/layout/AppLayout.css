@@ -1,0 +1,24 @@
+.app-layout {
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-left: 270px;
+    padding-right: 270px;
+    background: var(--background);
+}
+
+.app-layout > .site-footer {
+    margin-left: -270px;
+    margin-right: -270px;
+}
+
+@media (max-width: 900px) {
+    .app-layout {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .app-layout > .site-footer {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

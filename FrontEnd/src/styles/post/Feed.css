@@ -34,14 +34,20 @@ body {
 ========================= */
 
 .Feed {
-  width: min(570px, calc(100% - 540px));
+  width: min(570px, 100%);
   min-height: 100vh;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem 3rem;
   margin: 0 auto;
   color: #fff;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+@media (max-width: 600px) {
+  .Feed {
+    padding: 1rem 0.75rem 2rem;
+  }
 }
 
 .Feed::-webkit-scrollbar {

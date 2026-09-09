@@ -4,6 +4,8 @@ import "../../styles/auth/Auth.css";
 import axios from "axios";
 import useTitle from "../../hooks/useTitle";
 import { API_BASE_URL, getAuthToken } from "../../services/api";
+import Footer from "../../components/layout/Footer";
+import Header from "../../components/home/Header";
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -62,14 +64,7 @@ export default function Signup() {
 
     return (
         <main className="auth-page">
-            <nav className="auth-nav">
-                <Link className="logo" to="/" aria-label="ArtistHood home">
-                    ARTIST<span>HOOD</span>
-                </Link>
-                <p>
-                    Already a member? <Link to="/login">Log in</Link>
-                </p>
-            </nav>
+            <Header />
             <section className="auth-content" aria-labelledby="signup-heading">
                 <div className="auth-intro">
                     <p className="auth-eyebrow">ARTISTHOOD COMMUNITY</p>
@@ -193,6 +188,7 @@ export default function Signup() {
                     </p>
                 </div>
             </section>
+            <Footer />
         </main>
     );
 }

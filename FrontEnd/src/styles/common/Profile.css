@@ -8,6 +8,7 @@
 .profile {
     width: 100%;
     min-height: 100vh;
+    padding-top: 80px;
     overflow-x: hidden;
 
     display: flex;

@@ -5,6 +5,8 @@ import axios from "axios";
 import useTitle from "../../hooks/useTitle";
 import artistCategories from "../../data/artistCategories";
 import { API_BASE_URL } from "../../services/api";
+import Footer from "../../components/layout/Footer";
+import Header from "../../components/home/Header";
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
   stageName: "",
@@ -78,14 +80,7 @@ export default function ArtistSignUp() {
   };
   return (
     <main className="auth-page artist-signup-page">
-      <nav className="auth-nav">
-        <Link className="logo" to="/" aria-label="ArtistHood home">
-          ARTIST<span>HOOD</span>
-        </Link>
-        {/* <p>
-          Already registered? <Link to="/login">Log in</Link>
-        </p> */}
-      </nav>
+      <Header />
       <section
         className="artist-signup-content"
         aria-labelledby="artist-signup-heading"
@@ -313,6 +308,7 @@ export default function ArtistSignUp() {
           )}
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

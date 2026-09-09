@@ -2,17 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/auth/Auth.css";
 import useTitle from "../hooks/useTitle";
+import Header from "../components/home/Header";
+import Footer from "../components/layout/Footer";
 
 
 export default function NotFound() {
     useTitle("Error 404") 
     return (
-        <main className="auth-page">
-            <nav className="auth-nav">
-                <Link className="logo" to="/" aria-label="ArtistHood home">
-                    ARTIST<span>HOOD</span>
-                </Link>
-            </nav>
+        <main className="auth-page not-found-page">
+            <Header />
             <section className="auth-content" aria-labelledby="not-found-heading">
                 <div className="auth-intro">
                     <p className="auth-eyebrow">WRONG TURN</p>
@@ -31,6 +29,7 @@ export default function NotFound() {
                     </Link>
                 </div>
             </section>
+            <Footer />
         </main>
     );
 }
