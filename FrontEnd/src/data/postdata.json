@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "artistUsername": "masteraazam",
     "user": {
       "id": 101,
       "fullName": "MASTER AAZAM",
@@ -20,6 +21,7 @@
   },
   {
     "id": 2,
+    "artistUsername": "aaravsharma",
     "user": {
       "id": 102,
       "fullName": "RIYA SHARMA",
@@ -39,6 +41,7 @@
   },
   {
     "id": 3,
+    "artistUsername": "riyakapoor",
     "user": {
       "id": 103,
       "fullName": "ARJUN MEHTA",
@@ -58,6 +61,7 @@
   },
   {
     "id": 4,
+    "artistUsername": "djblaze",
     "user": {
       "id": 104,
       "fullName": "ANANYA VERMA",
@@ -77,6 +81,7 @@
   },
   {
     "id": 5,
+    "artistUsername": "nehaverma",
     "user": {
       "id": 105,
       "fullName": "KARAN SINGH",
@@ -96,6 +101,7 @@
   },
   {
     "id": 6,
+    "artistUsername": "amanverma",
     "user": {
       "id": 106,
       "fullName": "MEERA JOSHI",
@@ -115,6 +121,7 @@
   },
   {
     "id": 7,
+    "artistUsername": "arijitsingh",
     "user": {
       "id": 107,
       "fullName": "ROHAN KAPOOR",
@@ -134,6 +141,7 @@
   },
   {
     "id": 8,
+    "artistUsername": "shreyaghoshal",
     "user": {
       "id": 108,
       "fullName": "PRIYA NAIR",
