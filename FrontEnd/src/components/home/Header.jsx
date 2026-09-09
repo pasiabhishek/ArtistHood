@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/layout/Header.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem("token")));
+
+    useEffect(() => {
+        const updateAuthState = () => setIsLoggedIn(Boolean(localStorage.getItem("token")));
+
+        window.addEventListener("storage", updateAuthState);
+        return () => window.removeEventListener("storage", updateAuthState);
+    }, []);
 
     // Closing the menu after a link click keeps mobile navigation tidy.
     return (
@@ -16,16 +24,18 @@ export default function Header() {
                 </div>
 
                 {/* The hamburger button only matters on smaller screens. */}
-                <button
-                    className="menu-icon"
-                    type="button"
-                    aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-                    aria-expanded={menuOpen}
-                    aria-controls="primary-navigation"
-                    onClick={() => setMenuOpen((isOpen) => !isOpen)}
-                >
-                    {menuOpen ? <FaTimes /> : <FaBars />}
-                </button>
+                {!isLoggedIn && (
+                    <button
+                        className="menu-icon"
+                        type="button"
+                        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                        aria-expanded={menuOpen}
+                        aria-controls="primary-navigation"
+                        onClick={() => setMenuOpen((isOpen) => !isOpen)}
+                    >
+                        {menuOpen ? <FaTimes /> : <FaBars />}
+                    </button>
+                )}
 
                 {/* Mobile navigation slides open from this container. */}
                 <div id="primary-navigation" className={`navbar ${menuOpen ? "active" : ""}`}>
@@ -48,25 +58,29 @@ export default function Header() {
                     </ul> */}
 
                         {/* Mobile actions stay inside the opened menu. */}
-                    <div className="logsign mobile-btn">
-                        <Link to={"/login"} onClick={() => setMenuOpen(false)}>
-                            <button className="login">Login</button>
-                        </Link>
-                        <Link to="/signup" onClick={() => setMenuOpen(false)}>
-                            <button className="signup">Get Started</button>
-                        </Link>
-                    </div>
+                    {!isLoggedIn && (
+                        <div className="logsign mobile-btn">
+                            <Link to={"/login"} onClick={() => setMenuOpen(false)}>
+                                <button className="login">Login</button>
+                            </Link>
+                            <Link to="/signup" onClick={() => setMenuOpen(false)}>
+                                <button className="signup">Get Started</button>
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
                 {/* Desktop actions remain visible beside the navigation. */}
-                <div className="logsign desktop-btn">
-                    <Link to="/login">
-                        <button className="login">Login</button>
-                    </Link>
-                    <Link to="/signup">
-                        <button className="signup">Get Started</button>
-                    </Link>
-                </div>
+                {!isLoggedIn && (
+                    <div className="logsign desktop-btn">
+                        <Link to="/login">
+                            <button className="login">Login</button>
+                        </Link>
+                        <Link to="/signup">
+                            <button className="signup">Get Started</button>
+                        </Link>
+                    </div>
+                )}
             </nav>
         </div>
     );
