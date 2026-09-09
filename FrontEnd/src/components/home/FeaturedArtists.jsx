@@ -15,7 +15,7 @@ export default function FeaturedArtist() {
                         <p>HANDPICKED TALENT</p>
 
                     </div>
-                    <Link to="/artist">See all artists</Link>
+                    <Link to="/artists">See all artists</Link>
                 </div>
                 <div className="artist-grid">
                     {/* The home page shows a small preview; the artist page can grow later. */}

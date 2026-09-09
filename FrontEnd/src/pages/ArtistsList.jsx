@@ -1,9 +1,42 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import { MdLocationOn, MdVerified } from "react-icons/md";
+import artists from "../data/artists.json";
+import "../styles/home/FeaturedArtists.css";
+import Header from "../components/home/Header";
+
 
 export default function ArtistsList() {
   return (
     <div>
-      oggy
+      <Header/>
+              <div className="artist-grid m-10" >
+                          {/* The home page shows a small preview; the artist page can grow later. */}
+                          {artists.map((artist) => (
+                              <article className="artist-card" key={artist.id}>
+                                  <img src={artist.image} alt={artist.name} />
+                                  <div className="artist-card-body">
+                                      <div className="artist-card-top">
+                                          <span>{artist.category}</span>
+                                          <span className="artist-rating">★ {artist.rating}</span>
+                                      </div>
+                                      <h3>
+                                          {artist.name} {artist.verified && <MdVerified title="Verified artist" />}
+                                      </h3>
+                                      <p className="artist-location">
+                                          <MdLocationOn /> {artist.location}
+                                      </p>
+                                      <div className="artist-card-footer">
+                                          <div>
+                                              <strong>₹{artist.price.toLocaleString("en-IN")}</strong>
+                                              <small> / {artist.priceType}</small>
+                                          </div>
+                                          <Link to={`/artists/${artist.username}`}>View profile</Link>
+                                      </div>
+                                  </div>
+                              </article>
+                          ))}
+                      </div>
     </div>
   )
 }

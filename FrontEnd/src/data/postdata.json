@@ -16,6 +16,10 @@
     "createdAt": "2026-09-05T10:30:00Z",
     "likes": 128,
     "comments": 24,
+    "commentList": [
+      { "username": "riya_k", "text": "This was such a beautiful evening." },
+      { "username": "arjun_words", "text": "Your words always stay with me." }
+    ],
     "shares": 8,
     "likedByCurrentUser": false
   },
@@ -36,6 +40,10 @@
     "createdAt": "2026-09-04T08:15:00Z",
     "likes": 94,
     "comments": 16,
+    "commentList": [
+      { "username": "poetrywithme", "text": "This is exactly how writing mornings feel." },
+      { "username": "neha_creates", "text": "Can't wait to read the finished piece." }
+    ],
     "shares": 5,
     "likedByCurrentUser": false
   },
@@ -56,6 +64,10 @@
     "createdAt": "2026-09-03T19:45:00Z",
     "likes": 156,
     "comments": 28,
+    "commentList": [
+      { "username": "sameer_live", "text": "The energy in this performance is amazing." },
+      { "username": "wordsandchai", "text": "Please share the full set soon!" }
+    ],
     "shares": 11,
     "likedByCurrentUser": false
   },
@@ -76,6 +88,10 @@
     "createdAt": "2026-09-02T14:20:00Z",
     "likes": 117,
     "comments": 21,
+    "commentList": [
+      { "username": "creative_soul", "text": "Love seeing artists create together." },
+      { "username": "amanwrites", "text": "This looks like such a thoughtful session." }
+    ],
     "shares": 7,
     "likedByCurrentUser": true
   },

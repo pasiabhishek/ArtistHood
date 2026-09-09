@@ -385,6 +385,29 @@
     object-fit: cover;
 }
 
+.profile-post-comments {
+    margin-top: 12px;
+    color: var(--text-color);
+    font-size: 0.78rem;
+}
+
+.profile-post-comments p {
+    margin: 6px 0;
+    line-height: 1.45;
+}
+
+.profile-post-comments strong {
+    margin-right: 4px;
+}
+
+.profile-post-comments span {
+    display: block;
+    margin-top: 8px;
+    color: var(--text-color);
+    font-size: 0.72rem;
+    opacity: 0.58;
+}
+
 .profile-posts-empty {
     display: grid;
     min-height: 150px;
