@@ -21,18 +21,26 @@ export default function FeaturedArtist() {
                     {/* The home page shows a small preview; the artist page can grow later. */}
                     {artists.slice(0, 3).map((artist) => (
                         <article className="artist-card" key={artist.id}>
-                            <img src={artist.image} alt={artist.name} />
+                            <div className="artist-card-image-wrap">
+                                <img src={artist.image} alt={`${artist.name} profile`} />
+                                {artist.verified && (
+                                    <span className="artist-verified-badge" title="Verified artist">
+                                        <MdVerified aria-hidden="true" /> Verified
+                                    </span>
+                                )}
+                            </div>
                             <div className="artist-card-body">
                                 <div className="artist-card-top">
                                     <span>{artist.category}</span>
-                                    <span className="artist-rating">★ {artist.rating}</span>
+                                    <span className="artist-rating" aria-label={`${artist.rating} out of 5 stars`}>
+                                        ★ {artist.rating}
+                                    </span>
                                 </div>
-                                <h3>
-                                    {artist.name} {artist.verified && <MdVerified title="Verified artist" />}
-                                </h3>
+                                <h2>{artist.name}</h2>
                                 <p className="artist-location">
-                                    <MdLocationOn /> {artist.location}
+                                    <MdLocationOn aria-hidden="true" /> {artist.location}
                                 </p>
+                                <p className="artist-card-bio">{artist.bio}</p>
                                 <div className="artist-card-footer">
                                     <div>
                                         <strong>₹{artist.price.toLocaleString("en-IN")}</strong>
