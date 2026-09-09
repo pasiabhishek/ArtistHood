@@ -14,7 +14,7 @@ export default function AppLayout() {
             <LeftNav />
             <Outlet />
             <RightNav />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
