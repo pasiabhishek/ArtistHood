@@ -45,7 +45,8 @@ const createArtistProfile = async (req, res) => {
     } catch (error) {
         console.error("Create artist profile error:", error);
 
-        res.status(500).json({
+        const statusCode = error.name === "ValidationError" ? 400 : 500;
+        res.status(statusCode).json({
             message: error.message
         });
     }

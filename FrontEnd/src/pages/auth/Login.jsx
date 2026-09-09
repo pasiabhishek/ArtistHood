@@ -25,7 +25,10 @@ export default function Login() {
         try {
             const res = await axios.post(
                 `${API_BASE_URL}/api/auth/login`,
-                formData
+                {
+                    email: formData.email.trim(),
+                    password: formData.password
+                }
             );
             // The token is used by later authenticated requests.
             const token = getAuthToken(res);
@@ -41,7 +44,7 @@ export default function Login() {
             setLoading(false);
         }
     };
-        useTitle("Login") 
+    useTitle("Login");
     return (
         <main className="auth-page">
             <Header />

@@ -5,17 +5,25 @@ const generateToken = require("../utils/generateToken");
 // Register User
 const registerUser = async (req, res) => {
     try {
-        const { fullName, username, email, password, role } = req.body;
+        const { fullName, username, password, role } = req.body;
+        const normalizedFullName = fullName?.trim();
         const normalizedUsername = username?.trim().toLowerCase();
+        const normalizedEmail = req.body.email?.trim().toLowerCase();
 
-        if (!fullName || !normalizedUsername || !email || !password) {
+        if (!normalizedFullName || !normalizedUsername || !normalizedEmail || !password) {
             return res.status(400).json({
                 message: "Please provide all required fields"
             });
         }
 
+        if (!role || !["Client", "Artist"].includes(role)) {
+            return res.status(400).json({
+                message: "Please select a valid role"
+            });
+        }
+
         const userExists = await User.findOne({
-            $or: [{ email }, { username: normalizedUsername }]
+            $or: [{ email: normalizedEmail }, { username: normalizedUsername }]
         });
 
         if (userExists) {
@@ -28,23 +36,25 @@ const registerUser = async (req, res) => {
         }
 
         const user = await User.create({
-            fullName,
+            fullName: normalizedFullName,
             username: normalizedUsername,
-            email,
+            email: normalizedEmail,
             password,
-            role: role || "Client",
+            role,
             artistProfile: null
         });
+        const token = generateToken(user._id);
 
         res.status(201).json({
             success: true,
+            token,
             user: {
                 id: user._id,
                 fullName: user.fullName,
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                token: generateToken(user._id)
+                token
             }
         });
 
@@ -68,7 +78,8 @@ const registerUser = async (req, res) => {
 // Login User
 const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
+        const { password } = req.body;
 
         if (!email || !password) {
             return res.status(400).json({
@@ -84,20 +95,24 @@ const loginUser = async (req, res) => {
             });
         }
 
+        const token = generateToken(user._id);
+
         res.json({
             success: true,
+            token,
             user: {
                 id: user._id,
                 fullName: user.fullName,
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                token: generateToken(user._id)
+                token
             }
         });
 
     } catch (error) {
-        res.status(500).json({
+        const statusCode = error.name === "ValidationError" ? 400 : 500;
+        res.status(statusCode).json({
             message: error.message
         });
     }

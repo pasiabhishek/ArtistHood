@@ -28,8 +28,8 @@ export default function Signup() {
         try {
             const payload = {
                 fullName: `${formData.firstName} ${formData.lastName}`.trim(),
-                username: formData.username,
-                email: formData.email,
+                username: formData.username.trim(),
+                email: formData.email.trim(),
                 password: formData.password,
                 role: formData.role
             };
@@ -48,7 +48,7 @@ export default function Signup() {
             localStorage.setItem("user", JSON.stringify(res.data.user || res.data));
             alert("Account Created");
             // alert(formData.role);
-            if (formData.role == 'Artist') {
+            if (formData.role === "Artist") {
                 navigate("/artist-signup");
             }
             else {
@@ -164,7 +164,7 @@ export default function Signup() {
 
                         <label>
                             Role
-                            <select name="Select_Your_Role"
+                            <select name="role"
                                 required
                                 value={formData.role}
                                 onChange={(event) => setFormData(
