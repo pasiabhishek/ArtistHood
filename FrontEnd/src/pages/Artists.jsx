@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import artists from "../data/artists.json";
 import postsData from "../data/postdata.json";
 import "../styles/common/Profile.css";
+import Header from "../components/home/Header";
+import Footer from "../components/layout/Footer";
 
 export default function Artists() {
   const { username } = useParams();
@@ -13,7 +15,10 @@ export default function Artists() {
 
   if (!artist) {
     return (
+
       <main className="profile profile-not-found">
+        <Header />
+
         <div className="profile-container">
           <div className="profile-container-header2">
             <h1>Artist not found</h1>
@@ -27,6 +32,8 @@ export default function Artists() {
 
   return (
     <div className="profile">
+      <Header />
+
       <div className="profile-banner">
       </div>
 
@@ -79,11 +86,11 @@ export default function Artists() {
             <span>{artist.followers}</span>
             <span>Followers</span>
           </div>
-           <div className="followers ">
+          <div className="followers ">
             <span>{artist.following}</span>
             <span>Followings</span>
           </div>
-           <div className="followers ">
+          <div className="followers ">
             <span>{artist.bookings}</span>
             <span>Bookings</span>
           </div>
@@ -124,6 +131,8 @@ export default function Artists() {
         </section>
 
       </div>
+
+      <Footer/>
     </div>
   );
 }

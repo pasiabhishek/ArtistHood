@@ -20,6 +20,66 @@
     "likedByCurrentUser": false
   },
   {
+    "id": 9,
+    "artistUsername": "masteraazam",
+    "user": {
+      "id": 101,
+      "fullName": "MASTER AAZAM",
+      "role": "Writer",
+      "profileImage": "https://i.pravatar.cc/150?img=12"
+    },
+    "content": "A quiet morning, a blank page, and a few honest lines. New poetry is taking shape.",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-04T08:15:00Z",
+    "likes": 94,
+    "comments": 16,
+    "shares": 5,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 10,
+    "artistUsername": "masteraazam",
+    "user": {
+      "id": 101,
+      "fullName": "MASTER AAZAM",
+      "role": "Writer",
+      "profileImage": "https://i.pravatar.cc/150?img=12"
+    },
+    "content": "Sharing a short excerpt from tonight's spoken-word set. Thank you for listening and being part of the room.",
+    "media": {
+      "type": "video",
+      "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    "createdAt": "2026-09-03T19:45:00Z",
+    "likes": 156,
+    "comments": 28,
+    "shares": 11,
+    "likedByCurrentUser": false
+  },
+  {
+    "id": 11,
+    "artistUsername": "masteraazam",
+    "user": {
+      "id": 101,
+      "fullName": "MASTER AAZAM",
+      "role": "Writer",
+      "profileImage": "https://i.pravatar.cc/150?img=12"
+    },
+    "content": "Behind the scenes from a collaborative writing session with some wonderfully curious artists.",
+    "media": {
+      "type": "image",
+      "url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+    },
+    "createdAt": "2026-09-02T14:20:00Z",
+    "likes": 117,
+    "comments": 21,
+    "shares": 7,
+    "likedByCurrentUser": true
+  },
+  {
     "id": 2,
     "artistUsername": "aaravsharma",
     "user": {
