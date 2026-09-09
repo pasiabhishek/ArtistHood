@@ -104,13 +104,13 @@ export default function Artists() {
             <div className="profile-post-list">
               {artistPosts.map((post) => (
                 <article className="profile-post" key={post.id}>
-                  <div className="profile-post-author">
+                  {/* <div className="profile-post-author">
                     <img src={artist.image} alt="" />
                     <div>
                       <strong>{artist.stageName}</strong>
                       <span>{artist.category}</span>
                     </div>
-                  </div>
+                  </div> */}
                   <p className="profile-post-content">{post.content}</p>
                   {post.media?.type === "image" && (
                     <img className="profile-post-media" src={post.media.url} alt="" />
@@ -119,6 +119,16 @@ export default function Artists() {
                     <video className="profile-post-media" controls preload="metadata">
                       <source src={post.media.url} type="video/mp4" />
                     </video>
+                  )}
+                  {post.commentList?.length > 0 && (
+                    <div className="profile-post-comments" aria-label="Post comments">
+                      {post.commentList.map((comment) => (
+                        <p key={`${post.id}-${comment.username}`}>
+                          <strong>{comment.username}</strong> {comment.text}
+                        </p>
+                      ))}
+                      <span>View all {post.comments} comments</span>
+                    </div>
                   )}
                 </article>
               ))}
