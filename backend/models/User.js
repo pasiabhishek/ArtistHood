@@ -88,7 +88,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             trim: true,
         },
         availability: {
-            type: Boolean,
+            type: Date,
             default: true,
         },
         price: {
@@ -98,7 +98,7 @@ const ArtistProfileSchema = new mongoose.Schema(
         },
         priceType: {
             type: String,
-            enum: ["event", "hour", "day"],
+            enum: ["per hour", "per day", "per event"],
             default: "event",
         },
         rating: {
@@ -154,7 +154,7 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 const User = mongoose.model('User', UserSchema, 'user');
 
 // Compile artist model
-const ArtistProfile = mongoose.model('ArtistProfile', ArtistProfileSchema);
+const ArtistProfile = mongoose.model('ArtistProfile', ArtistProfileSchema, 'artistProfile');
 
 module.exports = { User, ArtistProfile };
 
