@@ -1,25 +1,39 @@
-const User = require("../models/User");
+const { User, ArtistProfile } = require("../models/User");
 
 const createArtistProfile = async (req, res) => {
     try {
-        // User comes from authentication middleware
         const user = await User.findById(req.user.id);
 
         if (!user) {
             return res.status(404).json({
+                success: false,
                 message: "User not found"
             });
         }
 
         if (user.role !== "Artist") {
             return res.status(403).json({
+                success: false,
                 message: "Only artists can create an artist profile"
             });
         }
 
-        // Get profile data from request
-        user.artistProfile = {
+        const existingProfile = await ArtistProfile.findOne({
+            user: user._id
+        });
+
+        if (existingProfile) {
+            return res.status(409).json({
+                success: false,
+                message: "Artist profile already exists"
+            });
+        }
+
+        const artistProfile = await ArtistProfile.create({
+            user: user._id,
+
             stageName: req.body.stageName,
+            profileImage: req.body.profileImage,
             category: req.body.category,
             bio: req.body.bio,
             experience: req.body.experience,
@@ -28,30 +42,40 @@ const createArtistProfile = async (req, res) => {
             availability: req.body.availability,
             price: req.body.price,
             priceType: req.body.priceType,
+
+            // Server controlled
+            rating: 0,
+            isVerified: false,
+
             instagram: req.body.instagram,
             youtube: req.body.youtube,
-            website: req.body.website,
-            portfolio: req.body.portfolio || []
-        };
+            facebook: req.body.facebook,
+            website: req.body.website
+        });
 
-        await user.save();
-
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Artist profile created successfully",
-            artistProfile: user.artistProfile
+            artistProfile
         });
 
     } catch (error) {
         console.error("Create artist profile error:", error);
 
-        const statusCode = error.name === "ValidationError" ? 400 : 500;
-        res.status(statusCode).json({
-            message: error.message
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
         });
     }
 };
-
 
 module.exports = {
     createArtistProfile

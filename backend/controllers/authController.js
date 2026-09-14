@@ -40,8 +40,7 @@ const registerUser = async (req, res) => {
             username: normalizedUsername,
             email: normalizedEmail,
             password,
-            role,
-            artistProfile: null
+            role
         });
         const token = generateToken(user._id);
 
