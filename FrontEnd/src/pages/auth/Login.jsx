@@ -26,7 +26,7 @@ export default function Login() {
             console.log("API_BASE_URL:", API_BASE_URL);
 
             const res = await axios.post(
-                `https://artisthood-e6a5.onrender.com/api/auth/login`,
+                `${API_BASE_URL}/api/auth/login`,
                 {
                     email: formData.email.trim(),
                     password: formData.password
