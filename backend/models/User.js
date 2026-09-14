@@ -7,6 +7,17 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        minlength: 3,
+        maxlength: 30,
+        match: /^[a-zA-Z0-9_]+$/,
+    },
     email: {
         type: String,
         required: true,
@@ -40,16 +51,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        username: {
-            type: String,
-            required: true,
-            unique: true,
-            trim: true,
-            lowercase: true,
-            minlength: 3,
-            maxlength: 30,
-            match: /^[a-zA-Z0-9_]+$/,
-        },
+
         stageName: {
             type: String,
             required: true,
@@ -105,7 +107,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             min: 0,
             max: 5,
         },
-        verified: {
+        isVerified: {
             type: Boolean,
             default: false,
         },
@@ -155,3 +157,38 @@ const User = mongoose.model('User', UserSchema, 'user');
 const ArtistProfile = mongoose.model('ArtistProfile', ArtistProfileSchema);
 
 module.exports = { User, ArtistProfile };
+
+/*
+User
+│
+├── id
+├── fullName
+├── username
+├── email
+├── password
+├── role
+└── createdAt
+
+ArtistProfile
+│
+├── id
+├── user → User
+├── stageName
+├── profileImage
+├── category
+├── bio
+├── experience
+├── city
+├── state
+├── availability
+├── price
+├── priceType
+├── rating
+├── isVerified
+├── instagram
+├── youtube
+├── facebook
+├── website
+└── timestamps
+
+*/
