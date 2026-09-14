@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "../../styles/post/CreatePost.css";
+import { getApiUrl } from "../../services/api";
 
 export default function CreatePost() {
     // Use the saved account so the API knows who owns the new post.
     const user = JSON.parse(localStorage.getItem("user"));
-    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     const [postData, setPostData] = useState({
         userId: user?.id || null,
@@ -55,7 +55,7 @@ export default function CreatePost() {
         setIsSubmitting(true);
 
         try {
-            const res = await fetch(`${API_BASE_URL}/create`, {
+            const res = await fetch(getApiUrl("create"), {
                 method: "POST",
                 body: formData,
             });

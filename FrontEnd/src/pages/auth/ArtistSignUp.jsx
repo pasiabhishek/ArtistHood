@@ -4,7 +4,7 @@ import "../../styles/auth/Auth.css";
 import axios from "axios";
 import useTitle from "../../hooks/useTitle";
 import artistCategories from "../../data/artistCategories";
-import { API_BASE_URL } from "../../services/api";
+import { getApiUrl } from "../../services/api";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/home/Header";
 const initialForm = {
@@ -54,7 +54,7 @@ export default function ArtistSignUp() {
       }
 
       const response = await axios.post(
-        `${API_BASE_URL}/api/auth/artist-signup`,
+        getApiUrl("api/auth/artist-signup"),
         formData,
         {
           headers: {

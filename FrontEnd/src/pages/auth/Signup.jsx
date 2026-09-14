@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth/Auth.css";
 import axios from "axios";
 import useTitle from "../../hooks/useTitle";
-import { API_BASE_URL, getAuthToken } from "../../services/api";
+import { getApiUrl, getAuthToken } from "../../services/api";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/home/Header";
 
@@ -35,7 +35,7 @@ export default function Signup() {
             };
 
             const res = await axios.post(
-                `${API_BASE_URL}/api/auth/register`,
+                getApiUrl("api/auth/register"),
                 payload
             );
 

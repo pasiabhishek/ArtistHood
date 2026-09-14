@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/auth/Auth.css";
 import useTitle from "../../hooks/useTitle";
-import { API_BASE_URL, getAuthToken } from "../../services/api";
+import { getApiUrl, getAuthToken } from "../../services/api";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/home/Header";
 
@@ -26,7 +26,7 @@ export default function Login() {
             console.log("API_BASE_URL:", API_BASE_URL);
 
             const res = await axios.post(
-                `${API_BASE_URL}/api/auth/login`,
+                getApiUrl("api/auth/login"),
                 {
                     email: formData.email.trim(),
                     password: formData.password
