@@ -23,8 +23,6 @@ export default function Login() {
         setLoading(true);
 
         try {
-            console.log("API_BASE_URL:", API_BASE_URL);
-
             const res = await axios.post(
                 getApiUrl("api/auth/login"),
                 {
