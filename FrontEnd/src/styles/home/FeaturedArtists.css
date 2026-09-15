@@ -186,7 +186,6 @@
 	font-size: .76rem;
 	line-height: 1.5;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
 }
 
 .artist-card-footer strong {

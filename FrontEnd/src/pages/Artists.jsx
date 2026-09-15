@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import artists from "../data/artists.json";
 import postsData from "../data/postdata.json";
@@ -9,6 +9,7 @@ import Footer from "../components/layout/Footer";
 export default function Artists() {
   const { username } = useParams();
   const artist = artists.find((item) => item.username === username?.toLowerCase());
+  const [isFollowing, setIsFollowing] = useState(false);
   const artistPosts = postsData.filter(
     (post) => post.artistUsername === artist?.username,
   );
@@ -62,6 +63,18 @@ export default function Artists() {
             <div className="profile-container-header-right-bio">
               {artist.bio}
             </div>
+            <div className="profile-actions" aria-label={`Actions for ${artist.stageName}`}>
+              <button
+                type="button"
+                className={`profile-follow-button ${isFollowing ? "is-following" : ""}`}
+                onClick={() => setIsFollowing((following) => !following)}
+                aria-pressed={isFollowing}
+              >
+                {isFollowing ? "Following" : "Follow"}
+              </button>
+              <Link className="profile-book-button" to={`/booking?artist=${artist.id}`}>Book now</Link>
+            </div>
+
             <div className="profile-links" aria-label={`${artist.stageName} links`}>
               {artist.instagram && (
                 <a href={artist.instagram} target="_blank" rel="noreferrer">

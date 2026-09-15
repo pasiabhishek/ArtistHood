@@ -1,0 +1,379 @@
+.booking-page {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3.5rem;
+  color: #f5f7ff;
+}
+.booking-page-header,
+.upcoming-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+.booking-page-header {
+  margin-bottom: 1.6rem;
+}
+.booking-kicker {
+  margin: 0 0 0.35rem;
+  color: #a7a4d6;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.booking-page h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  line-height: 1.08;
+}
+.booking-intro {
+  max-width: 580px;
+  margin: 0.7rem 0 0;
+  color: #bfc5e7;
+  line-height: 1.55;
+}
+.booking-browse-link,
+.booking-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7b68f5, #9d8afc);
+  color: #fff;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(123, 104, 245, 0.25);
+}
+.booking-browse-link {
+  padding: 0.78rem 1rem;
+}
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.8fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+.booking-form-card,
+.artist-summary-card,
+.booking-help-card,
+.booking-upcoming {
+  background: rgba(17, 17, 56, 0.92);
+  border: 1px solid rgba(105, 99, 174, 0.36);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(8, 6, 24, 0.2);
+}
+.booking-form-card {
+  padding: 1.4rem;
+}
+.booking-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.35rem;
+}
+.booking-card-heading h2,
+.artist-summary-card h2,
+.booking-upcoming h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.booking-card-heading p,
+.artist-summary-top p {
+  margin: 0.25rem 0 0;
+  color: #a7a4d6;
+  font-size: 0.82rem;
+}
+.booking-step {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(123, 104, 245, 0.18);
+  color: #cfc9ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.booking-success {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  margin: -0.3rem 0 1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(89, 191, 138, 0.12);
+  border: 1px solid rgba(89, 191, 138, 0.3);
+  color: #c7f5d8;
+  font-size: 0.86rem;
+}
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.booking-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.booking-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: #e8ebff;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  border: 1px solid rgba(137, 132, 194, 0.34);
+  outline: 0;
+  border-radius: 11px;
+  background: rgba(4, 7, 32, 0.65);
+  color: #f5f7ff;
+  padding: 0.75rem 0.8rem;
+  font: inherit;
+  font-size: 0.88rem;
+  resize: vertical;
+}
+.booking-form input::placeholder,
+.booking-form textarea::placeholder {
+  color: #8f92b7;
+}
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  border-color: #998afa;
+  box-shadow: 0 0 0 3px rgba(123, 104, 245, 0.15);
+}
+.booking-form select option {
+  background: #111138;
+}
+.booking-submit {
+  align-self: flex-start;
+  padding: 0.85rem 1.1rem;
+  margin-top: 0.15rem;
+}
+.booking-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.artist-summary-card,
+.booking-help-card {
+  padding: 1.2rem;
+}
+.artist-summary-top {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+.artist-summary-top img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(157, 138, 252, 0.55);
+}
+.artist-summary-top h2 {
+  font-size: 1.05rem;
+}
+.artist-summary-top span {
+  color: #c9c7e8;
+  font-size: 0.78rem;
+}
+.artist-summary-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 1.1rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(137, 132, 194, 0.2);
+  border-bottom: 1px solid rgba(137, 132, 194, 0.2);
+  color: #c6c8e5;
+  font-size: 0.79rem;
+}
+.artist-summary-meta span {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+.artist-summary-price {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.artist-summary-price div {
+  display: grid;
+  gap: 0.12rem;
+}
+.artist-summary-price small,
+.artist-summary-price div span {
+  color: #a7a4d6;
+  font-size: 0.7rem;
+}
+.artist-summary-price strong {
+  font-size: 1.15rem;
+}
+.booking-rating {
+  color: #f7d374;
+  font-size: 0.77rem;
+}
+.booking-help-card h3 {
+  margin: 0 0 0.9rem;
+  font-size: 1rem;
+}
+.booking-help-card ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #c8cbe6;
+  font-size: 0.81rem;
+  line-height: 1.4;
+}
+.booking-help-card li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.booking-help-card li span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: rgba(123, 104, 245, 0.2);
+  color: #dedaff;
+  font-size: 0.7rem;
+}
+.booking-upcoming {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+}
+.upcoming-title {
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.upcoming-title button {
+  border: 0;
+  background: transparent;
+  color: #bfb8ff;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.upcoming-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.upcoming-booking-card {
+  display: grid;
+  grid-template-columns: 45px minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(137, 132, 194, 0.17);
+}
+.upcoming-booking-card img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.upcoming-booking-details h3 {
+  margin: 0;
+  font-size: 0.86rem;
+}
+.upcoming-booking-details p,
+.upcoming-booking-date {
+  margin: 0.2rem 0 0;
+  color: #a7a4d6;
+  font-size: 0.72rem;
+}
+.booking-status {
+  padding: 0.28rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+.booking-status.confirmed {
+  background: rgba(89, 191, 138, 0.13);
+  color: #b9efce;
+}
+.booking-status.pending {
+  background: rgba(240, 185, 91, 0.13);
+  color: #f2d28f;
+}
+.upcoming-booking-date {
+  grid-column: 2/-1;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  margin-top: -0.35rem;
+}
+@media (max-width: 900px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+  .booking-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .booking-page {
+    padding-top: 1.35rem;
+  }
+}
+@media (max-width: 620px) {
+  .booking-page {
+    padding: 1rem 0.8rem 2rem;
+  }
+  .booking-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .booking-form-row,
+  .booking-sidebar,
+  .upcoming-list {
+    grid-template-columns: 1fr;
+  }
+  .booking-form-card,
+  .booking-upcoming {
+    padding: 1rem;
+  }
+  .booking-browse-link {
+    font-size: 0.85rem;
+  }
+  .artist-summary-card,
+  .booking-help-card {
+    padding: 1rem;
+  }
+  .upcoming-booking-card {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+  .upcoming-booking-card img {
+    width: 42px;
+    height: 42px;
+  }
+  .booking-status {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .upcoming-booking-date {
+    grid-column: 2;
+    margin-top: -0.45rem;
+  }
+}
