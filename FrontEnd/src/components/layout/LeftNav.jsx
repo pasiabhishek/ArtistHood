@@ -7,6 +7,7 @@ export default function LeftNav() {
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const displayName = user?.fullName || "GUEST";
+    console.log(user)
 
     return (
         <div className="Left_Nav">
@@ -16,6 +17,7 @@ export default function LeftNav() {
                 <div className="logo">
                     ARTIST<span>HOOD</span>
                 </div>
+
             </div>
 
             {/* These links are the main shortcuts around the signed-in area. */}
@@ -28,13 +30,13 @@ export default function LeftNav() {
                             Home
                         </li>
                     </Link>
-
+                    {/* 
                     <Link to="/discover">
                         <li>
                             <i className="fa-solid fa-users"></i>
                             Discover
                         </li>
-                    </Link>
+                    </Link> */}
 
                     <Link to="/booking">
                         <li>
@@ -67,14 +69,16 @@ export default function LeftNav() {
             </div>
 
             {/* Show a small account summary at the bottom of the rail. */}
-            <div className="Left_Nav_Footer">
-                <img
-                    src={user?.username || "/user-logo.png"}
-                    alt="profile"
-                />
+            <Link to={`/artists/${user.username}`}>
+                <div className="Left_Nav_ooter">
+                    <img
+                        src={user?.username || "/user-logo.png"}
+                        alt="profile"
+                    />
 
-                <h3>{displayName}</h3>
-            </div>
+                    <h3>{displayName}</h3>
+                </div>
+            </Link>
 
         </div>
     );

@@ -50,12 +50,12 @@ function App() {
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     {/* Signed-in pages share the left and right navigation shell. */}
-                    <Route Route element={<AppLayout />}>
+                    <Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
-                        <Route path="/Discover" element={<Discover />} />
+                        <Route path="/discover" element={<Discover />} />
                         <Route path="/notifications" element={<Notification />} />
-                        <Route path="/Messages" element={<Message />} />
-                        <Route path="/Booking" element={<Booking />} />
+                        <Route path="/messages" element={<Message />} />
+                        <Route path="/booking" element={<Booking />} />
                         <Route path="/create-post" element={<CreatePost />} />
                     </Route>
 
