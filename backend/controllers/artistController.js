@@ -1,4 +1,5 @@
 const { User, ArtistProfile } = require("../models/User");
+const cloudinary = require("../config/cloudinary");
 
 const createArtistProfile = async (req, res) => {
     try {
@@ -220,10 +221,69 @@ const updateArtistProfile = async (req, res) => {
     }
 };
 
+const updateArtistProfileImage = async (req, res) => {
+    try {
+
+        const artistProfile = await ArtistProfile.findOne({ user: req.user.id });
+
+        if (!artistProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist profile not found"
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Profile image is required"
+            });
+        }
+
+        // Upload image buffer to Cloudinary
+        const result = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                {
+                    folder: "artistHood/ProfileImages",
+                    resource_type: "image"
+                },
+                (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            ).end(req.file.buffer);
+        });
+
+        // Save Cloudinary URL
+        artistProfile.profileImage = result.secure_url;
+
+        await artistProfile.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Profile image updated successfully",
+            profileImage: artistProfile.profileImage
+        });
+
+    } catch (error) {
+        console.error("Update profile image error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     createArtistProfile,
     getMyArtistProfile,
     getArtists,
     getArtistByUsername,
-    updateArtistProfile
+    updateArtistProfile,
+    updateArtistProfileImage
 };
