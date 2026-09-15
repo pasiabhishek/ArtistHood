@@ -104,9 +104,10 @@ const getMyArtistProfile = async (req, res) => {
     }
 };
 
-const getAllArtists = async (req, res) => {
+const getArtists = async (req, res) => {
     try {
-        const artists = await ArtistProfile.find();
+        const artists = await ArtistProfile.find()
+            .populate("user", "username fullName");
 
         res.json({
             success: true,
@@ -121,8 +122,54 @@ const getAllArtists = async (req, res) => {
     }
 };
 
+// Get Artist by Username
+const getArtistByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            username: req.params.username,
+            role: "Artist"
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist not found"
+            });
+        }
+
+        const artistProfile = await ArtistProfile.findOne({
+            user: user._id
+        });
+
+        if (!artistProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist profile not found"
+            });
+        }
+
+        res.json({
+            success: true,
+            artist: {
+                user,
+                artistProfile
+            }
+        });
+
+    } catch (error) {
+        console.error("Get artist by username error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     createArtistProfile,
     getMyArtistProfile,
-    getAllArtists
+    getArtists,
+    getArtistByUsername
 };
