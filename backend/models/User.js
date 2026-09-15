@@ -89,7 +89,7 @@ const ArtistProfileSchema = new mongoose.Schema(
         },
         availability: {
             type: Date,
-            default: true,
+            default: null,
         },
         price: {
             type: Number,
