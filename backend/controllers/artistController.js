@@ -104,7 +104,25 @@ const getMyArtistProfile = async (req, res) => {
     }
 };
 
+const getAllArtists = async (req, res) => {
+    try {
+        const artists = await ArtistProfile.find();
+
+        res.json({
+            success: true,
+            artists
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createArtistProfile,
-    getMyArtistProfile
+    getMyArtistProfile,
+    getAllArtists
 };
