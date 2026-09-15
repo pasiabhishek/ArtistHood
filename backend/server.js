@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./config/database.js");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
+const artistRoutes = require("./routes/artistRoutes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 // Main Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use('/api/artists', artistRoutes);
 
 // Health Check Route
 app.get("/", (req, res) => {
