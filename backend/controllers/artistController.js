@@ -167,9 +167,63 @@ const getArtistByUsername = async (req, res) => {
     }
 };
 
+//update artist profile
+const updateArtistProfile = async (req, res) => {
+    try {
+        const {
+            stageName, profileImage, category, bio, experience,
+            city, state, availability, price, priceType,
+            instagram, youtube, facebook, website
+        } = req.body;
+
+        const artistProfile = await ArtistProfile.findOne({ user: req.user.id });
+
+        if (!artistProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist profile not found"
+            });
+        }
+
+        // Update only fields that are provided
+        if (stageName !== undefined) artistProfile.stageName = stageName;
+        if (profileImage !== undefined) artistProfile.profileImage = profileImage;
+        if (category !== undefined) artistProfile.category = category;
+        if (bio !== undefined) artistProfile.bio = bio;
+        if (experience !== undefined) artistProfile.experience = experience;
+        if (city !== undefined) artistProfile.city = city;
+        if (state !== undefined) artistProfile.state = state;
+        if (availability !== undefined) artistProfile.availability = availability;
+        if (price !== undefined) artistProfile.price = price;
+        if (priceType !== undefined) artistProfile.priceType = priceType;
+        if (instagram !== undefined) artistProfile.instagram = instagram;
+        if (youtube !== undefined) artistProfile.youtube = youtube;
+        if (facebook !== undefined) artistProfile.facebook = facebook;
+        if (website !== undefined) artistProfile.website = website;
+
+        await artistProfile.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Artist profile updated successfully",
+            artistProfile
+        });
+
+    } catch (error) {
+        console.error("Update artist profile error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     createArtistProfile,
     getMyArtistProfile,
     getArtists,
-    getArtistByUsername
+    getArtistByUsername,
+    updateArtistProfile
 };
