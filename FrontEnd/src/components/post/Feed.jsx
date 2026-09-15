@@ -4,10 +4,26 @@ import useTitle from "../../hooks/useTitle";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import postsData from "../../data/postdata.json";
+import { getApiUrl } from "../../services/api";
+import axios from "axios";
 
 export default function AfterLogin() {
     useTitle("Feed");
+    async function getPost() {
+        try {
+            const token = localStorage.getItem("token");
 
+            const response = await axios.get(getApiUrl("api/posts"), {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response?.data || error.message);
+        }
+    }
     // The feed currently uses local sample data until the posts API is connected.
     return (
         <div className="Feed">

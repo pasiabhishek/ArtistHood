@@ -6,7 +6,7 @@ export default function LeftNav() {
     // Read the saved profile so the navigation can greet the current member.
     const user = storedUser ? JSON.parse(storedUser) : null;
 
-    const displayName = user?.fullName || "there";
+    const displayName = user?.fullName || "GUEST";
 
     return (
         <div className="Left_Nav">
@@ -69,7 +69,7 @@ export default function LeftNav() {
             {/* Show a small account summary at the bottom of the rail. */}
             <div className="Left_Nav_Footer">
                 <img
-                    src="/favicon.ico"
+                    src={user?.username || "/user-logo.png"}
                     alt="profile"
                 />
 
