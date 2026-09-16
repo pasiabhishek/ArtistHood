@@ -5,6 +5,8 @@ import { MdLocationOn, MdVerified } from 'react-icons/md';
 import '../styles/home/FeaturedArtists.css';
 import Header from '../components/home/Header';
 import Footer from '../components/layout/Footer';
+import Loader from '../components/common/Loader';
+
 
 export default function ArtistsList() {
   const [artists, setArtists] = useState([]);
@@ -25,7 +27,7 @@ export default function ArtistsList() {
   }, []);
 
   if (loading) {
-    return <div className="loading-state">Loading artists...</div>; // Optional loading UI
+    return <Loader />; 
   }
 
   return (
