@@ -10,7 +10,7 @@ import RightNav from "../layout/RightNav";
 export default function AfterLogin() {
     useTitle("Feed");
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [signed, setSigned] = useState(true);
     const [posts, setPosts] = useState(postsData);
@@ -20,7 +20,7 @@ export default function AfterLogin() {
         localStorage.clear();
         setSigned(false);
         alert("Signed out");
-        navigate("/login");
+        // navigate("/login");
     }
 
     // Fetch posts from API
@@ -81,9 +81,9 @@ export default function AfterLogin() {
     }, []);
 
     // Don't render feed when logged out
-    if (!signed) {
-        return null;
-    }
+    // if (!signed) {
+        // return null;
+    // }
 
     return (
         <div>

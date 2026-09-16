@@ -6,7 +6,7 @@ import useRequireAuth from "../../hooks/useRequireAuth";
 
 
 export default function CreatePost() {
-    useRequireAuth();
+    // useRequireAuth();
 
     const user = JSON.parse(localStorage.getItem("user"));
 

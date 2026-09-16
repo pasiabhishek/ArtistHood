@@ -87,7 +87,7 @@ function shuffleArray(items) {
 const posts = shuffleArray(randomPosts);
 
 export default function Discover() {
-  useRequireAuth();
+  // useRequireAuth();
 
   return (
     <div className="discover-page">

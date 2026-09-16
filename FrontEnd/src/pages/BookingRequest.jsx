@@ -23,7 +23,7 @@ const eventTypes = [
 ];
 
 export default function BookingRequest() {
-    useRequireAuth();
+    // useRequireAuth();
 
     const [searchParams] = useSearchParams();
     const [artists, setArtists] = useState([]);
