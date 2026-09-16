@@ -45,7 +45,6 @@ export default function AppLayout() {
                     onClick={() => setIsLeftNavOpen(true)}
                 >
                     <FaBars aria-hidden="true" />
-                    <span>Menu</span>
                 </button>
             )}
         </div>
