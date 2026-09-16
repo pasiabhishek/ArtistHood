@@ -70,9 +70,9 @@ export default function LeftNav() {
 
             {/* Show a small account summary at the bottom of the rail. */}
             <Link to={`/artists/${user.username}`}>
-                <div className="Left_Nav_ooter">
-                    <img
-                        src={user?.username || "/user-logo.png"}
+                <div className="Left_Nav_Footer">
+                    <img className="left-nav-footer-logo"
+                        src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"
                         alt="profile"
                     />
 

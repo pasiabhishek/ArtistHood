@@ -15,3 +15,5 @@ export function getAuthToken(response) {
     // Login and signup responses use slightly different token shapes.
     return response.data?.token || response.data?.user?.token;
 }
+
+

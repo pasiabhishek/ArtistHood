@@ -250,9 +250,11 @@ body {
   padding-top: 1rem;
   border-top: 1px solid #272741;
   color: #fff;
+  flex-direction: row;
+  /* justify-content: space-around; */
 }
 
-.Left_Nav_Footer img {
+.left-nav-footer-logo {
   width: 2rem;
   height: 2rem;
   flex: 0 0 auto;
