@@ -39,7 +39,7 @@ const upcomingBookings = [
 
 export default function Booking() {
     const [searchParams] = useSearchParams();
-    useRequireAuth();
+    // useRequireAuth();
 
 
     const requestedArtist = artists.find(
