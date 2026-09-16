@@ -46,12 +46,27 @@ export default function ArtistsList() {
 
             <section className="artist-grid artist-list-grid" aria-label="Artists">
                 {artists.map((artist) => (
-                    <article className="artist-card" key={artist.id || artist._id}>
+                    <article
+                        className="artist-card"
+                        key={artist._id || artist.id}
+                    >
                         <div className="artist-card-image-wrap">
-                            <img src={artist.profileImage} alt={`${artist.name} profile`} />
+                            <img
+                                src={
+                                    artist.profileImage ||
+                                    artist.user?.profileImage ||
+                                    "/images/default-profile.png"
+                                }
+                                alt={`${artist.stageName || "Artist"} profile`}
+                            />
+
                             {artist.verified && (
-                                <span className="artist-verified-badge" title="Verified artist">
-                                    <MdVerified aria-hidden="true" /> Verified
+                                <span
+                                    className="artist-verified-badge"
+                                    title="Verified artist"
+                                >
+                                    <MdVerified aria-hidden="true" />
+                                    Verified
                                 </span>
                             )}
                         </div>
@@ -59,26 +74,47 @@ export default function ArtistsList() {
                         <div className="artist-card-body">
                             <div className="artist-card-top">
                                 <span>{artist.category}</span>
-                                <span className="artist-rating" aria-label={`${artist.rating} out of 5 stars`}>
-                                    ★ {artist.rating}
+
+                                <span
+                                    className="artist-rating"
+                                    aria-label={`${artist.rating || 0} out of 5 stars`}
+                                >
+                                    ★ {artist.rating || 0}
                                 </span>
                             </div>
 
                             <h2>{artist.stageName}</h2>
 
                             <p className="artist-location">
-                                <MdLocationOn aria-hidden="true" /> {artist.city}, {artist.state}
+                                <MdLocationOn aria-hidden="true" />
+                                {artist.city}
+                                {artist.city && artist.state ? ", " : ""}
+                                {artist.state}
                             </p>
 
-                            <p className="artist-card-bio">{artist.bio}</p>
+                            <p className="artist-card-bio">
+                                {artist.bio}
+                            </p>
 
                             <div className="artist-card-footer">
                                 <div>
-                                    {/* Added fallback to prevent error if price is undefined */}
-                                    <strong>₹{(artist.price || 0).toLocaleString('en-IN')}</strong>
-                                    <small> / {artist.priceType}</small>
+                                    <strong>
+                                        ₹{(artist.price || 0).toLocaleString("en-IN")}
+                                    </strong>
+
+                                    <small>
+                                        {" "}
+                                        / {artist.priceType || "event"}
+                                    </small>
                                 </div>
-                                <Link to={`/artists/${artist.username}`}>View profile</Link>
+
+                                {artist.user?.username && (
+                                    <Link
+                                        to={`/artists/${artist.user.username}`}
+                                    >
+                                        View profile
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </article>
