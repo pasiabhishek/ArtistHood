@@ -20,7 +20,7 @@ const initialForm = {
   instagram: "",
   youtube: "",
   website: "",
-  availability: "",
+  availableFrom: "",
   terms: false,
 };
 
@@ -194,8 +194,8 @@ export default function ArtistSignUp() {
                     Available from
                     <input
                       type="date"
-                      name="availability"
-                      value={formData.availability}
+                      name="availableFrom"
+                      value={formData.availableFrom}
                       onChange={updateField}
                       required
                     />
