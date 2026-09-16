@@ -63,7 +63,7 @@ export default function LeftNav({ isOpen, onClose }) {
                 <div className="Left_Nav_Footer">
                     <img
                         className="left-nav-footer-logo"
-                        src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"
+                        src={ user?.profileImage || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
                         alt="profile"
                     />
                     <h3>{displayName}</h3>
