@@ -55,13 +55,16 @@
 }
 
 .artist-card {
-	min-width: 0;
+	min-width: 200px;
+	max-width: 320px;
 	border: 1px solid rgba(128, 92, 246, .28);
 	border-radius: 14px;
 	background: #111138;
 	box-shadow: 0 12px 30px rgba(0, 0, 0, .14);
 	overflow: hidden;
+	margin: auto;
 	transition: transform .22s, border-color .22s, box-shadow .22s;
+	text-align: left;
 }
 
 .artist-card:hover {
@@ -176,6 +179,7 @@
 	margin-top: 16px;
 	padding-top: 13px;
 	border-top: 1px solid rgba(255, 255, 255, .12);
+
 }
 
 .artist-card-bio {
@@ -186,6 +190,8 @@
 	font-size: .76rem;
 	line-height: 1.5;
 	-webkit-box-orient: vertical;
+	height: 72px;
+	overflow-y: hidden;
 }
 
 .artist-card-footer strong {
