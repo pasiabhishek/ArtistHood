@@ -8,6 +8,7 @@ import {
     FiMapPin,
 } from "react-icons/fi";
 import axios from "axios";
+import useRequireAuth from "../hooks/useRequireAuth";
 
 import "../styles/pages/Booking.css";
 import { getApiUrl } from "../services/api";
@@ -22,8 +23,9 @@ const eventTypes = [
 ];
 
 export default function BookingRequest() {
-    const [searchParams] = useSearchParams();
+    useRequireAuth();
 
+    const [searchParams] = useSearchParams();
     const [artists, setArtists] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedArtist, setSelectedArtist] = useState("");
