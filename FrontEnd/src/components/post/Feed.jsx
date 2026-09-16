@@ -7,6 +7,7 @@ import postsData from "../../data/postdata.json";
 import { getApiUrl } from "../../services/api";
 import axios from "axios";
 import RightNav from "../layout/RightNav";
+import Home from "../../pages/Home";
 
 export default function AfterLogin() {
     useTitle("Feed");
@@ -14,6 +15,8 @@ export default function AfterLogin() {
 
     function signOUT(){
         localStorage.clear()
+        alert('sign off')
+        return (<Home/>)
     }
     async function getPost() {
         try {
