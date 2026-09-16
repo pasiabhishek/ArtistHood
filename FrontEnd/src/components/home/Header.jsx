@@ -5,30 +5,45 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem("token")));
+    const [isLoggedIn, setIsLoggedIn] = useState(() =>
+        Boolean(localStorage.getItem("token"))
+    );
 
     useEffect(() => {
-        const updateAuthState = () => setIsLoggedIn(Boolean(localStorage.getItem("token")));
+        const updateAuthState = () =>
+            setIsLoggedIn(Boolean(localStorage.getItem("token")));
 
         window.addEventListener("storage", updateAuthState);
         return () => window.removeEventListener("storage", updateAuthState);
     }, []);
 
-    // Closing the menu after a link click keeps mobile navigation tidy.
-    return (
-        <div className="bg-gray-950">
-            <nav className="nav bg-gray-950">
-                {/* The logo takes visitors back to the brand home. */}
-                <div className="logo">
-                    ARTIST<span className="">HOOD</span>
-                </div>
+    useEffect(() => {
+        const closeOnEscape = (event) => {
+            if (event.key === "Escape") setMenuOpen(false);
+        };
 
-                {/* The hamburger button only matters on smaller screens. */}
+        window.addEventListener("keydown", closeOnEscape);
+        return () => window.removeEventListener("keydown", closeOnEscape);
+    }, []);
+
+    const closeMenu = () => setMenuOpen(false);
+
+    return (
+        <header className="site-header">
+            <nav className="nav" aria-label="Main navigation">
+                <Link className="logo" to="/" onClick={closeMenu}>
+                    ARTIST<span>HOOD</span>
+                </Link>
+
                 {!isLoggedIn && (
                     <button
                         className="menu-icon"
                         type="button"
-                        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                        aria-label={
+                            menuOpen
+                                ? "Close navigation menu"
+                                : "Open navigation menu"
+                        }
                         aria-expanded={menuOpen}
                         aria-controls="primary-navigation"
                         onClick={() => setMenuOpen((isOpen) => !isOpen)}
@@ -37,51 +52,41 @@ export default function Header() {
                     </button>
                 )}
 
-                {/* Mobile navigation slides open from this container. */}
-                <div id="primary-navigation" className={`navbar ${menuOpen ? "active" : ""}`}>
-                    {/* <ul>
-                        <li>
-                            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/artist" onClick={() => setMenuOpen(false)}>Artist</Link>
-                        </li>
-                        <li>
-                            <Link to="/categories" onClick={() => setMenuOpen(false)}>Categories</Link>
-                        </li>
-                        <li>
-                            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-                        </li>
-                        <li>
-                            <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-                        </li>
-                    </ul> */}
-
-                        {/* Mobile actions stay inside the opened menu. */}
-                    {!isLoggedIn && (
+                {!isLoggedIn && (
+                    <div
+                        id="primary-navigation"
+                        className={`navbar ${menuOpen ? "active" : ""}`}
+                    >
                         <div className="logsign mobile-btn">
-                            <Link to={"/login"} onClick={() => setMenuOpen(false)}>
-                                <button className="login">Login</button>
+                            <Link
+                                className="header-action login"
+                                to="/login"
+                                onClick={closeMenu}
+                            >
+                                Login
                             </Link>
-                            <Link to="/signup" onClick={() => setMenuOpen(false)}>
-                                <button className="signup">Get Started</button>
+                            <Link
+                                className="header-action signup"
+                                to="/signup"
+                                onClick={closeMenu}
+                            >
+                                Get Started
                             </Link>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
 
-                {/* Desktop actions remain visible beside the navigation. */}
                 {!isLoggedIn && (
                     <div className="logsign desktop-btn">
-                        <Link to="/login">
-                            <button className="login">Login</button>
+                        <Link className="header-action login" to="/login">
+                            Login
                         </Link>
-                        <Link to="/signup">
-                            <button className="signup">Get Started</button>
+                        <Link className="header-action signup" to="/signup">
+                            Get Started
                         </Link>
                     </div>
                 )}
             </nav>
-        </div>
+        </header>
     );
 }

@@ -11,7 +11,8 @@
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.3.2",
-        "axios": "^1.7.7",
+        "axios": "^1.20.0",
+        "axioss": "^0.0.1-security",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
         "react-icons": "^5.7.0",

@@ -643,3 +643,59 @@
     flex-direction: row;
     justify-content: space-around;
 }
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 2px;
+}
+
+.profile-follow-button,
+.profile-book-button {
+    min-width: 92px;
+    padding: 9px 14px;
+    border: 1px solid var(--purple);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.profile-follow-button {
+    background: transparent;
+    color: var(--text-color);
+}
+
+.profile-follow-button.is-following,
+.profile-follow-button:hover,
+.profile-follow-button:focus-visible {
+    background: rgba(116, 101, 223, 0.16);
+}
+
+.profile-book-button {
+    background: var(--purple);
+    color: #fff;
+}
+
+.profile-book-button:hover,
+.profile-book-button:focus-visible {
+    background: var(--purple-hover);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    .profile-actions {
+        margin-top: 11px;
+    }
+
+    .profile-follow-button,
+    .profile-book-button {
+        flex: 1;
+        min-width: 0;
+    }
+}

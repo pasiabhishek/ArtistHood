@@ -17,6 +17,7 @@ import Message from "./pages/Message";
 import Booking from "./pages/Booking";
 import Artists from "./pages/Artists";
 import ArtistsList from "./pages/ArtistsList";
+import BookingRequest from "./pages/BookingRequest";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -47,15 +48,16 @@ function App() {
                     <Route path="/role" element={<SelectRole/>}/>
                     <Route path="/artists" element={<ArtistsList />}/>
                     <Route path="/artists/:username" element={<Artists />}/>
+                    <Route path="/booking-request" element={<BookingRequest />}/>
 
                     {/* Feed pages share the signed-in navigation layout. */}
                     {/* Signed-in pages share the left and right navigation shell. */}
-                    <Route Route element={<AppLayout />}>
+                    <Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
-                        <Route path="/Discover" element={<Discover />} />
+                        <Route path="/discover" element={<Discover />} />
                         <Route path="/notifications" element={<Notification />} />
-                        <Route path="/Messages" element={<Message />} />
-                        <Route path="/Booking" element={<Booking />} />
+                        <Route path="/messages" element={<Message />} />
+                        <Route path="/booking" element={<Booking />} />
                         <Route path="/create-post" element={<CreatePost />} />
                     </Route>
 
