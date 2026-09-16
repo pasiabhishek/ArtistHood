@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/pages/Discover.css";
-
+import useRequireAuth from "../hooks/useRequireAuth";
 const artists = [
   { name: "Aarav Nair", role: "DJ", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" },
   { name: "Meher Kapoor", role: "Singer", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" },
@@ -87,6 +87,8 @@ function shuffleArray(items) {
 const posts = shuffleArray(randomPosts);
 
 export default function Discover() {
+  useRequireAuth();
+
   return (
     <div className="discover-page">
       <header className="discover-header">

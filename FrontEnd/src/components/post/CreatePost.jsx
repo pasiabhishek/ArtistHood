@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import "../../styles/post/CreatePost.css";
 import { getApiUrl } from "../../services/api";
 import axios from "axios";
+import useRequireAuth from "../../hooks/useRequireAuth";
+
 
 export default function CreatePost() {
+    useRequireAuth();
+
     const user = JSON.parse(localStorage.getItem("user"));
 
     const [postData, setPostData] = useState({
@@ -158,9 +162,8 @@ export default function CreatePost() {
                         </div>
 
                         <label
-                            className={`upload-zone${
-                                postData.media ? " has-file" : ""
-                            }`}
+                            className={`upload-zone${postData.media ? " has-file" : ""
+                                }`}
                             htmlFor="post-media"
                         >
                             <span

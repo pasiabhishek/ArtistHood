@@ -7,6 +7,8 @@ import artistCategories from "../../data/artistCategories";
 import { getApiUrl } from "../../services/api";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/home/Header";
+import useRequireAuth from "../../hooks/useRequireAuth";
+
 const initialForm = {
   // Keep every field in one object so the form can be submitted as one profile.
   stageName: "",
@@ -25,6 +27,8 @@ const initialForm = {
 };
 
 export default function ArtistSignUp() {
+      useRequireAuth();
+  
   useTitle("Artist Sign Up");
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialForm);
