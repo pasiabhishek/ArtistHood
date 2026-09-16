@@ -48,7 +48,7 @@ export default function ArtistsList() {
                 {artists.map((artist) => (
                     <article className="artist-card" key={artist.id || artist._id}>
                         <div className="artist-card-image-wrap">
-                            <img src={artist.image} alt={`${artist.name} profile`} />
+                            <img src={artist.profileImage} alt={`${artist.name} profile`} />
                             {artist.verified && (
                                 <span className="artist-verified-badge" title="Verified artist">
                                     <MdVerified aria-hidden="true" /> Verified
