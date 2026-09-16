@@ -40,7 +40,7 @@ const createArtistProfile = async (req, res) => {
             experience: req.body.experience,
             city: req.body.city,
             state: req.body.state,
-            availability: req.body.availability,
+            availableFrom: req.body.availableFrom,
             price: req.body.price,
             priceType: req.body.priceType,
 
@@ -173,7 +173,7 @@ const updateArtistProfile = async (req, res) => {
     try {
         const {
             stageName, profileImage, category, bio, experience,
-            city, state, availability, price, priceType,
+            city, state, availableFrom, price, priceType,
             instagram, youtube, facebook, website
         } = req.body;
 
@@ -194,7 +194,7 @@ const updateArtistProfile = async (req, res) => {
         if (experience !== undefined) artistProfile.experience = experience;
         if (city !== undefined) artistProfile.city = city;
         if (state !== undefined) artistProfile.state = state;
-        if (availability !== undefined) artistProfile.availability = availability;
+        if (availableFrom !== undefined) artistProfile.availableFrom = availableFrom;
         if (price !== undefined) artistProfile.price = price;
         if (priceType !== undefined) artistProfile.priceType = priceType;
         if (instagram !== undefined) artistProfile.instagram = instagram;
