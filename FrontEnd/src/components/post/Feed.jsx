@@ -10,6 +10,11 @@ import RightNav from "../layout/RightNav";
 
 export default function AfterLogin() {
     useTitle("Feed");
+
+
+    function signOUT(){
+        localStorage.clear()
+    }
     async function getPost() {
         try {
             const token = localStorage.getItem("token");
@@ -42,7 +47,7 @@ export default function AfterLogin() {
                         />
                     </form>
                 </div>
-
+<input type="submit" value="submit" onClick={signOUT} />
                 {/* Clicking the composer opens the complete post form. */}
                 <Link to="/create-post">
                     <div className="Create_post">
