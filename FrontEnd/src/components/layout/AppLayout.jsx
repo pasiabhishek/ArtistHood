@@ -13,7 +13,7 @@ export default function AppLayout() {
             {/* Outlet renders whichever authenticated page matches the URL. */}
             <LeftNav />
             <Outlet />
-            <RightNav />
+            {/* <RightNav /> */}
             {/* <Footer /> */}
         </div>
     )
