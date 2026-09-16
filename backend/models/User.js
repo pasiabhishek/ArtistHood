@@ -87,7 +87,7 @@ const ArtistProfileSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        availability: {
+        availableFrom: {
             type: Date,
             default: null,
         },
@@ -180,7 +180,7 @@ ArtistProfile
 ├── experience
 ├── city
 ├── state
-├── availability
+├── availableFrom
 ├── price
 ├── priceType
 ├── rating
