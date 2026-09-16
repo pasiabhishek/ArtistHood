@@ -1,6 +1,5 @@
 .site-header {
-    --header-height: 80px;
-    height: var(--header-height);
+    padding: 5px;
 }
 
 .nav {
@@ -17,6 +16,7 @@
     background-color: var(--background);
     border-bottom: 1px solid var(--purple);
     font-family: "Cormorant Garamond", serif;
+    height: 80px;
 }
 
 .logo {

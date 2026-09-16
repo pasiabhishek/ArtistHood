@@ -1,77 +1,125 @@
 import { useEffect, useState } from "react";
 import "../../styles/post/CreatePost.css";
 import { getApiUrl } from "../../services/api";
+import axios from "axios";
 
 export default function CreatePost() {
-    // Use the saved account so the API knows who owns the new post.
     const user = JSON.parse(localStorage.getItem("user"));
 
     const [postData, setPostData] = useState({
-        userId: user?.id || null,
+        userId: user?.id || "",
         media: null,
         caption: "",
-        mediaType: "image",
+        mediaType: "",
     });
+
     const [previewUrl, setPreviewUrl] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Create a temporary image URL for instant feedback before publishing.
+    // Create preview URL for selected image
     useEffect(() => {
-        if (!postData.media || !postData.media.type.startsWith("image/")) {
+        if (!postData.media) {
             setPreviewUrl("");
-            return undefined;
+            return;
+        }
+
+        if (!postData.media.type.startsWith("image/")) {
+            setPreviewUrl("");
+            return;
         }
 
         const objectUrl = URL.createObjectURL(postData.media);
         setPreviewUrl(objectUrl);
 
-        return () => URL.revokeObjectURL(objectUrl);
+        return () => {
+            URL.revokeObjectURL(objectUrl);
+        };
     }, [postData.media]);
 
     const handleMediaChange = (event) => {
-        const media = event.target.files[0];
+        const media = event.target.files?.[0];
 
         if (!media) return;
 
-        // Infer the media type from the selected file instead of asking twice.
+        // 10 MB limit
+        if (media.size > 10 * 1024 * 1024) {
+            alert("File size must be less than 10 MB.");
+            event.target.value = "";
+            return;
+        }
+
+        const mediaType = media.type.split("/")[0];
+
+        if (mediaType !== "image" && mediaType !== "video") {
+            alert("Only images and videos are allowed.");
+            event.target.value = "";
+            return;
+        }
+
         setPostData((currentPost) => ({
             ...currentPost,
             media,
-            mediaType: media.type.split("/")[0],
+            mediaType,
         }));
     };
 
     const postHandler = async (e) => {
         e.preventDefault();
 
-        // FormData lets the caption and binary media travel in one request.
+        if (!postData.userId) {
+            alert("User not found. Please login again.");
+            return;
+        }
+
+        if (!postData.media) {
+            alert("Please select an image or video.");
+            return;
+        }
+
+        if (!postData.caption.trim()) {
+            alert("Please enter a caption.");
+            return;
+        }
+
         const formData = new FormData();
+
         formData.append("userId", postData.userId);
         formData.append("media", postData.media);
-        formData.append("caption", postData.caption);
+        formData.append("caption", postData.caption.trim());
         formData.append("mediaType", postData.mediaType);
 
-        // Disable the button while the upload is in progress.
         setIsSubmitting(true);
 
         try {
-            const res = await fetch(getApiUrl("create"), {
-                method: "POST",
-                body: formData,
-            });
+            const response = await axios.post(
+                getApiUrl("api/posts"),
+                formData
+            );
 
-            if (!res.ok) throw new Error("Failed to create post");
+            console.log("Post created:", response.data);
 
             alert("Post created successfully!");
+
             setPostData((currentPost) => ({
                 ...currentPost,
                 media: null,
                 caption: "",
+                mediaType: "image",
             }));
+
+            setPreviewUrl("");
+
             e.target.reset();
         } catch (error) {
-            console.error(error);
-            alert("Failed to create post");
+            console.error(
+                "Create post error:",
+                error.response?.data || error.message
+            );
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to create post. Please try again."
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -82,27 +130,65 @@ export default function CreatePost() {
             <header className="create-post-header">
                 <div>
                     <p className="eyebrow">Community studio</p>
+
                     <h1>Create a post</h1>
-                    <p className="intro">Share a moment, a work in progress, or something worth discovering.</p>
+
+                    <p className="intro">
+                        Share a moment, a work in progress, or something worth
+                        discovering.
+                    </p>
                 </div>
+
                 <span className="post-step">01 / 01</span>
             </header>
 
             <div className="create-post-content">
-                <form className="create-post-form" onSubmit={postHandler}>
+                <form
+                    className="create-post-form"
+                    onSubmit={postHandler}
+                >
+                    {/* Media */}
                     <div className="form-group media-group">
                         <div className="field-heading">
-                            <label htmlFor="post-media">Your media</label>
+                            <label htmlFor="post-media">
+                                Your media
+                            </label>
+
                             <span>Required</span>
                         </div>
-                        <label className={`upload-zone${postData.media ? " has-file" : ""}`} htmlFor="post-media">
-                            <span className="upload-icon" aria-hidden="true">+</span>
-                            <span className="upload-copy">
-                                <strong>{postData.media ? "Replace media" : "Choose a file"}</strong>
-                                <small>Image or video up to 10 MB</small>
+
+                        <label
+                            className={`upload-zone${
+                                postData.media ? " has-file" : ""
+                            }`}
+                            htmlFor="post-media"
+                        >
+                            <span
+                                className="upload-icon"
+                                aria-hidden="true"
+                            >
+                                +
                             </span>
-                            {postData.media && <span className="file-name">{postData.media.name}</span>}
+
+                            <span className="upload-copy">
+                                <strong>
+                                    {postData.media
+                                        ? "Replace media"
+                                        : "Choose a file"}
+                                </strong>
+
+                                <small>
+                                    Image or video up to 10 MB
+                                </small>
+                            </span>
+
+                            {postData.media && (
+                                <span className="file-name">
+                                    {postData.media.name}
+                                </span>
+                            )}
                         </label>
+
                         <input
                             id="post-media"
                             className="media-input"
@@ -111,20 +197,40 @@ export default function CreatePost() {
                             onChange={handleMediaChange}
                             required={!postData.media}
                         />
+
                         {previewUrl && (
-                            <img className="media-preview" src={previewUrl} alt="Selected media preview" />
+                            <img
+                                className="media-preview"
+                                src={previewUrl}
+                                alt="Selected media preview"
+                            />
+                        )}
+
+                        {postData.media?.type.startsWith("video/") && (
+                            <video
+                                className="media-preview"
+                                src={URL.createObjectURL(postData.media)}
+                                controls
+                            />
                         )}
                     </div>
 
+                    {/* Caption */}
                     <div className="form-group">
                         <div className="field-heading">
-                            <label htmlFor="post-caption">Caption</label>
-                            <span>{postData.caption.length}/500</span>
+                            <label htmlFor="post-caption">
+                                Caption
+                            </label>
+
+                            <span>
+                                {postData.caption.length}/500
+                            </span>
                         </div>
+
                         <textarea
                             id="post-caption"
                             value={postData.caption}
-                            maxLength="500"
+                            maxLength={500}
                             placeholder="Tell the community what is happening here..."
                             onChange={(e) =>
                                 setPostData((currentPost) => ({
@@ -136,10 +242,20 @@ export default function CreatePost() {
                         />
                     </div>
 
+                    {/* Footer */}
                     <div className="form-footer">
-                        <p><span aria-hidden="true">●</span> Your post will appear in the community feed.</p>
-                        <button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? "Publishing..." : "Publish post"}
+                        <p>
+                            <span aria-hidden="true">●</span>{" "}
+                            Your post will appear in the community feed.
+                        </p>
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting
+                                ? "Publishing..."
+                                : "Publish post"}
                         </button>
                     </div>
                 </form>

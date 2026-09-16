@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
     FiArrowRight,
@@ -7,9 +7,11 @@ import {
     FiClock,
     FiMapPin,
 } from "react-icons/fi";
+import axios from "axios";
+import useRequireAuth from "../hooks/useRequireAuth";
 
-import artists from "../data/artists.json";
 import "../styles/pages/Booking.css";
+import { getApiUrl } from "../services/api";
 
 const eventTypes = [
     "Wedding",
@@ -21,30 +23,75 @@ const eventTypes = [
 ];
 
 export default function BookingRequest() {
+    useRequireAuth();
+
     const [searchParams] = useSearchParams();
-
-    const requestedArtist = artists.find(
-        (item) => String(item.id) === searchParams.get("artist")
-    );
-
-    const [selectedArtist, setSelectedArtist] = useState(
-        requestedArtist?.id ?? artists[0]?.id ?? ""
-    );
-
+    const [artists, setArtists] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedArtist, setSelectedArtist] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
+    // Fetch the artist list once on mount.
+    useEffect(() => {
+        let cancelled = false;
+
+        const fetchArtists = async () => {
+            try {
+                const response = await axios.get(getApiUrl("api/artists"));
+                const list = Array.isArray(response.data?.artists)
+                    ? response.data.artists
+                    : [];
+
+                if (!cancelled) {
+                    setArtists(list);
+                }
+            } catch (error) {
+                console.error("Error fetching artists:", error);
+            } finally {
+                if (!cancelled) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchArtists();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    // Once the artists are in, auto-select whichever one matches
+    // ?artist=<username> in the URL (falling back to the first artist).
+    useEffect(() => {
+        if (!artists.length) return;
+
+        const usernameParam = searchParams.get("artist")?.toLowerCase() ?? "";
+
+        const requestedArtist = artists.find(
+            (item) => item.user?.username?.toLowerCase() === usernameParam
+        );
+
+        setSelectedArtist(requestedArtist?.id ?? artists[0]?.id ?? "");
+    }, [artists, searchParams]);
+
     const artist = useMemo(
-        () =>
-            artists.find(
-                (item) => String(item.id) === String(selectedArtist)
-            ),
-        [selectedArtist]
+        () => artists.find((item) => String(item.id) === String(selectedArtist)),
+        [artists, selectedArtist]
     );
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setSubmitted(true);
     };
+
+    if (loading) {
+        return (
+            <main className="booking-page booking-page-loading">
+                <p>Loading artists…</p>
+            </main>
+        );
+    }
 
     return (
         <main className="booking-page">

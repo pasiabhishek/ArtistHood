@@ -10,7 +10,7 @@ import {
 
 import artists from "../data/artists.json";
 import "../styles/pages/Booking.css";
-
+import useRequireAuth from "../hooks/useRequireAuth";
 const eventTypes = [
     "Wedding",
     "Private party",
@@ -39,6 +39,8 @@ const upcomingBookings = [
 
 export default function Booking() {
     const [searchParams] = useSearchParams();
+    useRequireAuth();
+
 
     const requestedArtist = artists.find(
         (item) => String(item.id) === searchParams.get("artist")
@@ -95,11 +97,10 @@ export default function Booking() {
                             </div>
 
                             <span
-                                className={`booking-status ${
-                                    booking.status === "Confirmed"
+                                className={`booking-status ${booking.status === "Confirmed"
                                         ? "confirmed"
                                         : "pending"
-                                }`}
+                                    }`}
                             >
                                 {booking.status}
                             </span>
