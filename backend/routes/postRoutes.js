@@ -1,7 +1,7 @@
 const express = require('express');
 const { createPost } = require('../controllers/postController');
 const upload = require('../middleware/uploadMiddleware');
-const { protect } = require('../middleware/auth');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 

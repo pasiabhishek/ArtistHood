@@ -8,7 +8,7 @@ const {
     updateArtistProfileImage
 } = require('../controllers/artistController');
 
-const { protect } = require('../middleware/auth');
+const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
 router.get('/me', protect, getMyArtistProfile);      //fetch my artist profile
@@ -22,3 +22,14 @@ router.put('/update-image',
 
 
 module.exports = router;
+
+
+/**
+ * Artist API Endpoints
+ *
+ * GET  /api/artists/me                  - Get my artist profile
+ * GET  /api/artists/                    - Get all artists
+ * GET  /api/artists/:username           - Get artist by username
+ * PUT  /api/artists/update              - Update artist profile
+ * PUT  /api/artists/update-image        - Update artist profile image
+ */
