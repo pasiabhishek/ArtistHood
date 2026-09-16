@@ -22,7 +22,9 @@ export default function Artists() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await axios.get(getApiUrl("api/artists"));
+        const response = await axios.get(
+          getApiUrl("api/artists")
+        );
 
         setArtists(
           Array.isArray(response.data?.artists)
@@ -40,15 +42,18 @@ export default function Artists() {
     fetchArtists();
   }, []);
 
+  // Find artist using the username from the User schema
   const artist = artists.find(
     (item) =>
-      item.username?.toLowerCase() === username?.toLowerCase()
+      item.user?.username?.toLowerCase() ===
+      username?.toLowerCase()
   );
 
+  // Find posts using User username
   const artistPosts = postsData.filter(
     (post) =>
       post.artistUsername?.toLowerCase() ===
-      artist?.username?.toLowerCase()
+      artist?.user?.username?.toLowerCase()
   );
 
   if (loading) {
@@ -68,7 +73,9 @@ export default function Artists() {
               We could not find an artist with that username.
             </p>
 
-            <Link to="/artist">Browse artists</Link>
+            <Link to="/artists">
+              Browse artists
+            </Link>
           </div>
         </div>
 
@@ -77,6 +84,17 @@ export default function Artists() {
     );
   }
 
+  const artistName =
+    artist.stageName ||
+    `${artist.user?.firstName || ""} ${artist.user?.lastName || ""
+      }`.trim() ||
+    "Artist";
+
+  const artistUsername = artist.user?.username || "";
+
+  const profileImage =
+    artist?.profileImage;
+
   return (
     <div className="profile">
       <Header />
@@ -84,75 +102,101 @@ export default function Artists() {
       <div className="profile-banner"></div>
 
       <div className="profile-container">
-        {/* Profile Header */}
+
+        {/* ================= PROFILE HEADER ================= */}
+
         <div className="profile-container-header">
+
+          {/* Profile Image */}
           <div className="profile-container-header-left">
             <img
-              src={artist.profileImage}
-              alt={`${artist.stageName || artist.name} profile`}
+              src={profileImage}
+              alt={`${artistName} profile`}
             />
           </div>
 
+          {/* Profile Details */}
           <div className="profile-container-header-right">
+
+            {/* Name */}
             <div className="profile-container-header-right-name">
-              <h1>{artist.stageName || artist.name}</h1>
+              <h1>{artistName}</h1>
             </div>
 
+            {/* Username + Location */}
             <div className="profile-meta-row">
+
               <div className="profile-container-header-right-username">
-                @{artist.username}
+                @{artistUsername}
               </div>
 
               {(artist.city || artist.state) && (
                 <div className="profile-container-header-right-location">
                   {artist.city}
-                  {artist.city && artist.state ? ", " : ""}
+
+                  {artist.city && artist.state && ", "}
+
                   {artist.state}
                 </div>
               )}
+
             </div>
 
-            <div className="profile-container-header-right-profession">
-              {artist.category}
-            </div>
+            {/* Profession */}
+            {artist.category && (
+              <div className="profile-container-header-right-profession">
+                {artist.category}
+              </div>
+            )}
 
-            <div className="profile-container-header-right-bio">
-              {artist.bio}
-            </div>
+            {/* Bio */}
+            {artist.bio && (
+              <div className="profile-container-header-right-bio">
+                {artist.bio}
+              </div>
+            )}
 
-            {/* Actions */}
+            {/* ================= ACTIONS ================= */}
+
             <div
               className="profile-actions"
-              aria-label={`Actions for ${
-                artist.stageName || artist.name
-              }`}
+              aria-label={`Actions for ${artistName}`}
             >
+
+              {/* Follow */}
               <button
                 type="button"
-                className={`profile-follow-button ${
-                  isFollowing ? "is-following" : ""
-                }`}
+                className={`profile-follow-button ${isFollowing ? "is-following" : ""
+                  }`}
                 onClick={() =>
-                  setIsFollowing((following) => !following)
+                  setIsFollowing(
+                    (following) => !following
+                  )
                 }
                 aria-pressed={isFollowing}
               >
-                {isFollowing ? "Following" : "Follow"}
+                {isFollowing
+                  ? "Following"
+                  : "Follow"}
               </button>
 
+              {/* Book */}
               <Link
                 className="profile-book-button"
-                to={`/booking?artist=${artist.id || artist._id}`}
+                to={`/booking-request?artist=${artist.user.username}`}
               >
                 Book now
               </Link>
+
             </div>
 
-            {/* Social Links */}
+            {/* ================= SOCIAL LINKS ================= */}
+
             <div
               className="profile-links"
-              aria-label={`${artist.stageName || artist.name} links`}
+              aria-label={`${artistName} links`}
             >
+
               {artist.instagram && (
                 <a
                   href={artist.instagram}
@@ -182,46 +226,66 @@ export default function Artists() {
                   Website
                 </a>
               )}
+
             </div>
+
           </div>
         </div>
 
-        {/* Profile Stats */}
+        {/* ================= PROFILE STATS ================= */}
+
         <div className="profile-container-header2">
+
           <div className="followers">
-            <span>{artist.followers ?? 0}</span>
+            <span>
+              {artist.followers ?? 0}
+            </span>
+
             <span>Followers</span>
           </div>
 
           <div className="followers">
-            <span>{artist.following ?? 0}</span>
+            <span>
+              {artist.following ?? 0}
+            </span>
+
             <span>Following</span>
           </div>
 
           <div className="followers">
-            <span>{artist.bookings ?? 0}</span>
+            <span>
+              {artist.bookings ?? 0}
+            </span>
+
             <span>Bookings</span>
           </div>
+
         </div>
 
-        {/* Posts */}
+        {/* ================= POSTS ================= */}
+
         <section
           className="profile-posts"
           aria-labelledby="profile-posts-title"
         >
+
           <div className="profile-posts-header">
             <h2 id="profile-posts-title">
-              Posts by {artist.stageName || artist.name}
+              Posts by {artistName}
             </h2>
           </div>
 
           {artistPosts.length > 0 ? (
+
             <div className="profile-post-list">
+
               {artistPosts.map((post) => (
+
                 <article
                   className="profile-post"
                   key={post.id}
                 >
+
                   {/* Post Content */}
                   {post.content && (
                     <p className="profile-post-content">
@@ -250,7 +314,8 @@ export default function Artists() {
                         type="video/mp4"
                       />
 
-                      Your browser does not support the video tag.
+                      Your browser does not support
+                      the video tag.
                     </video>
                   )}
 
@@ -260,31 +325,46 @@ export default function Artists() {
                       className="profile-post-comments"
                       aria-label="Post comments"
                     >
-                      {post.commentList.map((comment, index) => (
-                        <p
-                          key={`${post.id}-${comment.username}-${index}`}
-                        >
-                          <strong>{comment.username}</strong>{" "}
-                          {comment.text}
-                        </p>
-                      ))}
+
+                      {post.commentList.map(
+                        (comment, index) => (
+                          <p
+                            key={`${post.id}-${comment.username}-${index}`}
+                          >
+                            <strong>
+                              {comment.username}
+                            </strong>{" "}
+                            {comment.text}
+                          </p>
+                        )
+                      )}
 
                       {post.comments !== undefined && (
                         <span>
-                          View all {post.comments} comments
+                          View all{" "}
+                          {post.comments} comments
                         </span>
                       )}
+
                     </div>
                   )}
+
                 </article>
+
               ))}
+
             </div>
+
           ) : (
+
             <div className="profile-posts-empty">
               <p>No posts yet.</p>
             </div>
+
           )}
+
         </section>
+
       </div>
 
       <Footer />
