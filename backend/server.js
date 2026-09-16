@@ -5,6 +5,7 @@ const connectDB = require("./config/database.js");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 const artistRoutes = require("./routes/artistRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use('/api/artists', artistRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Health Check Route
 app.get("/", (req, res) => {
