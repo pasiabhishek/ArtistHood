@@ -244,8 +244,61 @@ const getClientBookings = async (req, res) => {
     }
 };
 
+const getBookingById = async (req, res) => {
+    try {
+        const booking = await Booking.findById(req.params.id)
+            .populate("client", "fullName email")
+            .populate({
+                path: "artist",
+                select:
+                    "stageName category profileImage city state price priceType user",
+                populate: {
+                    path: "user",
+                    select: "fullName email",
+                },
+            });
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        // Client check
+        const isClient =
+            booking.client._id.toString() === req.user.id;
+
+        // Artist check
+        const isArtist =
+            booking.artist.user._id.toString() === req.user.id;
+
+        // Only booking participants
+        if (!isClient && !isArtist) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not allowed to access this booking",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            booking,
+        });
+
+    } catch (error) {
+        console.error("Get booking error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get booking",
+        });
+    }
+};
+
 module.exports = {
     createBooking,
     getArtistBookings,
     getClientBookings,
+    getBookingById,
 };
