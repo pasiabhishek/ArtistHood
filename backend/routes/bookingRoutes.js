@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const {protect} = require('../middleware/authMiddleware');
-const { createBooking } = require('../controllers/bookingController');
+const { protect } = require('../middleware/authMiddleware');
+const { createBooking, getArtistBookings } = require('../controllers/bookingController');
 
-// Apply the protect middleware to all routes in this router
+// Apply  protect middleware to all routes
 router.use(protect);
 
 router.post('/create-booking', createBooking);
+router.get('/', getArtistBookings);
 
 module.exports = router;
