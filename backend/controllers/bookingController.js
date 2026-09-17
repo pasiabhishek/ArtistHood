@@ -169,7 +169,42 @@ const createBooking = async (req, res) => {
     }
 };
 
+// Get Artist's Incoming Bookings
+const getArtistBookings = async (req, res) => {
+    try {
+
+        if (req.user.role !== "Artist") {
+            return res.status(403).json({
+                success: false,
+                message: "Only artists can access incoming bookings",
+            });
+        }
+
+        const bookings = await Booking.find({
+            artist: req.user.id,
+        })
+            .populate("client", "fullName email")
+            .sort({
+                eventDate: 1,
+                startTime: 1,
+            });
+
+        return res.status(200).json({
+            success: true,
+            bookings,
+        });
+
+    } catch (error) {
+        console.error("Get artist bookings error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get artist bookings",
+        });
+    }
+};
 
 module.exports = {
     createBooking,
+    getArtistBookings,
 };
