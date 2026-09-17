@@ -29,6 +29,8 @@ export default function AfterLogin() {
                     : [];
 
                 setPostsData(posts);
+
+                console.log("Post data:", posts);
             } catch (error) {
                 console.error("Error fetching posts:", error);
                 setPostsData([]);
@@ -86,6 +88,7 @@ export default function AfterLogin() {
                         </div>
 
                         <div className="sec_row">
+
                             <div className="post_icon">
                                 <i className="fa-regular fa-image"></i>
                                 <i className="fa-solid fa-video"></i>
@@ -94,6 +97,7 @@ export default function AfterLogin() {
                             <button type="button">
                                 Post
                             </button>
+
                         </div>
 
                     </div>
@@ -109,12 +113,11 @@ export default function AfterLogin() {
                     ) : (
                         postsData.map((post) => {
 
-                            const user = post.user || {};
-                            const media = post.media || {};
+                            const artist = post.artist;
 
                             return (
                                 <div
-                                    key={post._id || post.id}
+                                    key={post._id}
                                     className="post-card"
                                 >
 
@@ -122,59 +125,70 @@ export default function AfterLogin() {
                                     <div className="first_row">
 
                                         <img
-                                            src={
-                                                user.profileImage ||
-                                                "/favicon.ico"
-                                            }
+                                            src="/favicon.ico"
                                             alt={
-                                                user.fullName ||
-                                                "Profile"
+                                                artist?.username ||
+                                                "Artist"
                                             }
                                         />
 
                                         <div className="post-heading">
 
-                                            <h3 id="post-heading-h3">
-                                                {user.fullName ||
-                                                    "Unknown User"}
-                                            </h3>
+                                            {artist?._id ? (
+                                                <Link
+                                                    to={`/artists/${artist.username}`}
+                                                    className="post-author-link"
+                                                >
+                                                    <h3 id="post-heading-h3">
+                                                        {artist.username}
+                                                    </h3>
+                                                </Link>
+                                            ) : (
+                                                <h3 id="post-heading-h3">
+                                                    Unknown Artist
+                                                </h3>
+                                            )}
 
                                             <h5 id="post-heading-h5">
-                                                {user.role ||
-                                                    "Artist"}
+                                                Artist
                                             </h5>
 
                                         </div>
 
                                     </div>
 
-                                    {/* Post Content */}
+                                    {/* Post Caption */}
                                     <div className="sec_row">
+
                                         <p>
-                                            {post.content || ""}
+                                            {post.caption || ""}
                                         </p>
+
                                     </div>
 
                                     {/* Image */}
-                                    {media.type === "image" &&
-                                        media.url && (
+                                    {post.mediaType === "image" &&
+                                        post.media && (
                                             <img
                                                 className="post-media"
-                                                src={media.url}
-                                                alt="Post"
+                                                src={post.media}
+                                                alt={
+                                                    post.caption ||
+                                                    "Post"
+                                                }
                                             />
                                         )}
 
                                     {/* Video */}
-                                    {media.type === "video" &&
-                                        media.url && (
+                                    {post.mediaType === "video" &&
+                                        post.media && (
                                             <video
                                                 className="post-media"
                                                 controls
                                                 preload="metadata"
                                             >
                                                 <source
-                                                    src={media.url}
+                                                    src={post.media}
                                                     type="video/mp4"
                                                 />
 
@@ -189,6 +203,7 @@ export default function AfterLogin() {
                     )}
 
                 </div>
+
             </div>
 
             <RightNav />
