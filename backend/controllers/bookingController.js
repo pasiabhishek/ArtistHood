@@ -10,7 +10,7 @@ const timeToMinutes = (time) => {
 
 
 // Create Booking
-export const createBooking = async (req, res) => {
+const createBooking = async (req, res) => {
     try {
         const {
             artist,

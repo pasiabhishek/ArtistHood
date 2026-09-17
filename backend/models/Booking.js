@@ -10,7 +10,7 @@ const bookingSchema = new mongoose.Schema(
 
         artist: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "ArtistProfile",
             required: true,
         },
 
@@ -86,4 +86,6 @@ bookingSchema.index({
     createdAt: -1,
 });
 
-module.exports = mongoose.model("Booking", bookingSchema);
+const Booking = mongoose.model("Booking", bookingSchema);
+
+module.exports = Booking;
