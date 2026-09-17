@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const { User } = require('../models/User');
 const cloudinary = require('../config/cloudinary');
 const path = require('path');
 
@@ -91,4 +92,38 @@ const getAllPosts = async (req, res) => {
     }
 };
 
-module.exports = { createPost, getAllPosts };
+//get all posts by a specific artist
+const getPostsByArtist = async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        // Find artist/user by username
+        const artist = await User.findOne({ username });
+
+        if (!artist) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist not found",
+            });
+        }
+        const posts = await Post.find({ artist: artist._id })
+            .populate("artist", "name username profileImage")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            message: "Posts fetched successfully",
+            count: posts.length,
+            posts,
+        });
+    } catch (error) {
+        console.log("GET POSTS BY ARTIST ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { createPost, getAllPosts, getPostsByArtist };
