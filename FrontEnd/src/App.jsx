@@ -19,6 +19,8 @@ import Artists from "./pages/Artists";
 import ArtistsList from "./pages/ArtistsList";
 import BookingRequest from "./pages/BookingRequest";
 import Client from "./pages/Client";
+import AfterLogin from "./components/post/Feed";
+import Post from "./pages/Post";
 
 function App() {
     // Keep the loader visible briefly while the first screen is prepared.
@@ -51,6 +53,8 @@ function App() {
                     <Route path="/artists/:username" element={<Artists />} />
                     <Route path="/client" element={<Client />} />
                     <Route path="/client/:username" element={<Client />} />
+                    <Route path="/posts" element={<Feed />} />
+                    <Route path="/posts/:_id" element={<Post />} />
 
                     <Route path="/booking-request" element={<BookingRequest />} />
 

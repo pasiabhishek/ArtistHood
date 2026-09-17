@@ -180,55 +180,64 @@ export default function AfterLogin() {
 
                                     </div>
 
-                                    {/* Post Caption */}
-                                    <div className="sec_row">
+                                    {/* Open Individual Post */}
+                                    <Link
+                                        to={`/posts/${post._id}`}
+                                        className="create-post-link"
+                                    >
 
-                                        <p>
-                                            {post.caption || ""}
-                                        </p>
+                                        {/* Post Caption */}
+                                        <div className="sec_row">
 
-                                    </div>
+                                            <p>
+                                                {post.caption || ""}
+                                            </p>
 
-                                    {/* Image */}
-                                    {post.mediaType === "image" &&
-                                        post.media && (
+                                        </div>
 
-                                            <img
-                                                className="post-media"
-                                                src={post.media}
-                                                alt={
-                                                    post.caption ||
-                                                    "Post"
-                                                }
-                                            />
+                                        {/* Image */}
+                                        {post.mediaType === "image" &&
+                                            post.media && (
 
-                                        )}
-
-                                    {/* Video */}
-                                    {post.mediaType === "video" &&
-                                        post.media && (
-
-                                            <video
-                                                className="post-media"
-                                                controls
-                                                preload="metadata"
-                                            >
-
-                                                <source
+                                                <img
+                                                    className="post-media"
                                                     src={post.media}
-                                                    type="video/mp4"
+                                                    alt={
+                                                        post.caption ||
+                                                        "Post"
+                                                    }
                                                 />
 
-                                                Your browser does not
-                                                support the video tag.
+                                            )}
 
-                                            </video>
+                                        {/* Video */}
+                                        {post.mediaType === "video" &&
+                                            post.media && (
 
-                                        )}
+                                                <video
+                                                    className="post-media"
+                                                    controls
+                                                    preload="metadata"
+                                                >
+
+                                                    <source
+                                                        src={post.media}
+                                                        type="video/mp4"
+                                                    />
+
+                                                    Your browser does not
+                                                    support the video tag.
+
+                                                </video>
+
+                                            )}
+
+                                    </Link>
 
                                     {/* Like Comment Share */}
                                     <div className="post-actions">
 
+                                        {/* Like */}
                                         <button
                                             type="button"
                                             className="post-action"
@@ -237,6 +246,7 @@ export default function AfterLogin() {
                                             <span>Like</span>
                                         </button>
 
+                                        {/* Comment */}
                                         <button
                                             type="button"
                                             className="post-action"
@@ -245,6 +255,7 @@ export default function AfterLogin() {
                                             <span>Comment</span>
                                         </button>
 
+                                        {/* Share */}
                                         <button
                                             type="button"
                                             className="post-action"
@@ -252,12 +263,17 @@ export default function AfterLogin() {
                                                 if (navigator.share) {
                                                     navigator.share({
                                                         title: "ArtistHood Post",
-                                                        text: post.caption || "Check out this post",
-                                                        url: window.location.origin + `/posts/${post._id}`
+                                                        text:
+                                                            post.caption ||
+                                                            "Check out this post",
+                                                        url:
+                                                            window.location.origin +
+                                                            `/posts/${post._id}`
                                                     });
                                                 } else {
                                                     navigator.clipboard.writeText(
-                                                        window.location.origin + `/posts/${post._id}`
+                                                        window.location.origin +
+                                                        `/posts/${post._id}`
                                                     );
                                                 }
                                             }}
