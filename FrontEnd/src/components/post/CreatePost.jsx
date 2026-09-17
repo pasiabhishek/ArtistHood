@@ -3,8 +3,10 @@ import axios from "axios";
 
 import "../../styles/post/CreatePost.css";
 import { getApiUrl } from "../../services/api";
-
+import { useNavigate } from "react-router-dom";
 export default function CreatePost() {
+    const navigate = useNavigate();
+
     const user = JSON.parse(localStorage.getItem("user"));
 
     const [postData, setPostData] = useState({
@@ -141,6 +143,7 @@ export default function CreatePost() {
             );
 
             alert("Post created successfully!");
+            navigate("/feed")
 
             // Reset
             setPostData({
@@ -222,11 +225,10 @@ export default function CreatePost() {
                         </div>
 
                         <label
-                            className={`upload-zone${
-                                postData.media
+                            className={`upload-zone${postData.media
                                     ? " has-file"
                                     : ""
-                            }`}
+                                }`}
                             htmlFor="post-media"
                         >
 
@@ -283,14 +285,14 @@ export default function CreatePost() {
                         {postData.media?.type.startsWith(
                             "video/"
                         ) && (
-                            <video
-                                className="media-preview"
-                                src={URL.createObjectURL(
-                                    postData.media
-                                )}
-                                controls
-                            />
-                        )}
+                                <video
+                                    className="media-preview"
+                                    src={URL.createObjectURL(
+                                        postData.media
+                                    )}
+                                    controls
+                                />
+                            )}
 
                     </div>
 
