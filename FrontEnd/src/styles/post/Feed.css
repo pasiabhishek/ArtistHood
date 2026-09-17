@@ -115,7 +115,98 @@ body {
   object-fit: cover;
   border-radius: 8px;
 }
+/* ============================= */
+/* Post Actions - Like Comment Share */
+/* ============================= */
 
+.post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100%;
+    padding: 10px 0;
+
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+}
+
+.post-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    background: transparent;
+    border: none;
+
+    padding: 8px 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #555;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+
+    border-radius: 8px;
+}
+
+.post-action i {
+    font-size: 17px;
+}
+
+.post-action:hover {
+    color: #8b5cf6;
+    background-color: #f5f3ff;
+}
+
+.post-action:active {
+    transform: scale(0.95);
+}
+
+
+/* Like */
+.post-action:first-child:hover {
+    color: #e63946;
+}
+
+
+/* Comment */
+.post-action:nth-child(2):hover {
+    color: #8b5cf6;
+}
+
+
+/* Share */
+.post-action:nth-child(3):hover {
+    color: #2563eb;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .post-actions {
+        padding: 8px 0;
+    }
+
+    .post-action {
+        padding: 7px 12px;
+        font-size: 13px;
+        gap: 5px;
+    }
+
+    .post-action i {
+        font-size: 16px;
+    }
+
+}
 /* =========================
    LEFT NAVIGATION
 ========================= */

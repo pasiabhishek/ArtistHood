@@ -76,6 +76,7 @@ export default function AfterLogin() {
                     <div className="Create_post">
 
                         <div className="first_row">
+
                             <img
                                 src="/favicon.ico"
                                 alt="Profile"
@@ -85,6 +86,7 @@ export default function AfterLogin() {
                                 placeholder="Share something with the community..."
                                 readOnly
                             />
+
                         </div>
 
                         <div className="sec_row">
@@ -107,10 +109,13 @@ export default function AfterLogin() {
                 <div className="posts">
 
                     {postsData.length === 0 ? (
+
                         <div className="no-posts">
                             <p>No posts available.</p>
                         </div>
+
                     ) : (
+
                         postsData.map((post) => {
 
                             const artist = post.artist;
@@ -124,17 +129,32 @@ export default function AfterLogin() {
                                     {/* Post Header */}
                                     <div className="first_row">
 
-                                        <img
-                                            src="/favicon.ico"
-                                            alt={
-                                                artist?.username ||
-                                                "Artist"
+                                        {/* Artist Profile Image */}
+                                        <Link
+                                            to={
+                                                artist?.username
+                                                    ? `/artists/${artist.username}`
+                                                    : "#"
                                             }
-                                        />
+                                            className="post-profile-link"
+                                        >
+                                            <img
+                                                src={
+                                                    artist?.profileImage ||
+                                                    "/favicon.ico"
+                                                }
+                                                alt={
+                                                    artist?.username ||
+                                                    "Artist"
+                                                }
+                                            />
+                                        </Link>
 
+                                        {/* Artist Information */}
                                         <div className="post-heading">
 
-                                            {artist?._id ? (
+                                            {artist?.username ? (
+
                                                 <Link
                                                     to={`/artists/${artist.username}`}
                                                     className="post-author-link"
@@ -143,10 +163,13 @@ export default function AfterLogin() {
                                                         {artist.username}
                                                     </h3>
                                                 </Link>
+
                                             ) : (
+
                                                 <h3 id="post-heading-h3">
                                                     Unknown Artist
                                                 </h3>
+
                                             )}
 
                                             <h5 id="post-heading-h5">
@@ -169,6 +192,7 @@ export default function AfterLogin() {
                                     {/* Image */}
                                     {post.mediaType === "image" &&
                                         post.media && (
+
                                             <img
                                                 className="post-media"
                                                 src={post.media}
@@ -177,16 +201,19 @@ export default function AfterLogin() {
                                                     "Post"
                                                 }
                                             />
+
                                         )}
 
                                     {/* Video */}
                                     {post.mediaType === "video" &&
                                         post.media && (
+
                                             <video
                                                 className="post-media"
                                                 controls
                                                 preload="metadata"
                                             >
+
                                                 <source
                                                     src={post.media}
                                                     type="video/mp4"
@@ -194,12 +221,57 @@ export default function AfterLogin() {
 
                                                 Your browser does not
                                                 support the video tag.
+
                                             </video>
+
                                         )}
+
+                                    {/* Like Comment Share */}
+                                    <div className="post-actions">
+
+                                        <button
+                                            type="button"
+                                            className="post-action"
+                                        >
+                                            <i className="fa-regular fa-heart"></i>
+                                            <span>Like</span>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            className="post-action"
+                                        >
+                                            <i className="fa-regular fa-comment"></i>
+                                            <span>Comment</span>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            className="post-action"
+                                            onClick={() => {
+                                                if (navigator.share) {
+                                                    navigator.share({
+                                                        title: "ArtistHood Post",
+                                                        text: post.caption || "Check out this post",
+                                                        url: window.location.origin + `/posts/${post._id}`
+                                                    });
+                                                } else {
+                                                    navigator.clipboard.writeText(
+                                                        window.location.origin + `/posts/${post._id}`
+                                                    );
+                                                }
+                                            }}
+                                        >
+                                            <i className="fa-solid fa-share"></i>
+                                            <span>Share</span>
+                                        </button>
+
+                                    </div>
 
                                 </div>
                             );
                         })
+
                     )}
 
                 </div>
@@ -207,6 +279,7 @@ export default function AfterLogin() {
             </div>
 
             <RightNav />
+
         </div>
     );
 }
