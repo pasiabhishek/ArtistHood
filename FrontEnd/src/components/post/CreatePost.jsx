@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
+
 import "../../styles/post/CreatePost.css";
 import { getApiUrl } from "../../services/api";
-import axios from "axios";
-import useRequireAuth from "../../hooks/useRequireAuth";
-
 
 export default function CreatePost() {
-    // useRequireAuth();
-
     const user = JSON.parse(localStorage.getItem("user"));
 
     const [postData, setPostData] = useState({
-        userId: user?.id || "",
         media: null,
         caption: "",
         mediaType: "",
@@ -20,7 +16,9 @@ export default function CreatePost() {
     const [previewUrl, setPreviewUrl] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Create preview URL for selected image
+    // ==============================
+    // IMAGE PREVIEW
+    // ==============================
     useEffect(() => {
         if (!postData.media) {
             setPreviewUrl("");
@@ -33,6 +31,7 @@ export default function CreatePost() {
         }
 
         const objectUrl = URL.createObjectURL(postData.media);
+
         setPreviewUrl(objectUrl);
 
         return () => {
@@ -40,6 +39,9 @@ export default function CreatePost() {
         };
     }, [postData.media]);
 
+    // ==============================
+    // MEDIA CHANGE
+    // ==============================
     const handleMediaChange = (event) => {
         const media = event.target.files?.[0];
 
@@ -67,19 +69,37 @@ export default function CreatePost() {
         }));
     };
 
+    // ==============================
+    // CREATE POST
+    // ==============================
     const postHandler = async (e) => {
         e.preventDefault();
 
-        if (!postData.userId) {
+        // Get logged-in user
+        const currentUser = JSON.parse(
+            localStorage.getItem("user")
+        );
+
+        if (!currentUser) {
             alert("User not found. Please login again.");
             return;
         }
 
+        // Get token from stored user
+        const token = currentUser.token;
+
+        if (!token) {
+            alert("No token provided. Please login again.");
+            return;
+        }
+
+        // Check media
         if (!postData.media) {
             alert("Please select an image or video.");
             return;
         }
 
+        // Check caption
         if (!postData.caption.trim()) {
             alert("Please enter a caption.");
             return;
@@ -87,43 +107,68 @@ export default function CreatePost() {
 
         const formData = new FormData();
 
-        formData.append("userId", postData.userId);
-        formData.append("media", postData.media);
-        formData.append("caption", postData.caption.trim());
-        formData.append("mediaType", postData.mediaType);
+        formData.append(
+            "media",
+            postData.media
+        );
+
+        formData.append(
+            "caption",
+            postData.caption.trim()
+        );
+
+        formData.append(
+            "mediaType",
+            postData.mediaType
+        );
 
         setIsSubmitting(true);
 
         try {
             const response = await axios.post(
-                getApiUrl("api/posts"),
-                formData
+                getApiUrl("api/posts/create"),
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
 
-            console.log("Post created:", response.data);
+            console.log(
+                "Post created:",
+                response.data
+            );
 
             alert("Post created successfully!");
 
-            setPostData((currentPost) => ({
-                ...currentPost,
+            // Reset
+            setPostData({
                 media: null,
                 caption: "",
-                mediaType: "image",
-            }));
+                mediaType: "",
+            });
 
             setPreviewUrl("");
 
             e.target.reset();
+
         } catch (error) {
             console.error(
                 "Create post error:",
                 error.response?.data || error.message
             );
 
-            alert(
-                error.response?.data?.message ||
-                "Failed to create post. Please try again."
-            );
+            if (error.response?.status === 401) {
+                alert(
+                    "Authentication failed. Please login again."
+                );
+            } else {
+                alert(
+                    error.response?.data?.message ||
+                    "Failed to create post. Please try again."
+                );
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -131,41 +176,60 @@ export default function CreatePost() {
 
     return (
         <main className="CreatePost">
+
             <header className="create-post-header">
                 <div>
-                    <p className="eyebrow">Community studio</p>
+                    <p className="eyebrow">
+                        Community studio
+                    </p>
 
-                    <h1>Create a post</h1>
+                    <h1>
+                        Create a post
+                    </h1>
 
                     <p className="intro">
-                        Share a moment, a work in progress, or something worth
-                        discovering.
+                        Share a moment, a work in progress,
+                        or something worth discovering.
                     </p>
                 </div>
 
-                <span className="post-step">01 / 01</span>
+                <span className="post-step">
+                    01 / 01
+                </span>
             </header>
 
             <div className="create-post-content">
+
                 <form
                     className="create-post-form"
                     onSubmit={postHandler}
                 >
-                    {/* Media */}
+
+                    {/* MEDIA */}
+
                     <div className="form-group media-group">
+
                         <div className="field-heading">
+
                             <label htmlFor="post-media">
                                 Your media
                             </label>
 
-                            <span>Required</span>
+                            <span>
+                                Required
+                            </span>
+
                         </div>
 
                         <label
-                            className={`upload-zone${postData.media ? " has-file" : ""
-                                }`}
+                            className={`upload-zone${
+                                postData.media
+                                    ? " has-file"
+                                    : ""
+                            }`}
                             htmlFor="post-media"
                         >
+
                             <span
                                 className="upload-icon"
                                 aria-hidden="true"
@@ -174,6 +238,7 @@ export default function CreatePost() {
                             </span>
 
                             <span className="upload-copy">
+
                                 <strong>
                                     {postData.media
                                         ? "Replace media"
@@ -183,6 +248,7 @@ export default function CreatePost() {
                                 <small>
                                     Image or video up to 10 MB
                                 </small>
+
                             </span>
 
                             {postData.media && (
@@ -190,6 +256,7 @@ export default function CreatePost() {
                                     {postData.media.name}
                                 </span>
                             )}
+
                         </label>
 
                         <input
@@ -201,6 +268,8 @@ export default function CreatePost() {
                             required={!postData.media}
                         />
 
+                        {/* IMAGE */}
+
                         {previewUrl && (
                             <img
                                 className="media-preview"
@@ -209,18 +278,28 @@ export default function CreatePost() {
                             />
                         )}
 
-                        {postData.media?.type.startsWith("video/") && (
+                        {/* VIDEO */}
+
+                        {postData.media?.type.startsWith(
+                            "video/"
+                        ) && (
                             <video
                                 className="media-preview"
-                                src={URL.createObjectURL(postData.media)}
+                                src={URL.createObjectURL(
+                                    postData.media
+                                )}
                                 controls
                             />
                         )}
+
                     </div>
 
-                    {/* Caption */}
+                    {/* CAPTION */}
+
                     <div className="form-group">
+
                         <div className="field-heading">
+
                             <label htmlFor="post-caption">
                                 Caption
                             </label>
@@ -228,6 +307,7 @@ export default function CreatePost() {
                             <span>
                                 {postData.caption.length}/500
                             </span>
+
                         </div>
 
                         <textarea
@@ -236,20 +316,29 @@ export default function CreatePost() {
                             maxLength={500}
                             placeholder="Tell the community what is happening here..."
                             onChange={(e) =>
-                                setPostData((currentPost) => ({
-                                    ...currentPost,
-                                    caption: e.target.value,
-                                }))
+                                setPostData(
+                                    (currentPost) => ({
+                                        ...currentPost,
+                                        caption:
+                                            e.target.value,
+                                    })
+                                )
                             }
                             required
                         />
+
                     </div>
 
-                    {/* Footer */}
+                    {/* FOOTER */}
+
                     <div className="form-footer">
+
                         <p>
-                            <span aria-hidden="true">●</span>{" "}
-                            Your post will appear in the community feed.
+                            <span aria-hidden="true">
+                                ●
+                            </span>{" "}
+                            Your post will appear in the
+                            community feed.
                         </p>
 
                         <button
@@ -260,9 +349,13 @@ export default function CreatePost() {
                                 ? "Publishing..."
                                 : "Publish post"}
                         </button>
+
                     </div>
+
                 </form>
+
             </div>
+
         </main>
     );
 }

@@ -1,43 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 import "../../styles/post/Feed.css";
 import useTitle from "../../hooks/useTitle";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import postsData from "../../data/postdata.json";
 import { getApiUrl } from "../../services/api";
-import axios from "axios";
+
 import RightNav from "../layout/RightNav";
-import Home from "../../pages/Home";
+import Loader from "../common/Loader";
 
 export default function AfterLogin() {
     useTitle("Feed");
 
+    const [postsData, setPostsData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    async function getPost() {
-        try {
-            const token = localStorage.getItem("token");
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get(
+                    getApiUrl("api/posts")
+                );
 
-            const response = await axios.get(getApiUrl("api/posts"), {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+                console.log("Posts API response:", response.data);
 
-            console.log(response.data);
-        } catch (error) {
-            console.error(error.response?.data || error.message);
-        }
+                const posts = Array.isArray(response.data?.posts)
+                    ? response.data.posts
+                    : [];
+
+                setPostsData(posts);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+                setPostsData([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPosts();
+    }, []);
+
+    if (loading) {
+        return <Loader />;
     }
-    // The feed currently uses local sample data until the posts API is connected.
+
     return (
         <div>
             <div className="Feed">
+
+                {/* Search */}
                 <div className="search">
-                    <form action="#">
+                    <form
+                        onSubmit={(e) => e.preventDefault()}
+                    >
                         <i
                             className="fa-solid fa-magnifying-glass"
                             aria-hidden="true"
                         ></i>
+
                         <input
                             type="search"
                             placeholder="Search artists, posts, or events"
@@ -45,13 +65,23 @@ export default function AfterLogin() {
                         />
                     </form>
                 </div>
-                {/* Clicking the composer opens the complete post form. */}
-                <Link to="/create-post">
+
+                {/* Create Post */}
+                <Link
+                    to="/create-post"
+                    className="create-post-link"
+                >
                     <div className="Create_post">
+
                         <div className="first_row">
-                            <img src="/favicon.ico" alt="profile picture" />
+                            <img
+                                src="/favicon.ico"
+                                alt="Profile"
+                            />
+
                             <textarea
                                 placeholder="Share something with the community..."
+                                readOnly
                             />
                         </div>
 
@@ -60,62 +90,107 @@ export default function AfterLogin() {
                                 <i className="fa-regular fa-image"></i>
                                 <i className="fa-solid fa-video"></i>
                             </div>
-                            <button type="button">Post</button>
+
+                            <button type="button">
+                                Post
+                            </button>
                         </div>
+
                     </div>
                 </Link>
 
-                {/* Render the media control that matches each sample post. */}
+                {/* Posts */}
                 <div className="posts">
-                    {postsData.map((post) => (
-                        <div key={post.id} className="post-card">
-                            <div className="first_row">
-                                <img
-                                    src={post.user.profileImage}
-                                    alt="profile picture"
-                                />
 
-                                <div className="post-heading">
-                                    <h3 id="post-heading-h3">
-                                        {post.user.fullName}
-                                    </h3>
-
-                                    <h5 id="post-heading-h5">
-                                        {post.user.role}
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <div className="sec_row">
-                                <p>{post.content}</p>
-                            </div>
-
-                            {/* Show image or video depending on the post type */}
-                            {post.media?.type === "image" && (
-                                <img
-                                    className="post-media"
-                                    src={post.media.url}
-                                    alt="post"
-                                />
-                            )}
-
-                            {post.media?.type === "video" && (
-                                <video
-                                    className="post-media"
-                                    controls
-                                    preload="metadata"
-                                >
-                                    <source
-                                        src={post.media.url}
-                                        type="video/mp4"
-                                    />
-                                    Your browser does not support the video tag.
-                                </video>
-                            )}
+                    {postsData.length === 0 ? (
+                        <div className="no-posts">
+                            <p>No posts available.</p>
                         </div>
-                    ))}
+                    ) : (
+                        postsData.map((post) => {
+
+                            const user = post.user || {};
+                            const media = post.media || {};
+
+                            return (
+                                <div
+                                    key={post._id || post.id}
+                                    className="post-card"
+                                >
+
+                                    {/* Post Header */}
+                                    <div className="first_row">
+
+                                        <img
+                                            src={
+                                                user.profileImage ||
+                                                "/favicon.ico"
+                                            }
+                                            alt={
+                                                user.fullName ||
+                                                "Profile"
+                                            }
+                                        />
+
+                                        <div className="post-heading">
+
+                                            <h3 id="post-heading-h3">
+                                                {user.fullName ||
+                                                    "Unknown User"}
+                                            </h3>
+
+                                            <h5 id="post-heading-h5">
+                                                {user.role ||
+                                                    "Artist"}
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+                                    {/* Post Content */}
+                                    <div className="sec_row">
+                                        <p>
+                                            {post.content || ""}
+                                        </p>
+                                    </div>
+
+                                    {/* Image */}
+                                    {media.type === "image" &&
+                                        media.url && (
+                                            <img
+                                                className="post-media"
+                                                src={media.url}
+                                                alt="Post"
+                                            />
+                                        )}
+
+                                    {/* Video */}
+                                    {media.type === "video" &&
+                                        media.url && (
+                                            <video
+                                                className="post-media"
+                                                controls
+                                                preload="metadata"
+                                            >
+                                                <source
+                                                    src={media.url}
+                                                    type="video/mp4"
+                                                />
+
+                                                Your browser does not
+                                                support the video tag.
+                                            </video>
+                                        )}
+
+                                </div>
+                            );
+                        })
+                    )}
+
                 </div>
             </div>
+
             <RightNav />
         </div>
     );
