@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-
 import postsData from "../data/postdata.json";
-
 import "../styles/common/Profile.css";
-
 import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 import Loader from "../components/common/Loader";
-
 import { getApiUrl } from "../services/api";
+
 
 export default function Artists() {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFollowing, setIsFollowing] = useState(false);
-
+  const [isMyProfile, setIsMyProfile] = useState(false);
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
   const { username } = useParams();
 
   useEffect(() => {
@@ -40,6 +39,10 @@ export default function Artists() {
     };
 
     fetchArtists();
+
+    if (user?.username == username) {
+      setIsMyProfile(true)
+    }
   }, []);
 
   // Find artist using the username from the User schema
@@ -162,27 +165,27 @@ export default function Artists() {
               className="profile-actions"
               aria-label={`Actions for ${artistName}`}
             >
-
-              {/* Follow */}
+              {/* Follow Button */}
               <button
                 type="button"
-                className={`profile-follow-button ${isFollowing ? "is-following" : ""
-                  }`}
-                onClick={() =>
-                  setIsFollowing(
-                    (following) => !following
-                  )
-                }
+                disabled={isMyProfile}
+                style={{
+                  opacity: isMyProfile?"0.4":"1"
+                }}
+                className={`profile-follow-button ${isFollowing ? "is-following" : ""}`}
+                onClick={() => setIsFollowing((following) => !following)}
                 aria-pressed={isFollowing}
               >
-                {isFollowing
-                  ? "Following"
-                  : "Follow"}
+                {isFollowing ? "Following" : "Follow"}
               </button>
+
 
               {/* Book */}
               <Link
-                className="profile-book-button"
+                className="profile-book-button"disabled={isMyProfile}
+                style={{
+                  opacity: isMyProfile?"0.4":"1"
+                }}
                 to={`/booking-request?artist=${artist.user.username}`}
               >
                 Book now
