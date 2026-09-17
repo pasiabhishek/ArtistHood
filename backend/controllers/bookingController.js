@@ -246,7 +246,7 @@ const getClientBookings = async (req, res) => {
 
 const getBookingById = async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.id)
+        const booking = await Booking.findById(req.params.bookingId)
             .populate("client", "fullName email")
             .populate({
                 path: "artist",
