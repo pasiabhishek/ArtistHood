@@ -7,6 +7,15 @@ export default function LeftNav({ isOpen, onClose }) {
     const user = storedUser ? JSON.parse(storedUser) : null;
     const displayName = user?.fullName || "GUEST";
 
+
+
+    function signOUT() {
+        localStorage.clear()
+        alert('sign off')
+        window.location.reload(); // 👈 Reloads the current page
+        return (<Home />)
+    }
+
     return (
         <aside
             id="left-navigation"
@@ -58,15 +67,21 @@ export default function LeftNav({ isOpen, onClose }) {
                     </Link>
                 </ul>
             </nav>
+            <input type="submit" value="Log Out" className="bg-gray-600 rounded-2xl " onClick={signOUT}  />
 
             <Link to={user?.username ? `/artists/${user.username}` : "/feed"} onClick={onClose}>
-                <div className="Left_Nav_Footer">
+                <div className="Left_Nav_Footer m-auto  justify-start center "
+                    style={{
+                        "padding-left": "20px"
+                    }}>
                     <img
                         className="left-nav-footer-logo"
-                        src={ user?.profileImage || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
+                        src={user?.profileImage || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
                         alt="profile"
                     />
                     <h3>{displayName}</h3>
+
+
                 </div>
             </Link>
         </aside>
