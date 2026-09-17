@@ -349,10 +349,63 @@ const acceptBooking = async (req, res) => {
     }
 };
 
+// ARTIST REJECT BOOKING
+const rejectBooking = async (req, res) => {
+    try {
+        const booking = await Booking.findById(req.params.id)
+            .populate("artist", "user");
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        // Only assigned artist
+        if (
+            booking.artist.user.toString() !==
+            req.user.id
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "Only the assigned artist can reject this booking",
+            });
+        }
+
+        // Only pending
+        if (booking.status !== "pending") {
+            return res.status(400).json({
+                success: false,
+                message: "Only pending bookings can be rejected",
+            });
+        }
+
+        booking.status = "rejected";
+
+        await booking.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Booking rejected successfully",
+            booking,
+        });
+
+    } catch (error) {
+        console.error("Reject booking error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to reject booking",
+        });
+    }
+};
+
 module.exports = {
     createBooking,
     getArtistBookings,
     getClientBookings,
     getBookingById,
     acceptBooking,
+    rejectBooking,
 };
