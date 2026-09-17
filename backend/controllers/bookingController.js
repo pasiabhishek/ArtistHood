@@ -10,7 +10,7 @@ const timeToMinutes = (time) => {
 
 
 // Create Booking
-const createBooking = async (req, res) => {
+export const createBooking = async (req, res) => {
     try {
         const {
             artist,
@@ -30,18 +30,8 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Client cannot book themselves
-        if (req.user.id === artist) {
-            return res.status(400).json({
-                success: false,
-                message: "You cannot book yourself",
-            });
-        }
-
-        // Find artist profile
-        const artistProfile = await ArtistProfile.findOne({
-            user: artist,
-        });
+        // find artist Profile
+        const artistProfile = await ArtistProfile.findById(artist);
 
         if (!artistProfile) {
             return res.status(404).json({
@@ -50,11 +40,11 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Check that selected user is actually an Artist
-        if (artistProfile.user.toString() !== artist) {
+        // client cannot book themselves
+        if (req.user.id === artistProfile.user.toString()) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid artist",
+                message: "You cannot book yourself",
             });
         }
 
@@ -96,6 +86,7 @@ const createBooking = async (req, res) => {
                 message: "Artist is not available on this date",
             });
         }
+
         // Event cannot be in the past
         const today = new Date();
         today.setUTCHours(0, 0, 0, 0);
@@ -135,21 +126,16 @@ const createBooking = async (req, res) => {
             });
         }
 
-
         const booking = await Booking.create({
             client: req.user.id,
-            artist: artist,
+            artist: artist, // Use the artist ID from the request body
             eventDate: requestedDate,
             startTime,
             endTime,
             eventType,
             expectedGuests,
             description,
-
-            // Price comes from artist profile
             price: artistProfile.price,
-
-            // New booking starts as pending
             status: "pending",
         });
 
@@ -172,7 +158,7 @@ const createBooking = async (req, res) => {
 // Get Artist's Incoming Bookings
 const getArtistBookings = async (req, res) => {
     try {
-
+        // Validate artist role
         if (req.user.role !== "Artist") {
             return res.status(403).json({
                 success: false,
@@ -180,8 +166,19 @@ const getArtistBookings = async (req, res) => {
             });
         }
 
+        // Fetch artist profile
+        const artistProfile = await ArtistProfile.findOne({ user: req.user.id });
+
+        if (!artistProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "Artist profile not found",
+            });
+        }
+
+        // Fetch artist bookings
         const bookings = await Booking.find({
-            artist: req.user.id,
+            artist: artistProfile._id,
         })
             .populate("client", "fullName email")
             .sort({
@@ -204,7 +201,51 @@ const getArtistBookings = async (req, res) => {
     }
 };
 
+// Get Client's Bookings
+const getClientBookings = async (req, res) => {
+    try {
+        // Validate client role
+        if (req.user.role !== "Client") {
+            return res.status(403).json({
+                success: false,
+                message: "Only clients can access client bookings",
+            });
+        }
+
+        // Fetch client bookings
+        const bookings = await Booking.find({
+            client: req.user.id,
+        })
+            .populate({
+                path: "artist",
+                select: "stageName profileImage category price",
+                populate: {
+                    path: "user",
+                    select: "fullName email",
+                },
+            })
+            .sort({
+                eventDate: 1,
+                startTime: 1,
+            });
+
+        return res.status(200).json({
+            success: true,
+            bookings,
+        });
+
+    } catch (error) {
+        console.error("Get client bookings error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get client bookings",
+        });
+    }
+};
+
 module.exports = {
     createBooking,
     getArtistBookings,
+    getClientBookings,
 };
