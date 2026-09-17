@@ -41,7 +41,7 @@ export default function AfterLogin() {
     }, []);
 
     if (loading) {
-        return <Loader />;
+        return <h3>Loading...</h3>;
     }
 
     return (
