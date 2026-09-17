@@ -67,4 +67,28 @@ const createPost = async (req, res) => {
     }
 };
 
-module.exports = { createPost };
+// GET ALL POSTS - FEED
+const getAllPosts = async (req, res) => {
+    try {
+        const posts = await Post.find()
+            .populate("artist", "name username profileImage")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            message: "Posts fetched successfully",
+            count: posts.length,
+            posts,
+        });
+
+    } catch (error) {
+        console.log("GET ALL POSTS ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { createPost, getAllPosts };
