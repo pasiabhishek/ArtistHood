@@ -246,7 +246,7 @@ const getClientBookings = async (req, res) => {
 
 const getBookingById = async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.bookingId)
+        const booking = await Booking.findById(req.params.id)
             .populate("client", "fullName email")
             .populate({
                 path: "artist",
@@ -296,9 +296,63 @@ const getBookingById = async (req, res) => {
     }
 };
 
+// ARTIST ACCEPT BOOKING
+const acceptBooking = async (req, res) => {
+    try {
+        const booking = await Booking.findById(req.params.id)
+            .populate("artist", "user");
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        // Artist is logged-in User
+        if (
+            booking.artist.user.toString() !==
+            req.user.id
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "Only the assigned artist can accept this booking",
+            });
+        }
+
+        // Only pending
+        if (booking.status !== "pending") {
+            return res.status(400).json({
+                success: false,
+                message: "Only pending bookings can be accepted",
+            });
+        }
+
+        // For now accepted = confirmed
+        booking.status = "accepted";
+
+        await booking.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Booking accepted successfully",
+            booking,
+        });
+
+    } catch (error) {
+        console.error("Accept booking error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to accept booking",
+        });
+    }
+};
+
 module.exports = {
     createBooking,
     getArtistBookings,
     getClientBookings,
     getBookingById,
+    acceptBooking,
 };
