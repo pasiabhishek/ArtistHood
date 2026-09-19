@@ -1,62 +1,89 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import postsData from "../data/postdata.json";
+
 import "../styles/common/Profile.css";
 import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 import Loader from "../components/common/Loader";
 import { getApiUrl } from "../services/api";
 
-
 export default function Artists() {
   const [artists, setArtists] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMyProfile, setIsMyProfile] = useState(false);
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null;
+
   const { username } = useParams();
 
-  useEffect(() => {
-    const fetchArtists = async () => {
-      try {
-        const response = await axios.get(
-          getApiUrl("api/artists")
-        );
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
 
-        setArtists(
-          Array.isArray(response.data?.artists)
-            ? response.data.artists
-            : []
-        );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [artistsResponse, postsResponse] = await Promise.all([
+          axios.get(getApiUrl("api/artists")),
+          axios.get(getApiUrl("api/posts")),
+        ]);
+
+        const artistsList = Array.isArray(
+          artistsResponse.data?.artists
+        )
+          ? artistsResponse.data.artists
+          : [];
+
+        const postsList = Array.isArray(
+          postsResponse.data?.posts
+        )
+          ? postsResponse.data.posts
+          : [];
+
+        setArtists(artistsList);
+        setPosts(postsList);
+
+        if (
+          user?.username &&
+          username &&
+          user.username.toLowerCase() === username.toLowerCase()
+        ) {
+          setIsMyProfile(true);
+        }
       } catch (error) {
-        console.error("Error fetching artists:", error);
+        console.error("Error fetching artist profile:", error);
+
         setArtists([]);
+        setPosts([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchArtists();
+    fetchData();
+  }, [username]);
 
-    if (user?.username == username) {
-      setIsMyProfile(true)
-    }
-  }, []);
-
-  // Find artist using the username from the User schema
+  /*
+   * Find artist using username
+   */
   const artist = artists.find(
     (item) =>
       item.user?.username?.toLowerCase() ===
       username?.toLowerCase()
   );
 
-  // Find posts using User username
-  const artistPosts = postsData.filter(
+  /*
+   * Get posts belonging to this artist
+   *
+   * API post structure:
+   *
+   * post.artist.username
+   */
+  const artistPosts = posts.filter(
     (post) =>
-      post.artistUsername?.toLowerCase() ===
-      artist?.user?.username?.toLowerCase()
+      post.artist?.username?.toLowerCase() ===
+      username?.toLowerCase()
   );
 
   if (loading) {
@@ -89,14 +116,15 @@ export default function Artists() {
 
   const artistName =
     artist.stageName ||
-    `${artist.user?.firstName || ""} ${artist.user?.lastName || ""
-      }`.trim() ||
+    `${artist.user?.firstName || ""} ${
+      artist.user?.lastName || ""
+    }`.trim() ||
     "Artist";
 
   const artistUsername = artist.user?.username || "";
 
   const profileImage =
-    artist?.profileImage;
+    artist.profileImage || "/favicon.ico";
 
   return (
     <div className="profile">
@@ -165,28 +193,41 @@ export default function Artists() {
               className="profile-actions"
               aria-label={`Actions for ${artistName}`}
             >
-              {/* Follow Button */}
+
+              {/* Follow */}
               <button
                 type="button"
                 disabled={isMyProfile}
                 style={{
-                  opacity: isMyProfile?"0.4":"1"
+                  opacity: isMyProfile ? "0.4" : "1",
                 }}
-                className={`profile-follow-button ${isFollowing ? "is-following" : ""}`}
-                onClick={() => setIsFollowing((following) => !following)}
+                className={`profile-follow-button ${
+                  isFollowing ? "is-following" : ""
+                }`}
+                onClick={() =>
+                  setIsFollowing(
+                    (following) => !following
+                  )
+                }
                 aria-pressed={isFollowing}
               >
                 {isFollowing ? "Following" : "Follow"}
               </button>
 
-
               {/* Book */}
               <Link
-                className="profile-book-button"disabled={isMyProfile}
+                className="profile-book-button"
+                to={
+                  isMyProfile
+                    ? "#"
+                    : `/booking-request?artist=${artistUsername}`
+                }
                 style={{
-                  opacity: isMyProfile?"0.4":"1"
+                  opacity: isMyProfile ? "0.4" : "1",
+                  pointerEvents: isMyProfile
+                    ? "none"
+                    : "auto",
                 }}
-                to={`/booking-request?artist=${artist.user.username}`}
               >
                 Book now
               </Link>
@@ -286,71 +327,91 @@ export default function Artists() {
 
                 <article
                   className="profile-post"
-                  key={post.id}
+                  key={post._id}
                 >
 
-                  {/* Post Content */}
-                  {post.content && (
+                  {/* Caption */}
+                  {post.caption && (
                     <p className="profile-post-content">
-                      {post.content}
+                      {post.caption}
                     </p>
                   )}
 
                   {/* Image */}
-                  {post.media?.type === "image" && (
-                    <img
-                      className="profile-post-media"
-                      src={post.media.url}
-                      alt={post.media.alt || ""}
-                    />
-                  )}
+                  {post.mediaType === "image" &&
+                    post.media && (
+                      <img
+                        className="profile-post-media"
+                        src={post.media}
+                        alt={post.caption || "Post"}
+                      />
+                    )}
 
                   {/* Video */}
-                  {post.media?.type === "video" && (
-                    <video
-                      className="profile-post-media"
-                      controls
-                      preload="metadata"
+                  {post.mediaType === "video" &&
+                    post.media && (
+                      <video
+                        className="profile-post-media"
+                        controls
+                        preload="metadata"
+                      >
+                        <source
+                          src={post.media}
+                          type="video/mp4"
+                        />
+
+                        Your browser does not support
+                        the video tag.
+                      </video>
+                    )}
+
+                  {/* Post Actions */}
+                  <div className="post-actions">
+
+                    <button
+                      type="button"
+                      className="post-action"
                     >
-                      <source
-                        src={post.media.url}
-                        type="video/mp4"
-                      />
+                      <i className="fa-regular fa-heart"></i>
+                      <span>Like</span>
+                    </button>
 
-                      Your browser does not support
-                      the video tag.
-                    </video>
-                  )}
-
-                  {/* Comments */}
-                  {post.commentList?.length > 0 && (
-                    <div
-                      className="profile-post-comments"
-                      aria-label="Post comments"
+                    <button
+                      type="button"
+                      className="post-action"
                     >
+                      <i className="fa-regular fa-comment"></i>
+                      <span>Comment</span>
+                    </button>
 
-                      {post.commentList.map(
-                        (comment, index) => (
-                          <p
-                            key={`${post.id}-${comment.username}-${index}`}
-                          >
-                            <strong>
-                              {comment.username}
-                            </strong>{" "}
-                            {comment.text}
-                          </p>
-                        )
-                      )}
+                    <button
+                      type="button"
+                      className="post-action"
+                      onClick={() => {
+                        const postUrl =
+                          window.location.origin +
+                          `/posts/${post._id}`;
 
-                      {post.comments !== undefined && (
-                        <span>
-                          View all{" "}
-                          {post.comments} comments
-                        </span>
-                      )}
+                        if (navigator.share) {
+                          navigator.share({
+                            title: "ArtistHood Post",
+                            text:
+                              post.caption ||
+                              "Check out this post",
+                            url: postUrl,
+                          });
+                        } else {
+                          navigator.clipboard.writeText(
+                            postUrl
+                          );
+                        }
+                      }}
+                    >
+                      <i className="fa-solid fa-share"></i>
+                      <span>Share</span>
+                    </button>
 
-                    </div>
-                  )}
+                  </div>
 
                 </article>
 
@@ -361,7 +422,9 @@ export default function Artists() {
           ) : (
 
             <div className="profile-posts-empty">
-              <p>No posts yet.</p>
+              <p>
+                {artistName} hasn't posted anything yet.
+              </p>
             </div>
 
           )}
