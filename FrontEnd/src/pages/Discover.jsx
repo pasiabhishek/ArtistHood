@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "../styles/pages/Discover.css";
-import useRequireAuth from "../hooks/useRequireAuth";
 const artists = [
   { name: "Aarav Nair", role: "DJ", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" },
   { name: "Meher Kapoor", role: "Singer", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" },
@@ -84,10 +83,14 @@ function shuffleArray(items) {
   return copy;
 }
 
-const posts = shuffleArray(randomPosts);
+const allPosts = shuffleArray(randomPosts);
 
 export default function Discover() {
-  // useRequireAuth();
+  const [activeTag, setActiveTag] = useState("All");
+  const posts = useMemo(() => {
+    if (activeTag === "All") return allPosts;
+    return allPosts.filter((post) => post.tags.includes(activeTag) || post.tags.some((tag) => activeTag.toLowerCase().includes(tag.toLowerCase()) || tag.toLowerCase().includes(activeTag.toLowerCase())));
+  }, [activeTag]);
 
   return (
     <div className="discover-page">
@@ -102,8 +105,13 @@ export default function Discover() {
       </header>
 
       <div className="discover-toolbar">
-        {shuffleArray(categories).map((category, index) => (
-          <button key={`${category}-${index}`} type="button" className="discover-tag">
+        {["All", ...categories].map((category) => (
+          <button
+            key={category}
+            type="button"
+            className={`discover-tag ${activeTag === category ? "is-active" : ""}`}
+            onClick={() => setActiveTag(category)}
+          >
             {category}
           </button>
         ))}
@@ -111,7 +119,12 @@ export default function Discover() {
 
       <div className="discover-layout">
         <main className="discover-feed">
-          {posts.map((post) => (
+          {posts.length === 0 ? (
+            <div className="no-posts">
+              <p>No stories match this filter yet. Try another category.</p>
+            </div>
+          ) : (
+            posts.map((post) => (
             <article key={post.id} className="discover-post-card">
               <div className="post-author-row">
                 <img src={post.artist.image} alt={post.artist.name} className="post-author-image" />
@@ -142,7 +155,8 @@ export default function Discover() {
                 </div>
               </div>
             </article>
-          ))}
+          ))
+          )}
         </main>
 
         <aside className="discover-sidebar">

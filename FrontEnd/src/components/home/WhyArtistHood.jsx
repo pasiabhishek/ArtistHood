@@ -38,8 +38,10 @@ export default function WhyAH() {
         <section className="why-section">
             <div className="home-section">
                 <div className="section-heading why-heading">
-                    <p>WHY ARTISTHOOD</p>
-                    {/* <h2>Booking made memorable.</h2> */}
+                    <div>
+                        <p>WHY ARTISTHOOD</p>
+                        <h2>Booking made memorable.</h2>
+                    </div>
                 </div>
                 <div className="feature-grid">
                     {features.map(({ title, text, Icon }) => (

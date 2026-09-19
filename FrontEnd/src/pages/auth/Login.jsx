@@ -46,7 +46,7 @@ export default function Login() {
     };
     useTitle("Login");
     return (
-        <main className="auth-page">
+        <main className="auth-page" id="main-content">
             <Header />
             <section className="auth-content" aria-labelledby="login-heading">
                 <div className="auth-intro">

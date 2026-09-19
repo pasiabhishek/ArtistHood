@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/Home";
-import Loader from "./components/common/Loader";
 import Login from "./pages/auth/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/auth/Signup";
@@ -19,34 +17,21 @@ import Artists from "./pages/Artists";
 import ArtistsList from "./pages/ArtistsList";
 import BookingRequest from "./pages/BookingRequest";
 import Client from "./pages/Client";
-import AfterLogin from "./components/post/Feed";
 import Post from "./pages/Post";
 
 function App() {
-    // Keep the loader visible briefly while the first screen is prepared.
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (loading) return <Loader />;
-
     return (
         <div>
+            <a className="skip-link" href="#main-content">
+                Skip to content
+            </a>
             <BrowserRouter>
                 <Routes>
-                    {/* Public authentication pages do not use the dashboard shell. */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/artist-signup" element={<ArtistSignUp />} />
-                    {/* Unknown URLs are handled by the branded 404 page. */}
                     <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/artist" element={<SitePage page="artists" />} /> */}
                     <Route path="/categories" element={<SitePage page="categories" />} />
                     <Route path="/role" element={<SelectRole />} />
                     <Route path="/artists" element={<ArtistsList />} />
@@ -55,11 +40,8 @@ function App() {
                     <Route path="/client/:username" element={<Client />} />
                     <Route path="/posts" element={<Feed />} />
                     <Route path="/posts/:_id" element={<Post />} />
-
                     <Route path="/booking-request" element={<BookingRequest />} />
 
-                    {/* Feed pages share the signed-in navigation layout. */}
-                    {/* Signed-in pages share the left and right navigation shell. */}
                     <Route element={<AppLayout />}>
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/discover" element={<Discover />} />
@@ -68,10 +50,9 @@ function App() {
                         <Route path="/booking" element={<Booking />} />
                         <Route path="/create-post" element={<CreatePost />} />
                     </Route>
-
                 </Routes>
             </BrowserRouter>
-        </div >
+        </div>
     );
 }
 

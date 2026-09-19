@@ -252,13 +252,20 @@
   }
 }
 
-
-
-.Right_Nav aside{
-    height: auto;
-    transform: scale(-20px);
-    overflow-y: scroll;
-    margin-top: 55asddrdpx;
-    width: 100%;
-    font-size: 12px;
+.discover-tag.is-active,
+.discover-tag:hover {
+  border-color: rgba(181, 169, 255, 0.5);
+  background: rgba(123, 104, 245, 0.16);
 }
+
+.creator-row button:hover {
+  background: var(--btn-bg);
+}
+
+.Right_Nav .discover-sidebar {
+  height: auto;
+  overflow: visible;
+  margin-top: 0;
+  width: 100%;
+}
+

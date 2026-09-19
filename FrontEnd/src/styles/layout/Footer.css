@@ -1,7 +1,7 @@
 .site-footer {
-    background: var(--background);
+    background: rgba(5, 8, 18, 0.92);
     color: #fff;
-    font-family: "Anta", sans-serif;
+    border-top: 1px solid var(--border);
 }
 
 .site-footer__main {

@@ -1,60 +1,159 @@
-@import url('https://fonts.googleapis.com/css2?family=Anta&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Imperial+Script&family=Manrope:wght@200..800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
-    /* These values keep the brand colors consistent across every component. */
-    --logo-color: rgb(49, 37, 127);
-    --btn-bg: rgb(75, 58, 185);
-    /* --background: #01010f; */
-    /* --background: #010118; */
-    /* --background: #010118; */
-    /* --background: #060913; */
-    --background: rgb(2, 11, 27);
-    --text-color: #fff:
-     --feed-background: #0b0b24;
-    --card-background: #111138;
-    --border: #4a4872;
-    --border-dark: #22223f;
-    --text-muted: #b4b2ca;
+    --logo-color: #8b7dff;
+    --btn-bg: #6d5ef5;
+    --btn-bg-hover: #7f71ff;
+    --background: #070b18;
+    --surface: #10162a;
+    --surface-2: #161d35;
+    --card-background: #121833;
+    --feed-background: #070b18;
+    --text-color: #f4f6ff;
+    --text-muted: #a8aec8;
+    --border: rgba(139, 148, 196, 0.22);
+    --border-dark: rgba(255, 255, 255, 0.06);
     --purple: #7465df;
-    --purple-hover: #897cf0;
+    --purple-hover: #8f82f3;
     --font-logo: "Cormorant Garamond", serif;
-    --font-size: 12px;
-    --logo-font-size: 20px;
+    --font-body: "Manrope", sans-serif;
+    --font-size: 14px;
+    --logo-font-size: 1.75rem;
+    --header-height: 72px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    --focus: 0 0 0 3px rgba(125, 110, 245, 0.35);
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: var(--font-logo);
-    text-shadow: 0px 2px rgba(0, 0, 0, 0.1);
-    font-family: "Anta", sans-serif;
+}
 
-}
-* ::-webkit-scrollbar{
-    display: none;
-}
-body {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    background-color: var(--background);
+html {
+    scroll-behavior: smooth;
 }
 
 html,
-body {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+body,
+#root {
+    min-height: 100%;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
+body {
+    width: 100%;
+    overflow-x: hidden;
+    background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(109, 94, 245, 0.18), transparent 55%),
+        radial-gradient(900px 400px at 90% 0%, rgba(49, 37, 127, 0.22), transparent 50%),
+        var(--background);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: var(--font-size);
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: rgba(109, 94, 245, 0.45);
+    color: #fff;
+}
+
+a {
+    color: inherit;
+}
+
+img,
+video {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid #c3bbff;
+    outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(139, 148, 196, 0.28);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 2000;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+.page-empty {
+    width: min(640px, calc(100% - 2rem));
+    margin: 2rem auto;
+    padding: 2.5rem 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: rgba(16, 22, 42, 0.88);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.page-empty h1 {
+    margin: 0.4rem 0 0.6rem;
+    font-family: var(--font-logo);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.page-empty p {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.page-empty a,
+.page-empty .empty-cta {
+    display: inline-flex;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.15rem;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }

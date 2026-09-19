@@ -59,10 +59,10 @@
 .site-page-cards article {
     min-height: 190px;
     padding: 25px;
-    border: 1px solid #e3e1ef;
+    border: 1px solid var(--border);
     border-radius: 16px;
-    background: var(--background);
-    box-shadow: 0 12px 30px rgba(24, 21, 53, 0.08);
+    background: rgba(16, 22, 42, 0.9);
+    box-shadow: var(--shadow);
 }
 
 .site-page-cards span {
@@ -78,7 +78,7 @@
 }
 
 .site-page-cards p {
-    color: #747182;
+    color: var(--text-muted);
     font-size: 0.85rem;
     line-height: 1.6;
 }
@@ -94,10 +94,10 @@
 .site-page-categories article {
     min-height: 125px;
     padding: 20px;
-    border: 1px solid #e3e1ef;
+    border: 1px solid var(--border);
     border-radius: 12px;
-    background: var(--background);
-    box-shadow: 0 10px 24px rgba(24, 21, 53, 0.07);
+    background: rgba(16, 22, 42, 0.9);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
     transition: transform 180ms ease, border-color 180ms ease;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .site-page-categories p {
-    color: #747182;
+    color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.5;
 }

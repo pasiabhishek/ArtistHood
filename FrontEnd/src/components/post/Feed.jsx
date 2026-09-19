@@ -18,19 +18,11 @@ export default function AfterLogin() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get(
-                    getApiUrl("api/posts")
-                );
-
-                console.log("Posts API response:", response.data);
-
+                const response = await axios.get(getApiUrl("api/posts"));
                 const posts = Array.isArray(response.data?.posts)
                     ? response.data.posts
                     : [];
-
                 setPostsData(posts);
-
-                console.log("Post data:", posts);
             } catch (error) {
                 console.error("Error fetching posts:", error);
                 setPostsData([]);
@@ -43,23 +35,15 @@ export default function AfterLogin() {
     }, []);
 
     if (loading) {
-        return <h3>Loading...</h3>;
+        return <Loader />;
     }
 
     return (
         <div>
             <div className="Feed">
-
-                {/* Search */}
                 <div className="search">
-                    <form
-                        onSubmit={(e) => e.preventDefault()}
-                    >
-                        <i
-                            className="fa-solid fa-magnifying-glass"
-                            aria-hidden="true"
-                        ></i>
-
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                         <input
                             type="search"
                             placeholder="Search artists, posts, or events"
@@ -68,194 +52,88 @@ export default function AfterLogin() {
                     </form>
                 </div>
 
-                {/* Create Post */}
-                <Link
-                    to="/create-post"
-                    className="create-post-link"
-                >
+                <Link to="/create-post" className="create-post-link">
                     <div className="Create_post">
-
                         <div className="first_row">
-
-                            <img
-                                src="/favicon.ico"
-                                alt="Profile"
-                            />
-
-                            <textarea
-                                placeholder="Share something with the community..."
-                                readOnly
-                            />
-
+                            <img src="/favicon.ico" alt="" />
+                            <p className="composer-prompt">Share something with the community...</p>
                         </div>
-
                         <div className="sec_row">
-
                             <div className="post_icon">
                                 <i className="fa-regular fa-image"></i>
                                 <i className="fa-solid fa-video"></i>
                             </div>
-
-                            <button type="button">
-                                Post
-                            </button>
-
+                            <button type="button">Post</button>
                         </div>
-
                     </div>
                 </Link>
 
-                {/* Posts */}
                 <div className="posts">
-
                     {postsData.length === 0 ? (
-
                         <div className="no-posts">
-                            <p>No posts available.</p>
+                            <p>No posts yet. Be the first to share a performance or update.</p>
                         </div>
-
                     ) : (
-
                         postsData.map((post) => {
-
                             const artist = post.artist;
 
                             return (
-                                <div
-                                    key={post._id}
-                                    className="post-card"
-                                >
-
-                                    {/* Post Header */}
+                                <article key={post._id} className="post-card">
                                     <div className="first_row">
-
-                                        {/* Artist Profile Image */}
                                         <Link
-                                            to={
-                                                artist?.username
-                                                    ? `/artists/${artist.username}`
-                                                    : "#"
-                                            }
+                                            to={artist?.username ? `/artists/${artist.username}` : "#"}
                                             className="post-profile-link"
                                         >
                                             <img
-                                                src={
-                                                    artist?.profileImage ||
-                                                    "/favicon.ico"
-                                                }
-                                                alt={
-                                                    artist?.username ||
-                                                    "Artist"
-                                                }
+                                                src={artist?.profileImage || "/favicon.ico"}
+                                                alt={artist?.username || "Artist"}
                                             />
                                         </Link>
-
-                                        {/* Artist Information */}
                                         <div className="post-heading">
-
                                             {artist?.username ? (
-
                                                 <Link
                                                     to={`/artists/${artist.username}`}
                                                     className="post-author-link"
                                                 >
-                                                    <h3 id="post-heading-h3">
-                                                        {artist.username}
-                                                    </h3>
+                                                    <h3>{artist.username}</h3>
                                                 </Link>
-
                                             ) : (
-
-                                                <h3 id="post-heading-h3">
-                                                    Unknown Artist
-                                                </h3>
-
+                                                <h3>Unknown Artist</h3>
                                             )}
-
-                                            <h5 id="post-heading-h5">
-                                                Artist
-                                            </h5>
-
+                                            <h5>Artist</h5>
                                         </div>
-
                                     </div>
 
-                                    {/* Open Individual Post */}
-                                    <Link
-                                        to={`/posts/${post._id}`}
-                                        className="create-post-link"
-                                    >
-
-                                        {/* Post Caption */}
+                                    <Link to={`/posts/${post._id}`} className="create-post-link">
                                         <div className="sec_row">
-
-                                            <p>
-                                                {post.caption || ""}
-                                            </p>
-
+                                            <p>{post.caption || ""}</p>
                                         </div>
 
-                                        {/* Image */}
-                                        {post.mediaType === "image" &&
-                                            post.media && (
+                                        {post.mediaType === "image" && post.media && (
+                                            <img
+                                                className="post-media"
+                                                src={post.media}
+                                                alt={post.caption || "Post"}
+                                            />
+                                        )}
 
-                                                <img
-                                                    className="post-media"
-                                                    src={post.media}
-                                                    alt={
-                                                        post.caption ||
-                                                        "Post"
-                                                    }
-                                                />
-
-                                            )}
-
-                                        {/* Video */}
-                                        {post.mediaType === "video" &&
-                                            post.media && (
-
-                                                <video
-                                                    className="post-media"
-                                                    controls
-                                                    preload="metadata"
-                                                >
-
-                                                    <source
-                                                        src={post.media}
-                                                        type="video/mp4"
-                                                    />
-
-                                                    Your browser does not
-                                                    support the video tag.
-
-                                                </video>
-
-                                            )}
-
+                                        {post.mediaType === "video" && post.media && (
+                                            <video className="post-media" controls preload="metadata">
+                                                <source src={post.media} type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        )}
                                     </Link>
 
-                                    {/* Like Comment Share */}
                                     <div className="post-actions">
-
-                                        {/* Like */}
-                                        <button
-                                            type="button"
-                                            className="post-action"
-                                        >
+                                        <button type="button" className="post-action">
                                             <i className="fa-regular fa-heart"></i>
                                             <span>Like</span>
                                         </button>
-
-                                        {/* Comment */}
-                                        <button
-                                            type="button"
-                                            className="post-action"
-                                        >
+                                        <button type="button" className="post-action">
                                             <i className="fa-regular fa-comment"></i>
                                             <span>Comment</span>
                                         </button>
-
-                                        {/* Share */}
                                         <button
                                             type="button"
                                             className="post-action"
@@ -263,17 +141,12 @@ export default function AfterLogin() {
                                                 if (navigator.share) {
                                                     navigator.share({
                                                         title: "ArtistHood Post",
-                                                        text:
-                                                            post.caption ||
-                                                            "Check out this post",
-                                                        url:
-                                                            window.location.origin +
-                                                            `/posts/${post._id}`
+                                                        text: post.caption || "Check out this post",
+                                                        url: window.location.origin + `/posts/${post._id}`,
                                                     });
                                                 } else {
                                                     navigator.clipboard.writeText(
-                                                        window.location.origin +
-                                                        `/posts/${post._id}`
+                                                        window.location.origin + `/posts/${post._id}`
                                                     );
                                                 }
                                             }}
@@ -281,21 +154,14 @@ export default function AfterLogin() {
                                             <i className="fa-solid fa-share"></i>
                                             <span>Share</span>
                                         </button>
-
                                     </div>
-
-                                </div>
+                                </article>
                             );
                         })
-
                     )}
-
                 </div>
-
             </div>
-
             <RightNav />
-
         </div>
     );
 }

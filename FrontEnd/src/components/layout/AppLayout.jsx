@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 import LeftNav from "./LeftNav";
-import Header from "../home/Header";
 import "../../styles/layout/AppLayout.css";
 
 export default function AppLayout() {
@@ -19,12 +18,13 @@ export default function AppLayout() {
 
     return (
         <div className="app-layout">
-            <Header />
             <LeftNav
                 isOpen={isLeftNavOpen}
                 onClose={() => setIsLeftNavOpen(false)}
             />
-            <Outlet />
+            <div id="main-content">
+                <Outlet />
+            </div>
 
             {isLeftNavOpen && (
                 <button
@@ -45,6 +45,7 @@ export default function AppLayout() {
                     onClick={() => setIsLeftNavOpen(true)}
                 >
                     <FaBars aria-hidden="true" />
+                    Menu
                 </button>
             )}
         </div>

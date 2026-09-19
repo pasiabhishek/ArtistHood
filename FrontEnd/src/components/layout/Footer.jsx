@@ -71,7 +71,7 @@ export default function Footer() {
 
                     {/* Explore */}
                     <FooterColumn title="Explore">
-                        <FooterLink to="/artist">Artists</FooterLink>
+                        <FooterLink to="/artists">Artists</FooterLink>
                         <FooterLink to="/categories">Categories</FooterLink>
                         <FooterLink to="/about">How It Works</FooterLink>
                     </FooterColumn>

@@ -10,10 +10,9 @@ export default function FeaturedArtist() {
         <section className="featured-section">
             <div className="home-section">
                 <div className="section-heading">
-                    <div className="">
-                        <h2 className="font-bold text-3xl"> Featured artists.</h2>
+                    <div>
                         <p>HANDPICKED TALENT</p>
-
+                        <h2>Featured artists.</h2>
                     </div>
                     <Link to="/artists">See all artists</Link>
                 </div>

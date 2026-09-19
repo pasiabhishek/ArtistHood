@@ -1,19 +1,25 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+const navItems = [
+    { to: "/feed", icon: "fa-regular fa-house", label: "Home", end: true },
+    { to: "/discover", icon: "fa-regular fa-compass", label: "Discover" },
+    { to: "/booking", icon: "fa-regular fa-calendar-check", label: "Booking" },
+    { to: "/messages", icon: "fa-solid fa-message", label: "Messages" },
+    { to: "/notifications", icon: "fa-regular fa-bell", label: "Notifications" },
+];
 
 export default function LeftNav({ isOpen, onClose }) {
+    const navigate = useNavigate();
     const storedUser = localStorage.getItem("user");
     const user = storedUser ? JSON.parse(storedUser) : null;
-    const displayName = user?.fullName || "GUEST";
+    const displayName = user?.fullName || user?.username || "Guest";
+    const profilePath = user?.username ? `/artists/${user.username}` : "/feed";
 
-
-
-    function signOUT() {
-        localStorage.clear()
-        alert('sign off')
-        window.location.reload(); // 👈 Reloads the current page
-        return (<Home />)
+    function signOut() {
+        localStorage.clear();
+        navigate("/");
     }
 
     return (
@@ -23,9 +29,9 @@ export default function LeftNav({ isOpen, onClose }) {
             aria-label="Dashboard navigation"
         >
             <div className="Left_Nav_header">
-                <div className="logo">
+                <Link className="logo" to="/" onClick={onClose}>
                     ARTIST<span>HOOD</span>
-                </div>
+                </Link>
                 <button
                     className="mobile-left-nav-close"
                     type="button"
@@ -38,52 +44,43 @@ export default function LeftNav({ isOpen, onClose }) {
 
             <nav className="Left_Nav_Navbar">
                 <ul>
-                    <Link to="/feed" onClick={onClose}>
-                        <li>
-                            <i className="fa-regular fa-house"></i>
-                            Home
+                    {navItems.map((item) => (
+                        <li key={item.to}>
+                            <NavLink
+                                to={item.to}
+                                end={item.end}
+                                onClick={onClose}
+                                className={({ isActive }) => (isActive ? "is-active" : "")}
+                            >
+                                <i className={item.icon} aria-hidden="true"></i>
+                                {item.label}
+                            </NavLink>
                         </li>
-                    </Link>
-                    <Link to="/booking" onClick={onClose}>
-                        <li>
-                            <i className="fa-regular fa-calendar-check"></i>
-                            Booking
-                        </li>
-                    </Link>
-                    <Link to="/messages" onClick={onClose}>
-                        <li>
-                            <i className="fa-solid fa-message"></i>
-                            Messages
-                        </li>
-                    </Link>
-                    <Link to="/notifications" onClick={onClose}>
-                        <li>
-                            <i className="fa-regular fa-bell"></i>
-                            Notification
-                        </li>
-                    </Link>
-                    <Link to="/create-post" onClick={onClose}>
-                        <li>+ Create Post</li>
-                    </Link>
+                    ))}
+                    <li>
+                        <NavLink to="/create-post" onClick={onClose} className="create-nav-link">
+                            + Create post
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
-            <input type="submit" value="Log Out" className="bg-gray-600 rounded-2xl " onClick={signOUT}  />
 
-            <Link to={user?.username ? `/artists/${user.username}` : "/feed"} onClick={onClose}>
-                <div className="Left_Nav_Footer m-auto  justify-start center "
-                    style={{
-                        "padding-left": "20px"
-                    }}>
+            <div className="left-nav-bottom">
+                <Link to={profilePath} onClick={onClose} className="Left_Nav_Footer">
                     <img
                         className="left-nav-footer-logo"
-                        src={user?.profileImage || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
-                        alt="profile"
+                        src={user?.profileImage || "/favicon.ico"}
+                        alt=""
                     />
-                    <h3>{displayName}</h3>
-
-
-                </div>
-            </Link>
+                    <div>
+                        <h3>{displayName}</h3>
+                        <span>View profile</span>
+                    </div>
+                </Link>
+                <button type="button" className="left-nav-logout" onClick={signOut}>
+                    Log out
+                </button>
+            </div>
         </aside>
     );
 }

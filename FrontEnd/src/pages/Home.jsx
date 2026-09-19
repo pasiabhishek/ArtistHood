@@ -11,11 +11,11 @@ export default function Home() {
     // Home is assembled from small sections so each area can be maintained independently.
     useTitle("Home")
     return (
-        <div>
+        <div id="main-content">
             <Header />
             <Hero
-                tagline="India's Premium Artist Booking Platform."
-                para=" Discover and look top singers , DJs , dancers and performers for your events."
+                tagline="India's premium artist booking platform"
+                para="Discover and book top singers, DJs, dancers, and performers for every kind of event."
             />
             <WhyArtistHood />
             <Categories />
