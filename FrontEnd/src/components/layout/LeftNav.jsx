@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const navItems = [
     { to: "/feed", icon: "fa-regular fa-house", label: "Home", end: true },
-    { to: "/discover", icon: "fa-regular fa-compass", label: "Discover" },
+    // { to: "/discover", icon: "fa-regular fa-compass", label: "Discover" },
     { to: "/booking", icon: "fa-regular fa-calendar-check", label: "Booking" },
     { to: "/messages", icon: "fa-solid fa-message", label: "Messages" },
     { to: "/notifications", icon: "fa-regular fa-bell", label: "Notifications" },

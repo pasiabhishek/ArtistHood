@@ -273,7 +273,7 @@ export default function BookingRequest() {
         try {
             const response = await axios.post(
                 getApiUrl(
-                    "api/booking/create-booking"
+                    "api/bookings/create-booking"
                 ),
                 bookingData,
                 {
