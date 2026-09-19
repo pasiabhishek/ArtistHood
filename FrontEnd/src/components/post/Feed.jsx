@@ -161,7 +161,7 @@ export default function AfterLogin() {
                     )}
                 </div>
             </div>
-            <RightNav />
+            {/* <RightNav /> */}
         </div>
     );
 }

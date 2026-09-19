@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
     MdCalendarMonth,
     MdPayments,
@@ -7,7 +8,9 @@ import {
     MdSupportAgent,
     MdVerifiedUser,
 } from "react-icons/md";
+
 import "../../styles/home/HomeSections.css";
+import { getApiUrl } from "../../services/api";
 
 const features = [
     {
@@ -26,14 +29,49 @@ const features = [
         Icon: MdSupportAgent,
     },
 ];
-const stats = [
-    { value: "500+", label: "Artists", Icon: MdSentimentSatisfied },
-    { value: "10K+", label: "Bookings", Icon: MdCalendarMonth },
-    { value: "4.9★", label: "Average rating", Icon: MdStarRate },
-];
 
 export default function WhyAH() {
-    // Benefits and numbers are kept in arrays so the layout stays easy to edit.
+    const [artistCount, setArtistCount] = useState(0);
+
+    useEffect(() => {
+        const fetchArtists = async () => {
+            try {
+                const response = await axios.get(
+                    getApiUrl("api/artists")
+                );
+
+                const artists = Array.isArray(response.data?.artists)
+                    ? response.data.artists
+                    : [];
+
+                setArtistCount(artists.length);
+            } catch (error) {
+                console.error("Error fetching artists:", error);
+                setArtistCount(0);
+            }
+        };
+
+        fetchArtists();
+    }, []);
+
+    const stats = [
+        {
+            value: `${artistCount}+`,
+            label: "Artists",
+            Icon: MdSentimentSatisfied,
+        },
+        {
+            value: "10K+",
+            label: "Bookings",
+            Icon: MdCalendarMonth,
+        },
+        {
+            value: "4.9★",
+            label: "Average rating",
+            Icon: MdStarRate,
+        },
+    ];
+
     return (
         <section className="why-section">
             <div className="home-section">
@@ -43,6 +81,7 @@ export default function WhyAH() {
                         <h2>Booking made memorable.</h2>
                     </div>
                 </div>
+
                 <div className="feature-grid">
                     {features.map(({ title, text, Icon }) => (
                         <article key={title}>
@@ -54,6 +93,7 @@ export default function WhyAH() {
                         </article>
                     ))}
                 </div>
+
                 <div className="stats-grid">
                     {stats.map(({ value, label, Icon }) => (
                         <div key={label}>
