@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
     FiArrowRight,
     FiCalendar,
     FiCheckCircle,
     FiMapPin,
+    FiClock,
 } from "react-icons/fi";
 import axios from "axios";
 
@@ -21,12 +22,26 @@ const eventTypes = [
 ];
 
 export default function BookingRequest() {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
     const [artists, setArtists] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [selectedArtist, setSelectedArtist] = useState("");
+
+    const [formData, setFormData] = useState({
+        eventType: "",
+        eventDate: "",
+        startTime: "",
+        endTime: "",
+        expectedGuests: "",
+        description: "",
+        price: "",
+    });
+
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // ================================
     // FETCH ARTISTS
@@ -49,7 +64,10 @@ export default function BookingRequest() {
                     setArtists(list);
                 }
             } catch (error) {
-                console.error("Error fetching artists:", error);
+                console.error(
+                    "Error fetching artists:",
+                    error.response?.data || error.message
+                );
 
                 if (!cancelled) {
                     setArtists([]);
@@ -70,6 +88,7 @@ export default function BookingRequest() {
 
     // ================================
     // SELECT ARTIST FROM URL
+    //
     // Example:
     // /booking-request?artist=pasisarita
     // ================================
@@ -86,11 +105,12 @@ export default function BookingRequest() {
                 item.user?.username ||
                 "";
 
-            return username.trim().toLowerCase() === usernameParam;
+            return (
+                username.trim().toLowerCase() ===
+                usernameParam
+            );
         });
 
-        // If artist exists in URL, select that artist.
-        // Otherwise select the first artist.
         const artistId =
             requestedArtist?._id ||
             requestedArtist?.id ||
@@ -114,19 +134,207 @@ export default function BookingRequest() {
     }, [artists, selectedArtist]);
 
     // ================================
-    // SUBMIT
+    // HANDLE INPUT
     // ================================
 
-    const handleSubmit = (event) => {
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormData((currentData) => ({
+            ...currentData,
+            [name]: value,
+        }));
+
+        setSubmitted(false);
+    };
+
+    // ================================
+    // SUBMIT BOOKING
+    // ================================
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        setSubmitted(true);
+
+        // ================================
+        // GET LOGGED-IN USER
+        // ================================
+
+        const currentUser = JSON.parse(
+            localStorage.getItem("user")
+        );
+
+        if (!currentUser) {
+            alert("User not found. Please login again.");
+            return;
+        }
+
+        // ================================
+        // GET TOKEN
+        // ================================
+
+        const token = currentUser.token;
+
+        if (!token) {
+            alert("No token provided. Please login again.");
+            return;
+        }
+
+        // ================================
+        // ARTIST VALIDATION
+        // ================================
+
+        if (!selectedArtist) {
+            alert("Please select an artist.");
+            return;
+        }
+
+        // ================================
+        // FORM VALIDATION
+        // ================================
+
+        if (!formData.eventType) {
+            alert("Please select an event type.");
+            return;
+        }
+
+        if (!formData.eventDate) {
+            alert("Please select an event date.");
+            return;
+        }
+
+        if (!formData.startTime) {
+            alert("Please select a start time.");
+            return;
+        }
+
+        if (!formData.endTime) {
+            alert("Please select an end time.");
+            return;
+        }
+
+        if (formData.endTime <= formData.startTime) {
+            alert("End time must be after start time.");
+            return;
+        }
+
+        if (
+            !formData.expectedGuests ||
+            Number(formData.expectedGuests) < 1
+        ) {
+            alert("Please enter the expected number of guests.");
+            return;
+        }
+
+        if (!formData.description.trim()) {
+            alert("Please tell the artist about your event.");
+            return;
+        }
+
+        if (
+            formData.price === "" ||
+            Number(formData.price) < 0
+        ) {
+            alert("Please enter your budget.");
+            return;
+        }
+
+        // ================================
+        // BOOKING PAYLOAD
+        // ================================
+
+        const bookingData = {
+            artist: selectedArtist,
+
+            eventDate: formData.eventDate,
+
+            startTime: formData.startTime,
+
+            endTime: formData.endTime,
+
+            eventType: formData.eventType,
+
+            expectedGuests: Number(
+                formData.expectedGuests
+            ),
+
+            description:
+                formData.description.trim(),
+
+            price: Number(formData.price),
+        };
+
+        console.log(
+            "Booking request:",
+            bookingData
+        );
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await axios.post(
+                getApiUrl(
+                    "api/booking/create-booking"
+                ),
+                bookingData,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`,
+
+                        "Content-Type":
+                            "application/json",
+                    },
+                }
+            );
+
+            console.log(
+                "Booking created:",
+                response.data
+            );
+
+            setSubmitted(true);
+
+            alert(
+                "Booking request sent successfully!"
+            );
+
+            // ================================
+            // GO TO BOOKINGS
+            // ================================
+
+            navigate("/booking");
+
+        } catch (error) {
+            console.error(
+                "Create booking error:",
+                error.response?.data ||
+                error.message
+            );
+
+            if (
+                error.response?.status === 401
+            ) {
+                alert(
+                    "Authentication failed. Please login again."
+                );
+            } else {
+                alert(
+                    error.response?.data?.message ||
+                    "Failed to send booking request. Please try again."
+                );
+            }
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     // ================================
     // TODAY
     // ================================
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date()
+        .toISOString()
+        .split("T")[0];
 
     // ================================
     // LOADING
@@ -154,6 +362,7 @@ export default function BookingRequest() {
             <header className="booking-page-header">
 
                 <div>
+
                     <p className="booking-kicker">
                         Bookings
                     </p>
@@ -163,9 +372,11 @@ export default function BookingRequest() {
                     </h1>
 
                     <p className="booking-intro">
-                        Tell us a little about your event and send a
-                        booking request directly to an artist.
+                        Tell us a little about your event
+                        and send a booking request directly
+                        to an artist.
                     </p>
+
                 </div>
 
                 <Link
@@ -173,7 +384,9 @@ export default function BookingRequest() {
                     className="booking-browse-link"
                 >
                     Browse artists
-                    <FiArrowRight aria-hidden="true" />
+                    <FiArrowRight
+                        aria-hidden="true"
+                    />
                 </Link>
 
             </header>
@@ -185,7 +398,7 @@ export default function BookingRequest() {
             <div className="booking-layout">
 
                 {/* ================================
-                    BOOKING FORM
+                    FORM
                 ================================= */}
 
                 <section
@@ -200,31 +413,37 @@ export default function BookingRequest() {
                         </span>
 
                         <div>
+
                             <h2 id="booking-form-title">
                                 Request a booking
                             </h2>
 
                             <p>
-                                We’ll share your details with the artist
-                                for review.
+                                We’ll share your details
+                                with the artist for review.
                             </p>
+
                         </div>
 
                     </div>
 
-                    {/* SUCCESS MESSAGE */}
+                    {/* SUCCESS */}
 
                     {submitted && (
                         <div
                             className="booking-success"
                             role="status"
                         >
-                            <FiCheckCircle aria-hidden="true" />
+
+                            <FiCheckCircle
+                                aria-hidden="true"
+                            />
 
                             <span>
-                                Your request is ready to send.
-                                The artist will respond shortly.
+                                Your booking request
+                                has been sent.
                             </span>
+
                         </div>
                     )}
 
@@ -237,9 +456,7 @@ export default function BookingRequest() {
                         onSubmit={handleSubmit}
                     >
 
-                        {/* ================================
-                            ARTIST
-                        ================================= */}
+                        {/* ARTIST */}
 
                         <label>
                             Artist
@@ -255,9 +472,12 @@ export default function BookingRequest() {
                                 }}
                                 required
                             >
+
                                 {artists.map((item) => {
+
                                     const artistId =
-                                        item._id || item.id;
+                                        item._id ||
+                                        item.id;
 
                                     const username =
                                         item.username ||
@@ -281,16 +501,17 @@ export default function BookingRequest() {
                                         >
                                             {name}
                                             {" · "}
-                                            {item.category || "Artist"}
+                                            {item.category ||
+                                                "Artist"}
                                         </option>
                                     );
                                 })}
+
                             </select>
+
                         </label>
 
-                        {/* ================================
-                            EVENT TYPE + DATE
-                        ================================= */}
+                        {/* EVENT TYPE + DATE */}
 
                         <div className="booking-form-row">
 
@@ -298,9 +519,16 @@ export default function BookingRequest() {
                                 Event type
 
                                 <select
+                                    name="eventType"
+                                    value={
+                                        formData.eventType
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                     required
-                                    defaultValue=""
                                 >
+
                                     <option
                                         value=""
                                         disabled
@@ -308,15 +536,19 @@ export default function BookingRequest() {
                                         Select an event type
                                     </option>
 
-                                    {eventTypes.map((type) => (
-                                        <option
-                                            key={type}
-                                            value={type}
-                                        >
-                                            {type}
-                                        </option>
-                                    ))}
+                                    {eventTypes.map(
+                                        (type) => (
+                                            <option
+                                                key={type}
+                                                value={type}
+                                            >
+                                                {type}
+                                            </option>
+                                        )
+                                    )}
+
                                 </select>
+
                             </label>
 
                             <label>
@@ -324,68 +556,164 @@ export default function BookingRequest() {
 
                                 <input
                                     type="date"
-                                    required
+                                    name="eventDate"
+                                    value={
+                                        formData.eventDate
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                     min={today}
+                                    required
                                 />
+
                             </label>
 
                         </div>
 
-                        {/* ================================
-                            CITY + GUESTS
-                        ================================= */}
+                        {/* START + END TIME */}
 
                         <div className="booking-form-row">
 
                             <label>
-                                City or venue
+                                <span>
+                                    Start time
+                                </span>
 
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder="e.g. Mumbai, Maharashtra"
-                                />
+                                <div className="booking-input-icon">
+
+                                    <FiClock
+                                        aria-hidden="true"
+                                    />
+
+                                    <input
+                                        type="time"
+                                        name="startTime"
+                                        value={
+                                            formData.startTime
+                                        }
+                                        onChange={
+                                            handleChange
+                                        }
+                                        required
+                                    />
+
+                                </div>
+
                             </label>
+
+                            <label>
+                                <span>
+                                    End time
+                                </span>
+
+                                <div className="booking-input-icon">
+
+                                    <FiClock
+                                        aria-hidden="true"
+                                    />
+
+                                    <input
+                                        type="time"
+                                        name="endTime"
+                                        value={
+                                            formData.endTime
+                                        }
+                                        onChange={
+                                            handleChange
+                                        }
+                                        required
+                                    />
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                        {/* GUESTS + PRICE */}
+
+                        <div className="booking-form-row">
 
                             <label>
                                 Expected guests
 
                                 <input
                                     type="number"
+                                    name="expectedGuests"
+                                    value={
+                                        formData.expectedGuests
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
                                     min="1"
+                                    required
                                     placeholder="e.g. 150"
                                 />
+
+                            </label>
+
+                            <label>
+                                Budget / price
+
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={
+                                        formData.price
+                                    }
+                                    onChange={
+                                        handleChange
+                                    }
+                                    min="0"
+                                    required
+                                    placeholder="e.g. 15000"
+                                />
+
                             </label>
 
                         </div>
 
-                        {/* ================================
-                            EVENT DETAILS
-                        ================================= */}
+                        {/* DESCRIPTION */}
 
                         <label>
                             Tell the artist about your event
 
                             <textarea
+                                name="description"
+                                value={
+                                    formData.description
+                                }
+                                onChange={
+                                    handleChange
+                                }
                                 required
-                                rows="4"
-                                placeholder="Share the occasion, performance duration, mood, and any details that will help them prepare."
+                                maxLength={2000}
+                                rows="5"
+                                placeholder="Share the occasion, performance duration, mood, venue details, and anything else that will help the artist prepare."
                             />
+
                         </label>
 
-                        {/* ================================
-                            SUBMIT
-                        ================================= */}
+                        {/* SUBMIT */}
 
                         <button
                             type="submit"
                             className="booking-submit"
+                            disabled={isSubmitting}
                         >
-                            Send booking request
 
-                            <FiArrowRight
-                                aria-hidden="true"
-                            />
+                            {isSubmitting
+                                ? "Sending request..."
+                                : "Send booking request"}
+
+                            {!isSubmitting && (
+                                <FiArrowRight
+                                    aria-hidden="true"
+                                />
+                            )}
+
                         </button>
 
                     </form>
@@ -393,7 +721,7 @@ export default function BookingRequest() {
                 </section>
 
                 {/* ================================
-                    ARTIST SIDEBAR
+                    SIDEBAR
                 ================================= */}
 
                 <aside className="booking-sidebar">
@@ -404,9 +732,7 @@ export default function BookingRequest() {
                             aria-label="Selected artist"
                         >
 
-                            {/* ================================
-                                ARTIST HEADER
-                            ================================= */}
+                            {/* ARTIST HEADER */}
 
                             <div className="artist-summary-top">
 
@@ -453,13 +779,12 @@ export default function BookingRequest() {
 
                             </div>
 
-                            {/* ================================
-                                ARTIST META
-                            ================================= */}
+                            {/* ARTIST META */}
 
                             <div className="artist-summary-meta">
 
                                 <span>
+
                                     <FiMapPin
                                         aria-hidden="true"
                                     />
@@ -472,10 +797,12 @@ export default function BookingRequest() {
                                             .filter(Boolean)
                                             .join(", ") ||
                                         "Location not specified"}
+
                                 </span>
 
                                 {artist.availability && (
                                     <span>
+
                                         <FiCalendar
                                             aria-hidden="true"
                                         />
@@ -491,14 +818,13 @@ export default function BookingRequest() {
                                                 month: "short",
                                             }
                                         )}
+
                                     </span>
                                 )}
 
                             </div>
 
-                            {/* ================================
-                                PRICE / RATING
-                            ================================= */}
+                            {/* PRICE / RATING */}
 
                             {(artist.price !== undefined ||
                                 artist.rating !== undefined) && (
@@ -531,8 +857,12 @@ export default function BookingRequest() {
 
                                     {artist.rating !== undefined && (
                                         <span className="booking-rating">
-                                            ★ {artist.rating}{" "}
-                                            ({artist.reviews || 0})
+                                            ★{" "}
+                                            {artist.rating}{" "}
+                                            (
+                                            {artist.reviews ||
+                                                0}
+                                            )
                                         </span>
                                     )}
 
@@ -543,7 +873,7 @@ export default function BookingRequest() {
                     )}
 
                     {/* ================================
-                        HELP CARD
+                        HELP
                     ================================= */}
 
                     <section className="booking-help-card">
