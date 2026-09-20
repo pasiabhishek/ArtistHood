@@ -1,11 +1,13 @@
+const crypto = require('crypto');
 
-import Booking from "../models/Booking.js";
-import Payment from "../models/Payment.js";
-import razorpay from "../config/razorpay.js";
+const Booking = require("../models/Booking.js")
+const Payment = require("../models.Payment.js");
+const razorpay = require("../config/razorpay.js")
+
 
 
 // CREATE RAZORPAY ORDER
-export const createPaymentOrder = async (req, res) => {
+const createPaymentOrder = async (req, res) => {
     try {
         const { bookingId } = req.body;
 
@@ -108,3 +110,101 @@ export const createPaymentOrder = async (req, res) => {
         });
     }
 };
+
+const verifyPayment = async (req, res) => {
+    try {
+        const {
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+        } = req.body;
+
+        // Find payment
+        const payment = await Payment.findOne({
+            razorpayOrderId: razorpay_order_id,
+        });
+
+        if (!payment) {
+            return res.status(404).json({
+                success: false,
+                message: "Payment not found",
+            });
+        }
+
+        // Check client
+        if (payment.client.toString() !== req.user.id) {
+            return res.status(403).json({
+                success: false,
+                message: "Not allowed",
+            });
+        }
+
+        // Create signature
+        const signature = crypto
+            .createHmac(
+                "sha256",
+                process.env.RAZORPAY_KEY_SECRET
+            )
+            .update(
+                razorpay_order_id +
+                "|" +
+                razorpay_payment_id
+            )
+            .digest("hex");
+
+        // Check signature
+        if (signature !== razorpay_signature) {
+            payment.status = "failed";
+            await payment.save();
+
+            return res.status(400).json({
+                success: false,
+                message: "Invalid payment",
+            });
+        }
+
+        // Payment successful
+        payment.razorpayPaymentId =
+            razorpay_payment_id;
+
+        payment.razorpaySignature =
+            razorpay_signature;
+
+        payment.status = "paid";
+
+        await payment.save();
+
+        // Find booking
+        const booking = await Booking.findById(
+            payment.booking
+        );
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        // Change booking status
+        booking.status = "confirmed";
+
+        await booking.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Payment successful",
+            booking,
+        });
+
+    } catch (error) {
+        console.error("Verify payment error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Payment verification failed",
+        });
+    }
+};
+
+modeule.exports = { createPaymentOrder, verifyPayment }
