@@ -1,5 +1,5 @@
 const express = require("express");
-const { createPaymentOrder } = require("../controllers/paymentController.js");
+const { createPaymentOrder, verifyPayment } = require("../controllers/paymentController.js");
 
 const { protect } = require("../middleware/authMiddleware.js");
 
@@ -9,6 +9,12 @@ router.post(
     "/create-order",
     protect,
     createPaymentOrder
+);
+
+router.post(
+    "/verify",
+    protect,
+    verifyPayment
 );
 
 module.exports = router;
