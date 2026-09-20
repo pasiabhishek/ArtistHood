@@ -34,12 +34,47 @@ export default function PaymentButton({ booking }) {
 
                 order_id: payment.razorpayOrderId,
 
-                handler: function (response) {
+                handler: async function (response) {
 
-                    console.log(
-                        "Payment successful",
-                        response
-                    );
+                    try {
+
+                        const result = await axios.post(
+                            `${import.meta.env.VITE_API_URL}/api/payments/verify`,
+                            {
+                                razorpay_order_id:
+                                    response.razorpay_order_id,
+
+                                razorpay_payment_id:
+                                    response.razorpay_payment_id,
+
+                                razorpay_signature:
+                                    response.razorpay_signature,
+                            },
+                            {
+                                headers: {
+                                    Authorization:
+                                        `Bearer ${localStorage.getItem("token")}`,
+                                },
+                            }
+                        );
+
+                        if (result.data.success) {
+
+                            alert("Payment successful!");
+
+                            window.location.reload();
+
+                        }
+
+                    } catch (error) {
+
+                        console.log(
+                            error.response?.data || error
+                        );
+
+                        alert("Payment verification failed");
+
+                    }
 
                 },
             };
