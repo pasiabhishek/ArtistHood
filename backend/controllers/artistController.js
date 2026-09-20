@@ -82,6 +82,9 @@ const getMyArtistProfile = async (req, res) => {
     try {
         const artistProfile = await ArtistProfile.findOne({
             user: req.user.id
+        }).populate({
+            path: "user",
+            select: "username fullName email"
         });
 
         if (!artistProfile) {
@@ -107,7 +110,7 @@ const getMyArtistProfile = async (req, res) => {
 const getArtists = async (req, res) => {
     try {
         const artists = await ArtistProfile.find()
-            .populate("user", "username fullName");
+            .populate("user", "username fullName email");
 
         res.json({
             success: true,
