@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
         maxlength: 30,
         match: /^[a-zA-Z0-9_]+$/,
     },
+    profileImage: {
+        type: String,
+        default: 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg',
+    },
+
     email: {
         type: String,
         required: true,
@@ -165,6 +170,7 @@ User
 ├── fullName
 ├── username
 ├── email
+├── profileImage
 ├── password
 ├── role
 └── createdAt
