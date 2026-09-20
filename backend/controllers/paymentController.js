@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 const Booking = require("../models/Booking.js")
-const Payment = require("../models.Payment.js");
+const Payment = require("../models/Payment.js");
 const razorpay = require("../config/razorpay.js")
 
 
@@ -207,4 +207,4 @@ const verifyPayment = async (req, res) => {
     }
 };
 
-modeule.exports = { createPaymentOrder, verifyPayment }
+module.exports = { createPaymentOrder, verifyPayment }
