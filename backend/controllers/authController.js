@@ -1,5 +1,7 @@
-const { User } = require("../models/User");
+const { User, ArtistProfile } = require("../models/User");
 const generateToken = require("../utils/generateToken");
+const cloudinary = require("../config/cloudinary");
+
 
 
 // Register User
@@ -73,7 +75,6 @@ const registerUser = async (req, res) => {
     }
 };
 
-
 // Login User
 const loginUser = async (req, res) => {
     try {
@@ -116,7 +117,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-
 // Get Current User
 const getMe = async (req, res) => {
     try {
@@ -132,9 +132,83 @@ const getMe = async (req, res) => {
     }
 };
 
+//update user profile image 
+const updateProfileImage = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Profile image is required"
+            });
+        }
+
+        // Upload to Cloudinary
+        const result = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                {
+                    folder: "artistHood/ProfileImages",
+                    resource_type: "image"
+                },
+                (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            ).end(req.file.buffer);
+        });
+
+        const imageUrl = result.secure_url;
+
+        // Update User image
+        user.profileImage = imageUrl;
+
+        // If user is an artist, update ArtistProfile too
+        if (user.role === "artist") {
+
+            const artistProfile = await ArtistProfile.findOne({
+                user: user._id
+            });
+
+            if (artistProfile) {
+                artistProfile.profileImage = imageUrl;
+                await artistProfile.save();
+            }
+        }
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile image updated successfully",
+            profileImage: imageUrl
+        });
+
+    } catch (error) {
+        console.error("Update profile image error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
 
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    updateProfileImage
 };
