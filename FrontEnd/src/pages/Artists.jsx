@@ -124,7 +124,7 @@ export default function Artists() {
   const artistUsername = artist.user?.username || "";
 
   const profileImage =
-    artist.profileImage || "/favicon.ico";
+    artist?.profileImage || "/favicon.ico";
 
   return (
     <div className="profile">
