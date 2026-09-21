@@ -208,7 +208,7 @@ Full Stack MERN Developer
 
 ## Copyright
 
-**Copyright © 2025 Pasi Abhishek**
+**Copyright © 2026 Pasi Abhishek**
 
 **All Rights Reserved.**
 
@@ -228,6 +228,6 @@ Unauthorized use, reproduction, distribution, or commercial use of this software
 
 **Empowering artists. Connecting creativity.**
 
-© 2025 Pasi Abhishek. All Rights Reserved.
+© 2026 Pasi Abhishek. All Rights Reserved.
 
 </div>
