@@ -1,24 +1,36 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
-const navItems = [
-    { to: "/feed", icon: "fa-regular fa-house", label: "Home", end: true },
-    // { to: "/discover", icon: "fa-regular fa-compass", label: "Discover" },
-    { to: "/booking", icon: "fa-regular fa-calendar-check", label: "Booking" },
-    { to: "/messages", icon: "fa-solid fa-message", label: "Messages" },
-    { to: "/notifications", icon: "fa-regular fa-bell", label: "Notifications" },
-];
+import { getSessionUser } from "../../services/api";
 
 export default function LeftNav({ isOpen, onClose }) {
     const navigate = useNavigate();
-    const storedUser = localStorage.getItem("user");
-    const user = storedUser ? JSON.parse(storedUser) : null;
+    const user = getSessionUser();
     const displayName = user?.fullName || user?.username || "Guest";
-    const profilePath = user?.username ? `/artists/${user.username}` : "/feed";
+    const isArtist = user?.role === "Artist";
+    const profilePath = user?.username
+        ? isArtist
+            ? `/artists/${user.username}`
+            : `/client/${user.username}`
+        : "/feed";
+
+    const navItems = [
+        { to: "/feed", icon: "fa-regular fa-house", label: "Home", end: true },
+        { to: "/discover", icon: "fa-regular fa-compass", label: "Discover" },
+        { to: "/artists", icon: "fa-regular fa-user", label: "Artists" },
+        {
+            to: isArtist ? "/dashboard" : "/booking",
+            icon: "fa-regular fa-calendar-check",
+            label: isArtist ? "Dashboard" : "My bookings",
+        },
+        { to: "/messages", icon: "fa-solid fa-message", label: "Messages" },
+        { to: "/notifications", icon: "fa-regular fa-bell", label: "Notifications" },
+        { to: "/settings", icon: "fa-regular fa-gear", label: "Settings" },
+    ];
 
     function signOut() {
-        localStorage.clear();
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         navigate("/");
     }
 

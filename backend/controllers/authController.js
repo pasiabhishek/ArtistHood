@@ -174,7 +174,7 @@ const updateProfileImage = async (req, res) => {
         user.profileImage = imageUrl;
 
         // If user is an artist, update ArtistProfile too
-        if (user.role === "artist") {
+        if (user.role === "Artist") {
 
             const artistProfile = await ArtistProfile.findOne({
                 user: user._id

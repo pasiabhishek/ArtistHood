@@ -24,7 +24,7 @@ export default function NotFound() {
                     <Link className="auth-submit not-found-link" to="/">
                         Back to home
                     </Link>
-                    <Link className="not-found-secondary" to="/artist">
+                    <Link className="not-found-secondary" to="/artists">
                         Browse artists
                     </Link>
                 </div>

@@ -46,6 +46,11 @@ export default function Header() {
                             Categories
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/discover" className={({ isActive }) => (isActive ? "is-active" : "")}>
+                            Discover
+                        </NavLink>
+                    </li>
                 </ul>
 
                 <button
@@ -67,6 +72,7 @@ export default function Header() {
                         <div className="mobile-nav-links">
                             <Link to="/artists" onClick={closeMenu}>Artists</Link>
                             <Link to="/categories" onClick={closeMenu}>Categories</Link>
+                            <Link to="/discover" onClick={closeMenu}>Discover</Link>
                         </div>
                         {isLoggedIn ? (
                             <Link className="header-action signup" to="/feed" onClick={closeMenu}>

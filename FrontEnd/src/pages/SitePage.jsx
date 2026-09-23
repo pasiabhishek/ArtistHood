@@ -75,6 +75,11 @@ export default function SitePage({ page }) {
                         {!isCategoriesPage && <span>0{index + 1}</span>}
                         <h2>{item}</h2>
                         <p>{isCategoriesPage ? "Find trusted talent for your next event." : "ArtistHood helps you move from idea to an unforgettable event with confidence."}</p>
+                        {isCategoriesPage && (
+                            <Link className="site-page-cta" to={`/artists?category=${encodeURIComponent(item)}`}>
+                                Browse
+                            </Link>
+                        )}
                     </article>
                 ))}
             </section>
