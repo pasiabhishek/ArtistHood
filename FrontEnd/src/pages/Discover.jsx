@@ -1,22 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import "../styles/pages/Discover.css";
 import "../styles/pages/Workspace.css";
 import { artistDisplayName, artistUsernameOf, flattenArtistRecord, getApiUrl } from "../services/api";
 import Loader from "../components/common/Loader";
-import localArtists from "../data/artists.json";
+import localArtists from "../data/artists.json"
 
-const categories = [
-    "All",
-    "Live music",
-    "Wedding acts",
-    "Event styling",
-    "Creative reels",
-    "Dance gigs",
-    "Brand collabs",
-];
+const categories = ["All","Live music","Wedding acts","Event styling","Creative reels","Dance gigs","Brand collabs",];
 
 function postUsername(post) {
     return (

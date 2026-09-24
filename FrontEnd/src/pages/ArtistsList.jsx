@@ -2,20 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { MdLocationOn, MdVerified } from "react-icons/md";
-
 import "../styles/home/FeaturedArtists.css";
 import "../styles/pages/Workspace.css";
 import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 import Loader from "../components/common/Loader";
-import {
-    artistDisplayName,
-    artistUsernameOf,
-    flattenArtistRecord,
-    getApiUrl,
-} from "../services/api";
+import {artistDisplayName, artistUsernameOf, flattenArtistRecord, getApiUrl, } from "../services/api";
 import localArtists from "../data/artists.json";
 import artistCategories from "../data/artistCategories";
+
+
 
 export default function ArtistsList() {
     const [searchParams, setSearchParams] = useSearchParams();
