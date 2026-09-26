@@ -1,8 +1,10 @@
 const crypto = require('crypto');
 
-const Booking = require("../models/Booking.js")
+const Booking = require("../models/Booking.js");
 const Payment = require("../models/Payment.js");
-const razorpay = require("../config/razorpay.js")
+const { ArtistProfile } = require("../models/User.js");
+const razorpay = require("../config/razorpay.js");
+const { notify } = require("../utils/notify.js");
 
 
 
@@ -56,10 +58,24 @@ const createPaymentOrder = async (req, res) => {
         });
 
         if (existingPayment) {
-            return res.status(400).json({
-                success: false,
-                message: "Payment order already exists for this booking",
-                orderId: existingPayment.razorpayOrderId,
+            if (existingPayment.status === "paid") {
+                return res.status(400).json({
+                    success: false,
+                    message: "This booking is already paid",
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Existing payment order",
+                payment: {
+                    id: existingPayment._id,
+                    bookingId: booking._id,
+                    amount: existingPayment.amount,
+                    currency: existingPayment.currency || "INR",
+                    razorpayOrderId: existingPayment.razorpayOrderId,
+                },
+                razorpayKey: process.env.RAZORPAY_KEY_ID,
             });
         }
 
@@ -191,10 +207,34 @@ const verifyPayment = async (req, res) => {
 
         await booking.save();
 
+        const artistProfile = await ArtistProfile.findById(booking.artist).select("user");
+
+        if (artistProfile?.user) {
+            await notify({
+                user: artistProfile.user,
+                type: "payment_confirmed",
+                title: "Booking confirmed",
+                body: "The client paid. This event is now confirmed.",
+                href: `/booking/${booking._id}`,
+                booking: booking._id,
+            });
+        }
+
+        const populated = await Booking.findById(booking._id)
+            .populate("client", "fullName email username")
+            .populate({
+                path: "artist",
+                select: "stageName category profileImage city state price priceType user",
+                populate: {
+                    path: "user",
+                    select: "fullName email username",
+                },
+            });
+
         return res.status(200).json({
             success: true,
             message: "Payment successful",
-            booking,
+            booking: populated,
         });
 
     } catch (error) {
