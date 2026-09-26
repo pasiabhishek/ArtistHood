@@ -19,10 +19,6 @@ import {
     getSessionToken,
     getSessionUser,
 } from "../services/api";
-import {
-    bookingsForSession,
-    patchLocalBooking,
-} from "../services/demoStore";
 import useRequireAuth from "../hooks/useRequireAuth";
 
 function formatDate(date) {
@@ -82,7 +78,6 @@ export default function Booking() {
         }
 
         const fetchBookings = async () => {
-            const localList = bookingsForSession(currentUser);
             try {
                 setLoading(true);
                 const path = isArtist
@@ -94,20 +89,14 @@ export default function Booking() {
                 const bookingList = Array.isArray(response.data?.bookings)
                     ? response.data.bookings
                     : [];
-                const merged = [...bookingList];
-                localList.forEach((item) => {
-                    if (!merged.some((booking) => String(booking._id) === String(item._id))) {
-                        merged.push(item);
-                    }
-                });
-                setBookings(merged);
+                setBookings(bookingList);
                 setError("");
             } catch (fetchError) {
                 console.error("Error fetching bookings:", fetchError.response?.data || fetchError.message);
-                setBookings(localList);
+                setBookings([]);
                 setError(
                     fetchError.response?.data?.message ||
-                        "Using locally saved bookings because the live booking API is unavailable."
+                        "Could not load bookings. Please try again."
                 );
             } finally {
                 setLoading(false);
@@ -137,29 +126,13 @@ export default function Booking() {
                         : booking
                 )
             );
-            patchLocalBooking(bookingId, {
-                status: action === "accept" ? "accepted" : "rejected",
-            });
             setSuccess(
                 action === "accept"
-                    ? "Booking accepted."
+                    ? "Booking accepted. The client can now pay to confirm."
                     : "Booking declined."
             );
         } catch (actionError) {
-            if (String(bookingId).startsWith("local-")) {
-                const status = action === "accept" ? "accepted" : "rejected";
-                patchLocalBooking(bookingId, { status });
-                setBookings((previous) =>
-                    previous.map((booking) =>
-                        String(booking._id) === String(bookingId)
-                            ? { ...booking, status }
-                            : booking
-                    )
-                );
-                setSuccess(status === "accepted" ? "Booking accepted." : "Booking declined.");
-            } else {
-                alert(actionError.response?.data?.message || "Could not update this booking.");
-            }
+            alert(actionError.response?.data?.message || "Could not update this booking.");
         } finally {
             setActionLoading("");
         }
@@ -273,7 +246,7 @@ export default function Booking() {
                                         </span>
                                         <span>
                                             <FiMapPin aria-hidden="true" />
-                                            {booking.location || "Venue in request"}
+                                            {booking.location || "Venue not provided"}
                                         </span>
                                         <span>
                                             ₹{Number(booking.price || 0).toLocaleString("en-IN")}

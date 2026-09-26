@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { FiArrowRight, FiCalendar, FiCheckCircle, FiClock, FiMapPin, FiXCircle } from "react-icons/fi";
 import axios from "axios";
 
@@ -12,9 +12,9 @@ import {
     getApiUrl,
     getSessionUser,
 } from "../services/api";
-import { getLocalBookings, patchLocalBooking } from "../services/demoStore";
 import useRequireAuth from "../hooks/useRequireAuth";
 import Loader from "../components/common/Loader";
+import PaymentButton from "../components/common/PaymentButton";
 
 function formatDate(date) {
     if (!date) return "Date not specified";
@@ -31,7 +31,6 @@ export default function BookingDetails() {
     useRequireAuth();
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
     const currentUser = getSessionUser();
     const isArtist = currentUser?.role === "Artist";
 
@@ -45,26 +44,17 @@ export default function BookingDetails() {
 
     useEffect(() => {
         const loadBooking = async () => {
-            const local = getLocalBookings().find(
-                (item) => String(item._id) === String(id)
-            );
             try {
-                if (String(id).startsWith("local-")) {
-                    setBooking(local || null);
-                    if (!local) setError("This local booking could not be found.");
-                    return;
-                }
                 const response = await axios.get(getApiUrl(`api/bookings/${id}`), {
                     headers: authHeaders(),
                 });
-                setBooking(response.data?.booking || local || null);
-            } catch (fetchError) {
-                if (local) {
-                    setBooking(local);
-                    setError("Showing the locally saved booking.");
-                } else {
-                    setError(fetchError.response?.data?.message || "Booking not found.");
+                setBooking(response.data?.booking || null);
+                if (!response.data?.booking) {
+                    setError("Booking not found.");
                 }
+            } catch (fetchError) {
+                setBooking(null);
+                setError(fetchError.response?.data?.message || "Booking not found.");
             } finally {
                 setLoading(false);
             }
@@ -84,19 +74,13 @@ export default function BookingDetails() {
                 ...booking,
                 status: action === "accept" ? "accepted" : "rejected",
             });
-            patchLocalBooking(id, {
-                status: action === "accept" ? "accepted" : "rejected",
-            });
-            setSuccess(action === "accept" ? "Booking accepted." : "Booking declined.");
+            setSuccess(
+                action === "accept"
+                    ? "Booking accepted. The client can now pay to confirm."
+                    : "Booking declined."
+            );
         } catch (actionError) {
-            if (String(id).startsWith("local-") || booking) {
-                const status = action === "accept" ? "accepted" : "rejected";
-                patchLocalBooking(id, { status });
-                setBooking({ ...booking, status });
-                setSuccess(status === "accepted" ? "Booking accepted." : "Booking declined.");
-            } else {
-                setError(actionError.response?.data?.message || "Could not update this booking.");
-            }
+            setError(actionError.response?.data?.message || "Could not update this booking.");
         } finally {
             setActionLoading(false);
         }
@@ -153,7 +137,7 @@ export default function BookingDetails() {
                 <div className="booking-request-meta">
                     <span><FiCalendar aria-hidden="true" /> {formatDate(booking.eventDate)}</span>
                     <span><FiClock aria-hidden="true" /> {booking.startTime} - {booking.endTime}</span>
-                    <span><FiMapPin aria-hidden="true" /> {booking.location || "Venue shared in the request"}</span>
+                    <span><FiMapPin aria-hidden="true" /> {booking.location || "Venue not provided"}</span>
                     <span>Guests: {booking.expectedGuests ?? 0}</span>
                     <span>₹{Number(booking.price || 0).toLocaleString("en-IN")}</span>
                 </div>
@@ -172,10 +156,18 @@ export default function BookingDetails() {
                     <Link className="booking-detail-link" to={`/messages?user=${messageUser || ""}`}>
                         Open messages
                     </Link>
-                    {!isArtist && (
-                        <button type="button" className="booking-detail-link" onClick={() => navigate("/notifications")}>
-                            Notifications
-                        </button>
+                    {!isArtist && String(status).toLowerCase() === "accepted" && (
+                        <PaymentButton
+                            booking={booking}
+                            onPaid={(updated) => {
+                                if (updated) setBooking(updated);
+                                else setBooking({ ...booking, status: "confirmed" });
+                                setSuccess("Payment successful. This booking is confirmed.");
+                            }}
+                        />
+                    )}
+                    {!isArtist && String(status).toLowerCase() === "confirmed" && (
+                        <span className="booking-status confirmed">Paid and confirmed</span>
                     )}
                 </div>
             </article>

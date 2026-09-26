@@ -20,13 +20,8 @@ import {
     getSessionToken,
     getSessionUser,
 } from "../services/api";
-import {
-    addNotification,
-    upsertLocalBooking,
-    upsertThread,
-} from "../services/demoStore";
+import { upsertThread } from "../services/demoStore";
 import useRequireAuth from "../hooks/useRequireAuth";
-import localArtists from "../data/artists.json";
 
 const eventTypes = [
     "Wedding",
@@ -69,11 +64,18 @@ export default function BookingRequest() {
                     ? response.data.artists.map(flattenArtistRecord)
                     : [];
                 if (!cancelled) {
-                    setArtists(list.length ? list : localArtists.map(flattenArtistRecord));
+                    setArtists(list);
+                    if (!list.length) {
+                        setFormError("No artists are available to book yet.");
+                    }
                 }
             } catch (error) {
                 if (!cancelled) {
-                    setArtists(localArtists.map(flattenArtistRecord));
+                    setArtists([]);
+                    setFormError(
+                        error.response?.data?.message ||
+                            "Could not load artists. Please try again."
+                    );
                 }
             } finally {
                 if (!cancelled) setLoading(false);
@@ -145,6 +147,10 @@ export default function BookingRequest() {
             setFormError("Please tell the artist about your event.");
             return;
         }
+        if (!formData.location.trim()) {
+            setFormError("Please add the venue or location.");
+            return;
+        }
 
         const bookingData = {
             artist: selectedArtist,
@@ -154,27 +160,11 @@ export default function BookingRequest() {
             eventType: formData.eventType,
             expectedGuests: Number(formData.expectedGuests),
             description: formData.description.trim(),
-            price: Number(formData.price || artist?.price || 0),
+            location: formData.location.trim(),
         };
 
         setIsSubmitting(true);
         setFormError("");
-
-        const localBooking = {
-            _id: `local-${Date.now()}`,
-            ...bookingData,
-            client: {
-                fullName: currentUser.fullName,
-                username: currentUser.username,
-                email: currentUser.email,
-            },
-            artist,
-            status: "pending",
-            location: formData.location,
-            clientUsername: currentUser.username,
-            artistUsername: artistUsernameOf(artist),
-            createdAt: new Date().toISOString(),
-        };
 
         try {
             const response = await axios.post(
@@ -182,13 +172,11 @@ export default function BookingRequest() {
                 bookingData,
                 { headers: authHeaders({ "Content-Type": "application/json" }) }
             );
-            const created = response.data?.booking || localBooking;
-            upsertLocalBooking({ ...localBooking, ...created, artist });
-            addNotification({
-                title: "Booking request sent",
-                body: `Your request to ${artistDisplayName(artist)} is pending review.`,
-                href: `/booking/${created._id}`,
-            });
+            const created = response.data?.booking;
+            if (!created?._id) {
+                setFormError("The server did not return a booking. Please try again.");
+                return;
+            }
             upsertThread({
                 withUsername: artistUsernameOf(artist),
                 withName: artistDisplayName(artist),
@@ -203,15 +191,11 @@ export default function BookingRequest() {
             setSubmitted(true);
             navigate(`/booking/${created._id}?created=1`);
         } catch (error) {
-            upsertLocalBooking(localBooking);
-            addNotification({
-                title: "Booking saved locally",
-                body: "The live API could not create this booking, so it was stored for the demo.",
-                href: `/booking/${localBooking._id}`,
-            });
-            setSubmitted(true);
-            navigate(`/booking/${localBooking._id}?created=1`);
             console.error(error.response?.data || error.message);
+            setFormError(
+                error.response?.data?.message ||
+                    "Could not send this booking request. Please try again."
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -261,6 +245,11 @@ export default function BookingRequest() {
                     )}
                     {formError && <p className="workspace-banner error">{formError}</p>}
 
+                    {!artists.length ? (
+                        <p className="workspace-banner">
+                            No artists are available to book right now.
+                        </p>
+                    ) : (
                     <form className="booking-form" onSubmit={handleSubmit}>
                         <label>
                             Artist
@@ -317,7 +306,7 @@ export default function BookingRequest() {
                             </label>
                             <label>
                                 Venue / location
-                                <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="City or venue" />
+                                <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="City or venue" required />
                             </label>
                         </div>
 
@@ -339,6 +328,7 @@ export default function BookingRequest() {
                             {!isSubmitting && <FiArrowRight aria-hidden="true" />}
                         </button>
                     </form>
+                    )}
                 </section>
 
                 <aside className="booking-sidebar">
