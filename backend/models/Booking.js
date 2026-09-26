@@ -49,6 +49,13 @@ const bookingSchema = new mongoose.Schema(
             maxlength: 2000,
         },
 
+        location: {
+            type: String,
+            trim: true,
+            maxlength: 200,
+            default: "",
+        },
+
         price: {
             type: Number,
             required: true,
