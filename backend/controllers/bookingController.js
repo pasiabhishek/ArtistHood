@@ -1,15 +1,70 @@
 const Booking = require("../models/Booking");
-const { User, ArtistProfile } = require("../models/User");
+const { ArtistProfile } = require("../models/User");
+const { notify } = require("../utils/notify");
 
+const ACTIVE_STATUSES = ["pending", "accepted", "confirmed"];
 
-// Convert HH:mm into minutes
 const timeToMinutes = (time) => {
     const [hours, minutes] = time.split(":").map(Number);
     return hours * 60 + minutes;
 };
 
+const timesOverlap = (startA, endA, startB, endB) => {
+    return startA < endB && startB < endA;
+};
 
-// Create Booking
+const dayRange = (date) => {
+    const start = new Date(date);
+    start.setUTCHours(0, 0, 0, 0);
+    const end = new Date(start);
+    end.setUTCDate(end.getUTCDate() + 1);
+    return { start, end };
+};
+
+const populateBooking = (id) =>
+    Booking.findById(id)
+        .populate("client", "fullName email username")
+        .populate({
+            path: "artist",
+            select: "stageName category profileImage city state price priceType user",
+            populate: {
+                path: "user",
+                select: "fullName email username",
+            },
+        });
+
+const hasScheduleConflict = async ({
+    artistId,
+    eventDate,
+    startTime,
+    endTime,
+    excludeId,
+}) => {
+    const { start, end } = dayRange(eventDate);
+    const query = {
+        artist: artistId,
+        eventDate: { $gte: start, $lt: end },
+        status: { $in: ACTIVE_STATUSES },
+    };
+
+    if (excludeId) {
+        query._id = { $ne: excludeId };
+    }
+
+    const existing = await Booking.find(query).select("startTime endTime");
+    const startMinutes = timeToMinutes(startTime);
+    const endMinutes = timeToMinutes(endTime);
+
+    return existing.some((item) =>
+        timesOverlap(
+            startMinutes,
+            endMinutes,
+            timeToMinutes(item.startTime),
+            timeToMinutes(item.endTime)
+        )
+    );
+};
+
 const createBooking = async (req, res) => {
     try {
         const {
@@ -20,9 +75,9 @@ const createBooking = async (req, res) => {
             eventType,
             expectedGuests,
             description,
+            location,
         } = req.body;
 
-        // Only clients can create bookings
         if (req.user.role !== "Client") {
             return res.status(403).json({
                 success: false,
@@ -30,7 +85,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // find artist Profile
         const artistProfile = await ArtistProfile.findById(artist);
 
         if (!artistProfile) {
@@ -40,7 +94,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // client cannot book themselves
         if (req.user.id === artistProfile.user.toString()) {
             return res.status(400).json({
                 success: false,
@@ -48,7 +101,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Artist must have availableFrom
         if (!artistProfile.availableFrom) {
             return res.status(400).json({
                 success: false,
@@ -56,7 +108,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Validate event date
         if (!eventDate) {
             return res.status(400).json({
                 success: false,
@@ -64,9 +115,15 @@ const createBooking = async (req, res) => {
             });
         }
 
-        const requestedDate = new Date(
-            `${eventDate}T00:00:00.000Z`
-        );
+        const venue = String(location || "").trim();
+        if (!venue) {
+            return res.status(400).json({
+                success: false,
+                message: "Venue / location is required",
+            });
+        }
+
+        const requestedDate = new Date(`${eventDate}T00:00:00.000Z`);
 
         if (isNaN(requestedDate.getTime())) {
             return res.status(400).json({
@@ -75,11 +132,9 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Normalize availableFrom
         const availableDate = new Date(artistProfile.availableFrom);
         availableDate.setUTCHours(0, 0, 0, 0);
 
-        // Event cannot be before artist availability
         if (requestedDate < availableDate) {
             return res.status(400).json({
                 success: false,
@@ -87,7 +142,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Event cannot be in the past
         const today = new Date();
         today.setUTCHours(0, 0, 0, 0);
 
@@ -98,7 +152,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Validate time format
         const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
         if (!timeRegex.test(startTime) || !timeRegex.test(endTime)) {
@@ -118,7 +171,6 @@ const createBooking = async (req, res) => {
             });
         }
 
-        // Validate required fields
         if (!eventType || !description || !expectedGuests) {
             return res.status(400).json({
                 success: false,
@@ -126,25 +178,50 @@ const createBooking = async (req, res) => {
             });
         }
 
+        const conflict = await hasScheduleConflict({
+            artistId: artist,
+            eventDate: requestedDate,
+            startTime,
+            endTime,
+        });
+
+        if (conflict) {
+            return res.status(409).json({
+                success: false,
+                message: "This artist already has a booking that overlaps this time",
+            });
+        }
+
         const booking = await Booking.create({
             client: req.user.id,
-            artist: artist, // Use the artist ID from the request body
+            artist,
             eventDate: requestedDate,
             startTime,
             endTime,
             eventType,
             expectedGuests,
             description,
+            location: venue,
             price: artistProfile.price,
             status: "pending",
         });
 
+        await notify({
+            user: artistProfile.user,
+            type: "booking_created",
+            title: "New booking request",
+            body: `${req.user.fullName || "A client"} requested ${eventType} on ${eventDate} at ${venue}.`,
+            href: `/booking/${booking._id}`,
+            booking: booking._id,
+        });
+
+        const populated = await populateBooking(booking._id);
+
         return res.status(201).json({
             success: true,
             message: "Booking request created successfully",
-            booking,
+            booking: populated,
         });
-
     } catch (error) {
         console.error("Create booking error:", error);
 
@@ -155,10 +232,8 @@ const createBooking = async (req, res) => {
     }
 };
 
-// Get Artist's Incoming Bookings
 const getArtistBookings = async (req, res) => {
     try {
-        // Validate artist role
         if (req.user.role !== "Artist") {
             return res.status(403).json({
                 success: false,
@@ -166,7 +241,6 @@ const getArtistBookings = async (req, res) => {
             });
         }
 
-        // Fetch artist profile
         const artistProfile = await ArtistProfile.findOne({ user: req.user.id });
 
         if (!artistProfile) {
@@ -176,11 +250,10 @@ const getArtistBookings = async (req, res) => {
             });
         }
 
-        // Fetch artist bookings
         const bookings = await Booking.find({
             artist: artistProfile._id,
         })
-            .populate("client", "fullName email")
+            .populate("client", "fullName email username")
             .sort({
                 eventDate: 1,
                 startTime: 1,
@@ -190,7 +263,6 @@ const getArtistBookings = async (req, res) => {
             success: true,
             bookings,
         });
-
     } catch (error) {
         console.error("Get artist bookings error:", error);
 
@@ -201,10 +273,8 @@ const getArtistBookings = async (req, res) => {
     }
 };
 
-// Get Client's Bookings
 const getClientBookings = async (req, res) => {
     try {
-        // Validate client role
         if (req.user.role !== "Client") {
             return res.status(403).json({
                 success: false,
@@ -212,7 +282,6 @@ const getClientBookings = async (req, res) => {
             });
         }
 
-        // Fetch client bookings
         const bookings = await Booking.find({
             client: req.user.id,
         })
@@ -221,7 +290,7 @@ const getClientBookings = async (req, res) => {
                 select: "stageName profileImage category price",
                 populate: {
                     path: "user",
-                    select: "fullName email",
+                    select: "fullName email username",
                 },
             })
             .sort({
@@ -233,7 +302,6 @@ const getClientBookings = async (req, res) => {
             success: true,
             bookings,
         });
-
     } catch (error) {
         console.error("Get client bookings error:", error);
 
@@ -246,17 +314,7 @@ const getClientBookings = async (req, res) => {
 
 const getBookingById = async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.id)
-            .populate("client", "fullName email")
-            .populate({
-                path: "artist",
-                select:
-                    "stageName category profileImage city state price priceType user",
-                populate: {
-                    path: "user",
-                    select: "fullName email",
-                },
-            });
+        const booking = await populateBooking(req.params.id);
 
         if (!booking) {
             return res.status(404).json({
@@ -265,15 +323,9 @@ const getBookingById = async (req, res) => {
             });
         }
 
-        // Client check
-        const isClient =
-            booking.client._id.toString() === req.user.id;
+        const isClient = booking.client._id.toString() === req.user.id;
+        const isArtist = booking.artist.user._id.toString() === req.user.id;
 
-        // Artist check
-        const isArtist =
-            booking.artist.user._id.toString() === req.user.id;
-
-        // Only booking participants
         if (!isClient && !isArtist) {
             return res.status(403).json({
                 success: false,
@@ -285,7 +337,6 @@ const getBookingById = async (req, res) => {
             success: true,
             booking,
         });
-
     } catch (error) {
         console.error("Get booking error:", error);
 
@@ -296,11 +347,12 @@ const getBookingById = async (req, res) => {
     }
 };
 
-// ARTIST ACCEPT BOOKING
 const acceptBooking = async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.id)
-            .populate("artist", "user");
+        const booking = await Booking.findById(req.params.id).populate(
+            "artist",
+            "user"
+        );
 
         if (!booking) {
             return res.status(404).json({
@@ -309,18 +361,13 @@ const acceptBooking = async (req, res) => {
             });
         }
 
-        // Artist is logged-in User
-        if (
-            booking.artist.user.toString() !==
-            req.user.id
-        ) {
+        if (booking.artist.user.toString() !== req.user.id) {
             return res.status(403).json({
                 success: false,
                 message: "Only the assigned artist can accept this booking",
             });
         }
 
-        // Only pending
         if (booking.status !== "pending") {
             return res.status(400).json({
                 success: false,
@@ -328,17 +375,40 @@ const acceptBooking = async (req, res) => {
             });
         }
 
-        // For now accepted = confirmed
-        booking.status = "accepted";
+        const conflict = await hasScheduleConflict({
+            artistId: booking.artist._id,
+            eventDate: booking.eventDate,
+            startTime: booking.startTime,
+            endTime: booking.endTime,
+            excludeId: booking._id,
+        });
 
+        if (conflict) {
+            return res.status(409).json({
+                success: false,
+                message: "This time overlaps another accepted or pending booking",
+            });
+        }
+
+        booking.status = "accepted";
         await booking.save();
+
+        await notify({
+            user: booking.client,
+            type: "booking_accepted",
+            title: "Booking accepted",
+            body: "Your booking was accepted. Pay to confirm the event.",
+            href: `/booking/${booking._id}`,
+            booking: booking._id,
+        });
+
+        const populated = await populateBooking(booking._id);
 
         return res.status(200).json({
             success: true,
             message: "Booking accepted successfully",
-            booking,
+            booking: populated,
         });
-
     } catch (error) {
         console.error("Accept booking error:", error);
 
@@ -349,11 +419,12 @@ const acceptBooking = async (req, res) => {
     }
 };
 
-// ARTIST REJECT BOOKING
 const rejectBooking = async (req, res) => {
     try {
-        const booking = await Booking.findById(req.params.id)
-            .populate("artist", "user");
+        const booking = await Booking.findById(req.params.id).populate(
+            "artist",
+            "user"
+        );
 
         if (!booking) {
             return res.status(404).json({
@@ -362,18 +433,13 @@ const rejectBooking = async (req, res) => {
             });
         }
 
-        // Only assigned artist
-        if (
-            booking.artist.user.toString() !==
-            req.user.id
-        ) {
+        if (booking.artist.user.toString() !== req.user.id) {
             return res.status(403).json({
                 success: false,
                 message: "Only the assigned artist can reject this booking",
             });
         }
 
-        // Only pending
         if (booking.status !== "pending") {
             return res.status(400).json({
                 success: false,
@@ -382,15 +448,24 @@ const rejectBooking = async (req, res) => {
         }
 
         booking.status = "rejected";
-
         await booking.save();
+
+        await notify({
+            user: booking.client,
+            type: "booking_rejected",
+            title: "Booking declined",
+            body: "The artist declined this booking request.",
+            href: `/booking/${booking._id}`,
+            booking: booking._id,
+        });
+
+        const populated = await populateBooking(booking._id);
 
         return res.status(200).json({
             success: true,
             message: "Booking rejected successfully",
-            booking,
+            booking: populated,
         });
-
     } catch (error) {
         console.error("Reject booking error:", error);
 
