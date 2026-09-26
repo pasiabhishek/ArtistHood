@@ -109,6 +109,11 @@
     font-size: 0.78rem;
 }
 
+.note-card-unread {
+    border-color: rgba(157, 138, 252, 0.55);
+    background: rgba(123, 104, 245, 0.12);
+}
+
 .chat-log {
     display: flex;
     flex-direction: column;
