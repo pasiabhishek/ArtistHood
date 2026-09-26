@@ -14,7 +14,7 @@ import {
     getApiUrl,
     getSessionUser,
 } from "../services/api";
-import { bookingsForSession, getLocalProfile } from "../services/demoStore";
+import { getLocalProfile } from "../services/demoStore";
 
 export default function Client() {
     const { username } = useParams();
@@ -93,9 +93,9 @@ export default function Client() {
                         getApiUrl("api/bookings/client-bookings"),
                         { headers: authHeaders() }
                     );
-                    setBookings(response.data?.bookings || bookingsForSession(currentUser));
+                    setBookings(response.data?.bookings || []);
                 } catch {
-                    setBookings(bookingsForSession(currentUser));
+                    setBookings([]);
                 }
             }
         };
