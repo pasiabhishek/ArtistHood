@@ -8,6 +8,7 @@ const artistRoutes = require("./routes/artistRoutes");
 const userRoutes = require("./routes/userRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use('/api/artists', artistRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Health Check Route
 app.get("/", (req, res) => {
