@@ -12,7 +12,6 @@ import {
     getApiUrl,
     getSessionUser,
 } from "../services/api";
-import { bookingsForSession, patchLocalBooking } from "../services/demoStore";
 import useRequireAuth from "../hooks/useRequireAuth";
 import Loader from "../components/common/Loader";
 
@@ -27,7 +26,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         const load = async () => {
-            const local = bookingsForSession(currentUser);
             try {
                 const [profileResponse, bookingsResponse] = await Promise.all([
                     axios.get(getApiUrl("api/artists/me"), { headers: authHeaders() }),
@@ -39,12 +37,13 @@ export default function Dashboard() {
                             profileResponse.data?.artist
                     )
                 );
-                setBookings(bookingsResponse.data?.bookings || local);
+                setBookings(bookingsResponse.data?.bookings || []);
+                setError("");
             } catch (fetchError) {
-                setBookings(local);
+                setBookings([]);
                 setError(
                     fetchError.response?.data?.message ||
-                        "Showing locally saved requests. Live artist dashboard needs an artist account."
+                        "Could not load the artist dashboard."
                 );
             } finally {
                 setLoading(false);
@@ -64,18 +63,26 @@ export default function Dashboard() {
     const updateStatus = async (bookingId, action) => {
         setActionLoading(bookingId);
         try {
-            await axios.put(getApiUrl(`api/bookings/${bookingId}/${action}`), {}, { headers: authHeaders() });
-        } catch {
-            // Local demo fallback is enough for college flow.
+            const response = await axios.put(
+                getApiUrl(`api/bookings/${bookingId}/${action}`),
+                {},
+                { headers: authHeaders() }
+            );
+            const updated = response.data?.booking;
+            const status = action === "accept" ? "accepted" : "rejected";
+            setBookings((previous) =>
+                previous.map((item) =>
+                    String(item._id) === String(bookingId)
+                        ? updated || { ...item, status }
+                        : item
+                )
+            );
+            setError("");
+        } catch (actionError) {
+            setError(actionError.response?.data?.message || "Could not update this booking.");
+        } finally {
+            setActionLoading("");
         }
-        const status = action === "accept" ? "accepted" : "rejected";
-        patchLocalBooking(bookingId, { status });
-        setBookings((previous) =>
-            previous.map((item) =>
-                String(item._id) === String(bookingId) ? { ...item, status } : item
-            )
-        );
-        setActionLoading("");
     };
 
     if (loading) return <Loader />;
