@@ -7,6 +7,7 @@
 **ArtistHood** is a full-stack MERN platform that connects artists with clients through a seamless booking experience. Artists can showcase their portfolios, build their professional presence, and get discovered, while clients can explore talent, compare portfolios, and hire the right creative professional for their projects.
 
 <p align="center">
+  
   <a href="https://artist-hood.vercel.app">
     <img src="https://img.shields.io/badge/🌐_Live_Demo-artist--hood.vercel.app-success?style=for-the-badge" />
   </a>
