@@ -24,8 +24,7 @@
     border-bottom: 4px solid var(--purple);
     background:
         linear-gradient(rgba(0, 0, 0, 0.45)),
-        url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg")
-        no-repeat center center;
+        url("https://img.magnific.com/premium-vector/summer-sea-sandy-beach-banner_187548-1628.jpg") no-repeat center center;
 
     background-size: cover;
 }
@@ -42,7 +41,7 @@
 
     display: flex;
     flex-direction: column;
-/* 
+    /* 
     border-left: 1px solid var(--purple);
     border-right: 1px solid var(--purple); */
 
@@ -146,7 +145,7 @@
 
 
 /* Profile picture slightly overlaps the banner */
-.profile-container-header-left > img {
+.profile-container-header-left>img {
     width: 150px;
     height: 150px;
 
@@ -268,7 +267,7 @@
 
 
 /* Public profile metrics */
-.profile-container > .profile-container-header2 {
+.profile-container>.profile-container-header2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
@@ -279,7 +278,7 @@
     background: var(--background);
 }
 
-.profile-container > .profile-container-header2 .followers {
+.profile-container>.profile-container-header2 .followers {
     display: flex;
     min-width: 0;
     flex-direction: column;
@@ -291,18 +290,18 @@
     text-align: center;
 }
 
-.profile-container > .profile-container-header2 .followers + .followers {
+.profile-container>.profile-container-header2 .followers+.followers {
     border-left: 1px solid rgba(128, 92, 246, 0.28);
 }
 
-.profile-container > .profile-container-header2 .followers span:first-child {
+.profile-container>.profile-container-header2 .followers span:first-child {
     color: var(--text-color);
     font-size: clamp(0.95rem, 2.4vw, 1.15rem);
     font-weight: 800;
     line-height: 1;
 }
 
-.profile-container > .profile-container-header2 .followers span:last-child {
+.profile-container>.profile-container-header2 .followers span:last-child {
     color: var(--text-color);
     font-size: 0.58rem;
     font-weight: 700;
@@ -448,7 +447,7 @@
         min-width: 180px;
     }
 
-    .profile-container-header-left > img {
+    .profile-container-header-left>img {
         width: 140px;
         height: 140px;
 
@@ -499,7 +498,7 @@
         justify-content: center;
     }
 
-    .profile-container-header-left > img {
+    .profile-container-header-left>img {
         width: 110px;
         height: 110px;
 
@@ -561,7 +560,7 @@
         height: 160px;
     }
 
-    .profile-container-header-left > img {
+    .profile-container-header-left>img {
         width: 95px;
         height: 95px;
 
@@ -609,7 +608,7 @@
         min-width: 90px;
     }
 
-    .profile-container-header-left > img {
+    .profile-container-header-left>img {
         width: 80px;
         height: 80px;
 
@@ -638,11 +637,12 @@
 }
 
 
-.profile-container-header2{
+.profile-container-header2 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .profile-actions {
     display: flex;
     flex-wrap: wrap;

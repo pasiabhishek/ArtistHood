@@ -220,15 +220,15 @@ export default function Client() {
                         )}
 
                         <div className="profile-actions">
-                            {!isMyProfile && (
-                                <button
-                                    type="button"
-                                    className={`profile-follow-button ${isFollowing ? "is-following" : ""}`}
-                                    onClick={() => setIsFollowing((value) => !value)}
-                                >
-                                    {isFollowing ? "Following" : "Follow"}
-                                </button>
-                            )}
+                            {/* {!isMyProfile && (
+                                // <button
+                                //     type="button"
+                                //     className={`profile-follow-button ${isFollowing ? "is-following" : ""}`}
+                                //     onClick={() => setIsFollowing((value) => !value)}
+                                // >
+                                //     {isFollowing ? "Following" : "Follow"}
+                                // </button>
+                            )} */}
                             {!isMyProfile && (
                                 <Link
                                     className="profile-book-button"
@@ -252,14 +252,14 @@ export default function Client() {
                 </section>
 
                 <section className="profile-container-header2 client-stats">
-                    <div className="followers">
+                    {/* <div className="followers">
                         <span>{client.followers?.length ?? client.followers ?? 0}</span>
                         <span>Followers</span>
                     </div>
                     <div className="followers">
                         <span>{client.following?.length ?? client.following ?? 0}</span>
                         <span>Following</span>
-                    </div>
+                    </div> */}
                     <div className="followers">
                         <span>{bookings.length || client.bookings || 0}</span>
                         <span>Bookings</span>
