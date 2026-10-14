@@ -125,7 +125,7 @@ export default function LeftNav({ isOpen, onClose }) {
                 <Link to={profilePath} onClick={onClose} className="Left_Nav_Footer">
                     <img
                         className="left-nav-footer-logo"
-                        src={profileImage || "/favicon.ico"}
+                        src={profileImage}
                         alt=""
                     />
                     <div>
