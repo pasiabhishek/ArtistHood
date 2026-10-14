@@ -179,6 +179,15 @@
   color: #fff;
 }
 
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  border-radius: 50%;
+  background-color: #fefeff;
+  flex-shrink: 0;
+}
+
 .Left_Nav_Navbar .create-nav-link {
   margin-top: 1rem;
   justify-content: center;

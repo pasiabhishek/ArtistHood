@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { FaTimes } from "react-icons/fa";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { getSessionUser } from "../../services/api";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import {
+    getSessionUser,
+    authHeaders,
+    getApiUrl,
+} from "../../services/api";
 
 export default function LeftNav({ isOpen, onClose }) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [hasUnread, setHasUnread] = useState(false);
+
     const user = getSessionUser();
     const displayName = user?.fullName || user?.username || "Guest";
     const isArtist = user?.role === "Artist";
@@ -13,6 +21,36 @@ export default function LeftNav({ isOpen, onClose }) {
             ? `/artists/${user.username}`
             : `/client/${user.username}`
         : "/feed";
+
+    // Fetch unread notifications status and listen for updates
+    useEffect(() => {
+        let active = true;
+
+        const loadNotifications = async () => {
+            try {
+                const response = await axios.get(
+                    getApiUrl("api/notifications"),
+                    { headers: authHeaders() }
+                );
+
+                if (!active) return;
+
+                const notifications = response.data?.notifications || [];
+                setHasUnread(notifications.some((item) => !item.read));
+            } catch (error) {
+                console.error("Failed to load notification status:", error);
+            }
+        };
+
+        loadNotifications();
+
+        window.addEventListener("notifications:updated", loadNotifications);
+
+        return () => {
+            active = false;
+            window.removeEventListener("notifications:updated", loadNotifications);
+        };
+    }, [location.pathname]);
 
     const navItems = [
         { to: "/feed", icon: "fa-regular fa-house", label: "Home", end: true },
@@ -66,6 +104,11 @@ export default function LeftNav({ isOpen, onClose }) {
                             >
                                 <i className={item.icon} aria-hidden="true"></i>
                                 {item.label}
+
+                                {/* Red dot appears on Notifications when unread */}
+                                {item.label === "Notifications" && hasUnread && (
+                                    <span className="notification-dot" aria-label="Unread notifications" />
+                                )}
                             </NavLink>
                         </li>
                     ))}
