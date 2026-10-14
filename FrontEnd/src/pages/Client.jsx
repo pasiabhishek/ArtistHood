@@ -19,7 +19,9 @@ import { getLocalProfile } from "../services/demoStore";
 export default function Client() {
     const { username } = useParams();
     const navigate = useNavigate();
+
     const currentUser = getSessionUser();
+    const currentUsername = currentUser?.username;
 
     const [client, setClient] = useState(null);
     const [posts, setPosts] = useState([]);
@@ -28,23 +30,26 @@ export default function Client() {
     const [isFollowing, setIsFollowing] = useState(false);
     const [error, setError] = useState("");
 
-    const isMyProfile =
-        currentUser?.username?.toLowerCase() === username?.toLowerCase();
+    const isMyProfile = useMemo(() => {
+        return currentUsername?.toLowerCase() === username?.toLowerCase();
+    }, [currentUsername, username]);
 
+    // Handle redirect if username param is missing
     useEffect(() => {
-        if (!username && currentUser?.username) {
-            navigate(`/client/${currentUser.username}`, { replace: true });
+        if (!username && currentUsername) {
+            navigate(`/client/${currentUsername}`, { replace: true });
         }
-    }, [username, currentUser, navigate]);
+    }, [username, currentUsername, navigate]);
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchProfile = async () => {
             if (!username) {
-                setLoading(false);
+                if (isMounted) setLoading(false);
                 return;
             }
 
-            setLoading(true);
             const extras = getLocalProfile(username) || {};
 
             try {
@@ -53,38 +58,53 @@ export default function Client() {
                         const me = await axios.get(getApiUrl("api/auth/me"), {
                             headers: authHeaders(),
                         });
-                        setClient({
-                            ...(me.data?.user || currentUser),
-                            ...extras,
-                        });
+                        if (isMounted) {
+                            setClient({
+                                ...(me.data?.user || currentUser),
+                                ...extras,
+                            });
+                        }
                     } catch {
-                        setClient({ ...currentUser, ...extras });
+                        if (isMounted) {
+                            setClient({ ...currentUser, ...extras });
+                        }
                     }
                 } else {
-                    setClient({
-                        username,
-                        fullName: extras.fullName || username,
-                        bio: extras.bio,
-                        location: extras.location,
-                        role: "Client",
-                    });
-                    setError("Public client profiles are limited until a user lookup API is added.");
+                    if (isMounted) {
+                        setClient({
+                            username,
+                            fullName: extras.fullName || username,
+                            bio: extras.bio,
+                            location: extras.location,
+                            role: "Client",
+                        });
+                        setError("Public client profiles are limited until a user lookup API is added.");
+                    }
                 }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchProfile();
-    }, [username, isMyProfile, currentUser]);
 
+        return () => {
+            isMounted = false;
+        };
+    }, [username, isMyProfile]);
+
+    // Fetch Related posts and bookings
     useEffect(() => {
+        let isMounted = true;
+
         const fetchRelated = async () => {
             try {
                 const response = await axios.get(getApiUrl("api/posts"));
-                setPosts(response.data?.posts || []);
+                if (isMounted) setPosts(response.data?.posts || []);
             } catch {
-                setPosts([]);
+                if (isMounted) setPosts([]);
             }
 
             if (isMyProfile) {
@@ -93,15 +113,19 @@ export default function Client() {
                         getApiUrl("api/bookings/client-bookings"),
                         { headers: authHeaders() }
                     );
-                    setBookings(response.data?.bookings || []);
+                    if (isMounted) setBookings(response.data?.bookings || []);
                 } catch {
-                    setBookings([]);
+                    if (isMounted) setBookings([]);
                 }
             }
         };
 
         fetchRelated();
-    }, [isMyProfile, currentUser]);
+
+        return () => {
+            isMounted = false;
+        };
+    }, [isMyProfile]);
 
     const clientPosts = useMemo(() => {
         if (!client?.username) return [];
