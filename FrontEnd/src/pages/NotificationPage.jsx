@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "../styles/pages/Discover.css";
@@ -9,29 +9,44 @@ import useRequireAuth from "../hooks/useRequireAuth";
 
 export default function Notification() {
     useRequireAuth();
+
+    const navigate = useNavigate();
     const [notes, setNotes] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
+
         const load = async () => {
             try {
-                const response = await axios.get(getApiUrl("api/notifications"), {
-                    headers: authHeaders(),
-                });
-                setNotes(response.data?.notifications || []);
-                setError("");
-            } catch (fetchError) {
-                setNotes([]);
-                setError(
-                    fetchError.response?.data?.message ||
-                        "Could not load notifications."
+                const response = await axios.get(
+                    getApiUrl("api/notifications"),
+                    { headers: authHeaders() }
                 );
+
+                if (!cancelled) {
+                    setNotes(response.data?.notifications || []);
+                    setError("");
+                }
+            } catch (fetchError) {
+                if (!cancelled) {
+                    setNotes([]);
+                    setError(
+                        fetchError.response?.data?.message ||
+                        "Could not load notifications."
+                    );
+                }
             } finally {
-                setLoading(false);
+                if (!cancelled) setLoading(false);
             }
         };
+
         load();
+
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
     const markRead = async (id) => {
@@ -41,14 +56,40 @@ export default function Notification() {
                 {},
                 { headers: authHeaders() }
             );
+
             setNotes((previous) =>
                 previous.map((item) =>
-                    String(item._id) === String(id) ? { ...item, read: true } : item
+                    String(item._id) === String(id)
+                        ? { ...item, read: true }
+                        : item
                 )
             );
+
+            // Tell the navigation badge to refresh its count.
+            window.dispatchEvent(
+                new Event("notifications:updated")
+            );
+
+            return true;
         } catch (readError) {
-            console.error(readError.response?.data || readError.message);
+            console.error(
+                "Could not mark notification as read:",
+                readError.response?.data || readError.message
+            );
+
+            return false;
         }
+    };
+
+    const handleNotificationClick = async (event, item) => {
+        event.preventDefault();
+
+        if (!item.read) {
+            // Wait for PATCH to finish before changing the route.
+            await markRead(item._id);
+        }
+
+        navigate(item.href || "/booking");
     };
 
     return (
@@ -82,14 +123,19 @@ export default function Notification() {
                             className={`note-card ${item.read ? "" : "note-card-unread"}`}
                             key={item._id}
                             to={item.href || "/booking"}
-                            onClick={() => {
-                                if (!item.read) markRead(item._id);
-                            }}
+                            onClick={(event) =>
+                                handleNotificationClick(event, item)
+                            }
                         >
                             <strong>{item.title}</strong>
                             <p>{item.body}</p>
+
                             {item.createdAt && (
-                                <span>{new Date(item.createdAt).toLocaleString("en-IN")}</span>
+                                <span>
+                                    {new Date(item.createdAt).toLocaleString(
+                                        "en-IN"
+                                    )}
+                                </span>
                             )}
                         </Link>
                     ))}
