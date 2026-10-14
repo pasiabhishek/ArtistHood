@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const configuredApiUrl = import.meta.env.VITE_API_URL;
 
 // Keep the backend origin in the environment; never embed it in application code.
@@ -84,5 +86,55 @@ export function artistUsernameOf(artist) {
     const record = flattenArtistRecord(artist);
     return record?.username || record?.user?.username || "";
 }
+
+
+export async function fetchConversations() {
+    const response = await axios.get(
+        getApiUrl("api/messages/conversations"),
+        { headers: authHeaders() }
+    );
+
+    return response.data.conversations || [];
+}
+
+export async function openConversation(username) {
+    const response = await axios.post(
+        getApiUrl("api/messages/conversations"),
+        { username },
+        { headers: authHeaders() }
+    );
+
+    return response.data.conversation;
+}
+
+export async function fetchMessages(conversationId) {
+    const response = await axios.get(
+        getApiUrl(`api/messages/conversations/${conversationId}`),
+        { headers: authHeaders() }
+    );
+
+    return response.data.messages || [];
+}
+
+export async function sendChatMessage(conversationId, text) {
+    const response = await axios.post(
+        getApiUrl(`api/messages/conversations/${conversationId}`),
+        { text },
+        { headers: authHeaders() }
+    );
+
+    return response.data.message;
+}
+
+export async function markChatAsRead(conversationId) {
+    const response = await axios.patch(
+        getApiUrl(`api/messages/conversations/${conversationId}/read`),
+        {},
+        { headers: authHeaders() }
+    );
+
+    return response.data;
+}
+
 
 
