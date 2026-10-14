@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/pages/Discover.css";
 import "../styles/pages/Workspace.css";
-import { artistDisplayName, artistUsernameOf, flattenArtistRecord, getApiUrl } from "../services/api";
+import { artistDisplayName, artistUsernameOf, authHeaders, flattenArtistRecord, getApiUrl } from "../services/api";
 import Loader from "../components/common/Loader";
+import PostCard from "../components/post/PostCard";
 import localArtists from "../data/artists.json"
 
 const categories = ["All","Live music","Wedding acts","Event styling","Creative reels","Dance gigs","Brand collabs",];
@@ -31,7 +32,7 @@ export default function Discover() {
             try {
                 const [artistsResponse, postsResponse] = await Promise.all([
                     axios.get(getApiUrl("api/artists")),
-                    axios.get(getApiUrl("api/posts")),
+                    axios.get(getApiUrl("api/posts"), { headers: authHeaders() }),
                 ]);
 
                 const artistsData = Array.isArray(artistsResponse.data?.artists)
@@ -146,48 +147,9 @@ export default function Discover() {
                             <Link to="/artists">Find artists</Link>
                         </div>
                     ) : (
-                        filteredPosts.map((post) => {
-                            const username = postUsername(post);
-                            const artist = flattenArtistRecord(post.artist) || post.artist;
-                            return (
-                                <article key={post._id} className="discover-post-card">
-                                    <div className="first_row">
-                                        <Link
-                                            to={username ? `/artists/${username}` : "/artists"}
-                                            className="post-profile-link"
-                                        >
-                                            <img
-                                                src={artist?.profileImage || "/favicon.ico"}
-                                                alt={username || "Artist"}
-                                            />
-                                        </Link>
-                                        <div className="post-heading">
-                                            {username ? (
-                                                <Link to={`/artists/${username}`} className="post-author-link">
-                                                    <h3>{artistDisplayName(artist) || username}</h3>
-                                                </Link>
-                                            ) : (
-                                                <h3>Unknown Artist</h3>
-                                            )}
-                                            <h5>{artist?.category || "Artist"}</h5>
-                                        </div>
-                                    </div>
-                                    <Link to={`/posts/${post._id}`} className="create-post-link">
-                                        <div className="sec_row">
-                                            <p>{post.caption || ""}</p>
-                                        </div>
-                                        {post.mediaType === "image" && post.media && (
-                                            <img className="post-media" src={post.media} alt={post.caption || "Post"} />
-                                        )}
-                                        {post.mediaType === "video" && post.media && (
-                                            <video className="post-media" controls preload="metadata">
-                                                <source src={post.media} type="video/mp4" />
-                                            </video>
-                                        )}
-                                    </Link>
-                                </article>
-                            );
-                        })
+                        filteredPosts.map((post) => (
+                            <PostCard key={post._id} post={post} />
+                        ))
                     )}
                 </main>
 

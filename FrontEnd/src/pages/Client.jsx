@@ -8,6 +8,7 @@ import "../styles/pages/Workspace.css";
 import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 import Loader from "../components/common/Loader";
+import PostCard from "../components/post/PostCard";
 
 import {
     authHeaders,
@@ -101,7 +102,9 @@ export default function Client() {
 
         const fetchRelated = async () => {
             try {
-                const response = await axios.get(getApiUrl("api/posts"));
+                const response = await axios.get(getApiUrl("api/posts"), {
+                    headers: authHeaders(),
+                });
                 if (isMounted) setPosts(response.data?.posts || []);
             } catch {
                 if (isMounted) setPosts([]);
@@ -333,18 +336,11 @@ export default function Client() {
                     {clientPosts.length > 0 ? (
                         <div className="profile-post-list">
                             {clientPosts.map((post, index) => (
-                                <article className="profile-post" key={post._id || index}>
-                                    <div className="profile-post-header">
-                                        <strong>{clientName}</strong>
-                                        <span>@{clientUsername}</span>
-                                    </div>
-                                    <p>
-                                        {post.caption ||
-                                            post.content ||
-                                            post.text ||
-                                            "Shared a post on ArtistHood."}
-                                    </p>
-                                </article>
+                                <PostCard
+                                    key={post._id || index}
+                                    post={post}
+                                    className="post-card-template--profile"
+                                />
                             ))}
                         </div>
                     ) : (

@@ -7,9 +7,11 @@ import "../styles/pages/Workspace.css";
 import Header from "../components/home/Header";
 import Footer from "../components/layout/Footer";
 import Loader from "../components/common/Loader";
+import PostCard from "../components/post/PostCard";
 import {
     artistDisplayName,
     artistUsernameOf,
+    authHeaders,
     flattenArtistRecord,
     getApiUrl,
     getSessionUser,
@@ -39,7 +41,7 @@ export default function Artists() {
             try {
                 const [artistResponse, postsResponse] = await Promise.all([
                     axios.get(getApiUrl(`api/artists/${username}`)),
-                    axios.get(getApiUrl("api/posts")).catch(() => ({ data: { posts: [] } })),
+                    axios.get(getApiUrl("api/posts"), { headers: authHeaders() }).catch(() => ({ data: { posts: [] } })),
                 ]);
 
                 const record = flattenArtistRecord(
@@ -253,19 +255,11 @@ export default function Artists() {
                     {artistPosts.length > 0 ? (
                         <div className="profile-post-list">
                             {artistPosts.map((post) => (
-                                <article className="profile-post" key={post._id}>
-                                    {post.caption && (
-                                        <p className="profile-post-content">{post.caption}</p>
-                                    )}
-                                    {post.mediaType === "image" && post.media && (
-                                        <img className="profile-post-media" src={post.media} alt={post.caption || "Post"} />
-                                    )}
-                                    {post.mediaType === "video" && post.media && (
-                                        <video className="profile-post-media" controls preload="metadata">
-                                            <source src={post.media} type="video/mp4" />
-                                        </video>
-                                    )}
-                                </article>
+                                <PostCard
+                                    key={post._id}
+                                    post={post}
+                                    className="post-card-template--profile"
+                                />
                             ))}
                         </div>
                     ) : (
