@@ -16,6 +16,7 @@ export default function LeftNav({ isOpen, onClose }) {
     const user = getSessionUser();
     const displayName = user?.fullName || user?.username || "Guest";
     const isArtist = user?.role === "Artist";
+    const profileImage = user?.profileImage;
     const profilePath = user?.username
         ? isArtist
             ? `/artists/${user.username}`
@@ -124,7 +125,7 @@ export default function LeftNav({ isOpen, onClose }) {
                 <Link to={profilePath} onClick={onClose} className="Left_Nav_Footer">
                     <img
                         className="left-nav-footer-logo"
-                        src={user?.profileImage || "/favicon.ico"}
+                        src={profileImage || "/favicon.ico"}
                         alt=""
                     />
                     <div>
