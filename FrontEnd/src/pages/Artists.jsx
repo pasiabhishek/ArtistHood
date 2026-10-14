@@ -153,7 +153,7 @@ export default function Artists() {
                         )}
 
                         <div className="profile-actions" aria-label={`Actions for ${artistName}`}>
-                            <button
+                            {/* <button
                                 type="button"
                                 disabled={isMyProfile}
                                 style={{ opacity: isMyProfile ? "0.4" : "1" }}
@@ -161,7 +161,7 @@ export default function Artists() {
                                 onClick={() => setIsFollowing((value) => !value)}
                             >
                                 {isFollowing ? "Following" : "Follow"}
-                            </button>
+                            </button> */}
                             <Link
                                 className="profile-book-button"
                                 to={
