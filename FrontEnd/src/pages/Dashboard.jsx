@@ -1,10 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+import {
+    FiCalendar,
+    FiCheckCircle,
+    FiClock,
+    FiInbox,
+    FiMapPin,
+    FiXCircle,
+} from "react-icons/fi";
 
 import "../styles/pages/Booking.css";
 import "../styles/pages/Workspace.css";
+import "../styles/pages/Dashboard.css";
 import {
     artistDisplayName,
     authHeaders,
@@ -14,6 +22,27 @@ import {
 } from "../services/api";
 import useRequireAuth from "../hooks/useRequireAuth";
 import Loader from "../components/common/Loader";
+
+function formatDashboardDate(value) {
+    if (!value) return "Date not set";
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Date not set";
+
+    return date.toLocaleDateString([], {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
+}
+
+function bookingStatusClass(status) {
+    const normalized = String(status || "pending").toLowerCase();
+    if (normalized === "pending") return "pending";
+    if (["rejected", "cancelled"].includes(normalized)) return "rejected";
+    return "confirmed";
+}
 
 export default function Dashboard() {
     useRequireAuth();
@@ -89,7 +118,7 @@ export default function Dashboard() {
 
     if (currentUser?.role !== "Artist") {
         return (
-            <section className="page-empty">
+            <section className="page-empty dashboard-access">
                 <p className="discover-kicker">Dashboard</p>
                 <h1>Artist dashboard</h1>
                 <p>This space is for artist accounts. Your bookings still live in My Bookings.</p>
@@ -99,80 +128,153 @@ export default function Dashboard() {
     }
 
     return (
-        <main className="booking-page">
-            <section className="booking-page-header">
-                <div>
+        <main className="booking-page dashboard-page">
+            <section className="booking-page-header dashboard-header">
+                <div className="dashboard-heading-copy">
                     <p className="booking-kicker">Artist dashboard</p>
                     <h1>{artistDisplayName(artist) || currentUser.fullName}</h1>
                     <p className="booking-intro">
-                        Review incoming requests, keep track of confirmed shows, and jump into booking details.
+                        A clear view of your booking activity, so you can focus on what’s next.
                     </p>
                 </div>
-                <Link to="/booking" className="booking-browse-link">
-                    All requests
+                <Link to="/booking" className="booking-browse-link dashboard-all-requests">
+                    <FiInbox aria-hidden="true" />
+                    <span>All requests</span>
                 </Link>
             </section>
 
-            {error && <p className="workspace-banner">{error}</p>}
+            {error && (
+                <p className="dashboard-banner" role="alert">
+                    {error}
+                </p>
+            )}
 
             <div className="dashboard-stats">
-                <div className="dashboard-stat">
-                    <span>Requests</span>
-                    <strong>{stats.total}</strong>
+                <div className="dashboard-stat dashboard-stat-total">
+                    <span className="dashboard-stat-icon"><FiInbox aria-hidden="true" /></span>
+                    <div>
+                        <span className="dashboard-stat-label">Total requests</span>
+                        <strong>{stats.total}</strong>
+                    </div>
                 </div>
-                <div className="dashboard-stat">
-                    <span>Pending</span>
-                    <strong>{stats.pending}</strong>
+                <div className="dashboard-stat dashboard-stat-pending">
+                    <span className="dashboard-stat-icon"><FiClock aria-hidden="true" /></span>
+                    <div>
+                        <span className="dashboard-stat-label">Awaiting response</span>
+                        <strong>{stats.pending}</strong>
+                    </div>
                 </div>
-                <div className="dashboard-stat">
-                    <span>Accepted</span>
-                    <strong>{stats.accepted}</strong>
+                <div className="dashboard-stat dashboard-stat-accepted">
+                    <span className="dashboard-stat-icon"><FiCheckCircle aria-hidden="true" /></span>
+                    <div>
+                        <span className="dashboard-stat-label">Accepted bookings</span>
+                        <strong>{stats.accepted}</strong>
+                    </div>
                 </div>
             </div>
 
-            <section className="booking-upcoming">
-                <div className="upcoming-title">
-                    <h2>Incoming requests</h2>
+            <section className="booking-upcoming dashboard-requests">
+                <div className="upcoming-title dashboard-requests-heading">
+                    <div>
+                        <p className="dashboard-section-label">Your bookings</p>
+                        <h2>Incoming requests</h2>
+                    </div>
+                    <span className="dashboard-request-count">
+                        {bookings.length} {bookings.length === 1 ? "request" : "requests"}
+                    </span>
                 </div>
                 {bookings.length === 0 ? (
-                    <div className="booking-empty">
+                    <div className="booking-empty dashboard-empty">
+                        <span className="dashboard-empty-icon">
+                            <FiInbox aria-hidden="true" />
+                        </span>
                         <h3>No requests yet</h3>
-                        <p>When a client books you, the request will land here for accept or decline.</p>
+                        <p>
+                            When a client sends a booking request, you’ll find it here to review and respond.
+                        </p>
                     </div>
                 ) : (
                     <div className="upcoming-list">
-                        {bookings.map((booking) => (
-                            <article className="upcoming-booking-card" key={booking._id}>
-                                <div className="upcoming-booking-details">
-                                    <p className="booking-kicker">{booking.eventType}</p>
-                                    <h3>{booking.client?.fullName || booking.client?.username || "Client"}</h3>
-                                    <p>{booking.status}</p>
-                                </div>
-                                {String(booking.status).toLowerCase() === "pending" && (
-                                    <div className="booking-actions">
-                                        <button
-                                            type="button"
-                                            className="booking-approve-button"
-                                            disabled={actionLoading === booking._id}
-                                            onClick={() => updateStatus(booking._id, "accept")}
-                                        >
-                                            <FiCheckCircle /> Accept
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="booking-reject-button"
-                                            disabled={actionLoading === booking._id}
-                                            onClick={() => updateStatus(booking._id, "reject")}
-                                        >
-                                            <FiXCircle /> Decline
-                                        </button>
+                        {bookings.map((booking) => {
+                            const status = booking.status || "pending";
+                            const isPending = String(status).toLowerCase() === "pending";
+                            const clientName =
+                                booking.client?.fullName ||
+                                booking.client?.username ||
+                                "Client";
+
+                            return (
+                                <article
+                                    className="upcoming-booking-card dashboard-booking-card"
+                                    key={booking._id}
+                                >
+                                    <span className="dashboard-client-avatar" aria-hidden="true">
+                                        {clientName
+                                            .split(/\s+/)
+                                            .slice(0, 2)
+                                            .map((part) => part[0])
+                                            .join("")
+                                            .toUpperCase()}
+                                    </span>
+                                    <div className="upcoming-booking-details dashboard-booking-details">
+                                        <p className="booking-kicker">
+                                            {booking.eventType || "Booking request"}
+                                        </p>
+                                        <h3>{clientName}</h3>
+                                        <span className={`booking-status ${bookingStatusClass(status)}`}>
+                                            {status}
+                                        </span>
                                     </div>
-                                )}
-                                <Link className="booking-detail-link" to={`/booking/${booking._id}`}>
-                                    Details
-                                </Link>
-                            </article>
-                        ))}
+                                    <div className="dashboard-booking-meta">
+                                        <span>
+                                            <FiCalendar aria-hidden="true" />
+                                            {formatDashboardDate(booking.eventDate)}
+                                        </span>
+                                        <span>
+                                            <FiMapPin aria-hidden="true" />
+                                            {booking.location || "Venue not provided"}
+                                        </span>
+                                        {booking.startTime && (
+                                            <span>
+                                                <FiClock aria-hidden="true" />
+                                                {booking.startTime}
+                                                {booking.endTime ? ` - ${booking.endTime}` : ""}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="dashboard-booking-actions">
+                                        {isPending && (
+                                            <div className="booking-actions">
+                                                <button
+                                                    type="button"
+                                                    className="booking-approve-button"
+                                                    disabled={actionLoading === booking._id}
+                                                    onClick={() => updateStatus(booking._id, "accept")}
+                                                >
+                                                    <FiCheckCircle aria-hidden="true" />
+                                                    {actionLoading === booking._id ? "Updating..." : "Accept"}
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="booking-reject-button"
+                                                    disabled={actionLoading === booking._id}
+                                                    onClick={() => updateStatus(booking._id, "reject")}
+                                                >
+                                                    <FiXCircle aria-hidden="true" />
+                                                    Decline
+                                                </button>
+                                            </div>
+                                        )}
+                                        <Link
+                                            className="booking-detail-link dashboard-detail-link"
+                                            to={`/booking/${booking._id}`}
+                                        >
+                                            View details
+                                        </Link>
+                                    </div>
+                                </article>
+                            );
+                        })}
                     </div>
                 )}
             </section>
