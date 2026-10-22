@@ -1,9 +1,15 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import {
+    FaArrowLeft,
+    FaPaperPlane,
+    FaRegCommentDots,
+    FaSearch,
+} from "react-icons/fa";
 
 import "../styles/pages/Discover.css";
-import "../styles/pages/Workspace.css";
+import "../styles/pages/Message.css";
 import {
     fetchConversations,
     openConversation,
@@ -32,6 +38,35 @@ function lastMessageText(conversation) {
     return conversation?.lastMessage?.text || "No messages yet";
 }
 
+function displayName(person) {
+    return person?.fullName || person?.username || "User";
+}
+
+function profileImage(person) {
+    return person?.profileImage || person?.avatar || person?.profilePicture || "";
+}
+
+function initials(person) {
+    return displayName(person)
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase();
+}
+
+function formatMessageTime(value) {
+    if (!value) return "";
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+
+    const sameDay = date.toDateString() === new Date().toDateString();
+    return sameDay
+        ? date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+        : date.toLocaleDateString([], { month: "short", day: "numeric" });
+}
+
 export default function Message() {
     useRequireAuth();
 
@@ -49,6 +84,8 @@ export default function Message() {
     const [sending, setSending] = useState(false);
     const [error, setError] = useState("");
     const [notice, setNotice] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const [mobileListOpen, setMobileListOpen] = useState(false);
 
     const activeConversation = useMemo(
         () => conversations.find(
@@ -58,6 +95,17 @@ export default function Message() {
     );
 
     const activeUser = otherParticipant(activeConversation, currentUser);
+    const filteredConversations = useMemo(() => {
+        const query = searchTerm.trim().toLowerCase();
+        if (!query) return conversations;
+
+        return conversations.filter((conversation) => {
+            const person = otherParticipant(conversation, currentUser);
+            return `${displayName(person)} ${person?.username || ""} ${lastMessageText(conversation)}`
+                .toLowerCase()
+                .includes(query);
+        });
+    }, [conversations, currentUser, searchTerm]);
 
     const loadConversations = useCallback(async () => {
         const data = await fetchConversations();
@@ -193,6 +241,7 @@ export default function Message() {
 
     const selectConversation = (conversation) => {
         setActiveId(String(conversation._id));
+        setMobileListOpen(false);
         setNotice("");
         setError("");
 
@@ -257,11 +306,14 @@ export default function Message() {
     }
 
     return (
-        <div className="discover-page">
-            <header className="discover-header">
+        <div className="discover-page message-page">
+            <header className="discover-header message-page-header">
                 <div>
-                    <p className="discover-kicker">Inbox</p>
+                    <p className="discover-kicker">Stay connected</p>
                     <h1>Messages</h1>
+                    <p className="message-page-subtitle">
+                        Your conversations with the ArtistHood community.
+                    </p>
                 </div>
                 <Link to="/artists" className="primary-discover-btn">
                     Find someone to message
@@ -269,111 +321,198 @@ export default function Message() {
             </header>
 
             {error && (
-                <p className="workspace-banner error" role="alert">
+                <p className="message-banner error" role="alert">
                     {error}
                 </p>
             )}
 
-            {notice && <p className="workspace-banner">{notice}</p>}
+            {notice && <p className="message-banner">{notice}</p>}
 
             {conversations.length === 0 && !activeConversation ? (
-                <section className="page-empty">
+                <section className="message-empty-state">
+                    <span className="message-empty-icon" aria-hidden="true">
+                        <FaRegCommentDots />
+                    </span>
+                    <p className="message-section-label">Your inbox is ready</p>
                     <h2>No conversations yet</h2>
                     <p>
-                        Visit an artist profile and select Message to start
-                        a conversation.
+                        Find an artist you love and start a conversation about
+                        their work.
                     </p>
-                    <Link to="/artists">Browse artists</Link>
+                    <Link to="/artists" className="primary-discover-btn">
+                        Browse artists
+                    </Link>
                 </section>
             ) : (
-                <div className="inbox-layout">
+                <div
+                    className={`inbox-layout message-inbox-layout ${
+                        mobileListOpen ? "mobile-list-open" : ""
+                    }`}
+                >
                     <aside className="inbox-pane inbox-list">
-                        <h2>Inbox</h2>
+                        <div className="message-list-heading">
+                            <div>
+                                <p className="message-section-label">Your space</p>
+                                <h2>Inbox</h2>
+                            </div>
+                            <span className="message-conversation-count">
+                                {conversations.length}
+                            </span>
+                        </div>
+                        <label className="message-search">
+                            <FaSearch aria-hidden="true" />
+                            <input
+                                type="search"
+                                value={searchTerm}
+                                onChange={(event) =>
+                                    setSearchTerm(event.target.value)
+                                }
+                                placeholder="Search conversations"
+                                aria-label="Search conversations"
+                            />
+                        </label>
 
-                        {conversations.map((conversation) => {
+                        <div className="message-thread-list">
+                        {filteredConversations.map((conversation) => {
                             const person = otherParticipant(
                                 conversation,
                                 currentUser
                             );
+                            const isActive =
+                                String(conversation._id) === activeId;
+                            const unreadCount = Number(conversation.unreadCount) || 0;
 
                             return (
                                 <button
                                     type="button"
                                     key={conversation._id}
-                                    className={`thread-row ${String(conversation._id) === activeId
-                                            ? "is-active"
-                                            : ""
-                                        }`}
+                                    className={`thread-row message-thread-row ${
+                                        isActive ? "is-active" : ""
+                                    }`}
+                                    aria-current={isActive ? "true" : undefined}
                                     onClick={() =>
                                         selectConversation(conversation)
                                     }
                                 >
-                                    <strong>
-                                        {person?.fullName ||
-                                            person?.username ||
-                                            "User"}
-                                    </strong>
-
-                                    <span>
-                                        {lastMessageText(conversation)}
+                                    <span className="message-avatar" aria-hidden="true">
+                                        {profileImage(person) ? (
+                                            <img src={profileImage(person)} alt="" />
+                                        ) : (
+                                            initials(person)
+                                        )}
                                     </span>
-
-                                    {conversation.unreadCount > 0 && (
-                                        <span>
-                                            {conversation.unreadCount} unread
+                                    <span className="message-thread-copy">
+                                        <span className="message-thread-topline">
+                                            <strong>{displayName(person)}</strong>
+                                            <time>
+                                                {formatMessageTime(
+                                                        conversation.lastMessage?.createdAt
+                                                )}
+                                            </time>
+                                        </span>
+                                        <span className="message-thread-preview">
+                                            {lastMessageText(conversation)}
+                                        </span>
+                                    </span>
+                                    {unreadCount > 0 && (
+                                        <span
+                                            className="message-unread-badge"
+                                            aria-label={`${unreadCount} unread ${
+                                                unreadCount === 1 ? "message" : "messages"
+                                            }`}
+                                        >
+                                            {unreadCount}
                                         </span>
                                     )}
                                 </button>
                             );
                         })}
+                        {filteredConversations.length === 0 && (
+                            <p className="message-search-empty">
+                                No conversations match “{searchTerm.trim()}”.
+                            </p>
+                        )}
+                        </div>
                     </aside>
 
                     <section className="inbox-pane inbox-thread">
                         {!activeConversation ? (
-                            <div className="page-empty">
+                            <div className="message-thread-placeholder">
+                                <FaRegCommentDots aria-hidden="true" />
                                 <h2>Select a conversation</h2>
-                                <p>Choose someone from your inbox.</p>
+                                <p>Choose a conversation to pick up where you left off.</p>
                             </div>
                         ) : (
                             <>
-                                <p className="inbox-meta">
-                                    @{activeUser?.username || "user"}
-                                </p>
+                                <header className="message-conversation-header">
+                                    <button
+                                        type="button"
+                                        className="message-back-button"
+                                        onClick={() => setMobileListOpen(true)}
+                                        aria-label="Back to conversations"
+                                    >
+                                        <FaArrowLeft aria-hidden="true" />
+                                    </button>
+                                    <span className="message-avatar message-header-avatar" aria-hidden="true">
+                                        {profileImage(activeUser) ? (
+                                            <img
+                                                src={profileImage(activeUser)}
+                                                alt=""
+                                            />
+                                        ) : (
+                                            initials(activeUser)
+                                        )}
+                                    </span>
+                                    <div className="message-conversation-identity">
+                                        <h2>{displayName(activeUser)}</h2>
+                                        <p>
+                                            {activeUser?.username
+                                                ? `@${activeUser.username}`
+                                                : "ArtistHood member"}
+                                        </p>
+                                    </div>
+                                </header>
 
-                                <h2>
-                                    {activeUser?.fullName ||
-                                        activeUser?.username ||
-                                        "Conversation"}
-                                </h2>
-
-                                <div className="chat-log" aria-live="polite">
+                                <div
+                                    className="chat-log message-chat-log"
+                                    aria-label={`Conversation with ${displayName(activeUser)}`}
+                                    aria-live="polite"
+                                >
                                     {messages.length === 0 ? (
-                                        <p>No messages yet. Say hello!</p>
+                                        <div className="message-chat-empty">
+                                            <span className="message-avatar message-empty-avatar" aria-hidden="true">
+                                                {profileImage(activeUser) ? (
+                                                        <img src={profileImage(activeUser)} alt="" />
+                                                ) : (
+                                                        initials(activeUser)
+                                                )}
+                                            </span>
+                                            <h3>Start the conversation</h3>
+                                            <p>Send a friendly hello to {displayName(activeUser)}.</p>
+                                        </div>
                                     ) : (
                                         messages.map((message) => (
                                             <div
                                                 key={message._id}
-                                                className={`chat-bubble ${userId(message.sender) ===
-                                                        userId(currentUser)
+                                                className={`chat-bubble message-chat-bubble ${
+                                                    userId(message.sender) === userId(currentUser)
                                                         ? "mine"
                                                         : ""
-                                                    }`}
+                                                }`}
                                             >
                                                 {messageText(message)}
-                                                <small>
-                                                    {message.createdAt
-                                                        ? new Date(
-                                                            message.createdAt
-                                                        ).toLocaleString()
-                                                        : ""}
-                                                </small>
+                                                {formatMessageTime(message.createdAt) && (
+                                                    <time>
+                                                        {formatMessageTime(message.createdAt)}
+                                                    </time>
+                                                )}
                                             </div>
                                         ))
                                     )}
                                 </div>
 
                                 <form
-                                    className="inbox-compose"
+                                    className="inbox-compose message-compose"
                                     onSubmit={handleSend}
                                 >
                                     <input
@@ -381,7 +520,7 @@ export default function Message() {
                                         onChange={(event) =>
                                             setDraft(event.target.value)
                                         }
-                                        placeholder="Write a message"
+                                        placeholder="Write a message..."
                                         aria-label="Message"
                                         maxLength={5000}
                                         disabled={sending}
@@ -389,10 +528,12 @@ export default function Message() {
 
                                     <button
                                         type="submit"
-                                        className="booking-approve-button"
+                                        className="message-send-button"
                                         disabled={sending || !draft.trim()}
+                                        aria-label={sending ? "Sending message" : "Send message"}
                                     >
-                                        {sending ? "Sending..." : "Send"}
+                                        <FaPaperPlane aria-hidden="true" />
+                                        <span>{sending ? "Sending..." : "Send"}</span>
                                     </button>
                                 </form>
                             </>
