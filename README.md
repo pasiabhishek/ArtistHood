@@ -196,14 +196,43 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## Author
+## 👨‍💻 Contributors
 
-**Pasi Abhishek**
+ArtistHood was collaboratively developed by two developers, with dedicated responsibilities across frontend and backend development.
 
-Full Stack MERN Developer
+### 1. Pasi Abhishek
+**Role: Frontend Developer**
 
-- **Portfolio:** https://pasi-abhishek.netlify.app/
-- **GitHub:** https://github.com/pasiabhishek
+- Developed responsive UI using React.js and Tailwind CSS.
+- Built reusable components, pages, and layouts.
+- Implemented frontend functionality and navigation.
+- Integrated backend APIs for authentication, artist profiles, portfolios, bookings, messaging, and notifications.
+
+**Portfolio:** [pasi-abhishek.netlify.app](https://pasi-abhishek.netlify.app/)
+
+**GitHub:** [github.com/pasiabhishek](https://github.com/pasiabhishek)
+
+### Viaks Prajapati
+**Backend Developer**
+
+- Developed the backend using Node.js and Express.js.
+- Built RESTful APIs and CRUD operations.
+- Managed MongoDB database and Mongoose models.
+- Implemented JWT authentication, authorization, and password security.
+- Developed backend functionality for profiles, portfolios, bookings, messaging, and notifications.
+- Integrated Razorpay payment gateway (Test Mode).
+
+**Portfolio:** [portfolio-vikasprajapati.vercel.app](https://portfolio-vikasprajapati.vercel.app/)
+
+**GitHub:** [vikasprajapati3](https://github.com/vikasprajapati3)
+
+---
+
+## 🤝 Collaboration
+
+ArtistHood is the result of collaborative development, combining frontend design and backend engineering to create a platform that connects artists with clients.
+
+Both contributors worked together on development and integration to deliver a seamless full-stack application.
 
 ---
 
@@ -213,7 +242,7 @@ Full Stack MERN Developer
 
 **All Rights Reserved.**
 
-This software and its source code are the intellectual property of **Pasi Abhishek**.
+This software and its source code are the intellectual property of **Pasi Abhishek and Vikas Prajapati**.
 
 Permission is **NOT** granted to use, copy, modify, merge, publish, distribute, sublicense, sell, or create derivative works from this software without prior written permission from the copyright holder.
 
